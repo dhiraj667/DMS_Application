@@ -14,6 +14,7 @@ import {
 } from './fields.schema.js'
 import { FieldsService, getOptions } from './fields.class.js'
 import { fieldsPath, fieldsMethods } from './fields.shared.js'
+import { fieldsSchema } from './fields.models.js'
 
 export * from './fields.class.js'
 export * from './fields.schema.js'
@@ -40,8 +41,9 @@ export const fields = (app) => {
       all: [schemaHooks.validateQuery(fieldsQueryValidator), schemaHooks.resolveQuery(fieldsQueryResolver)],
       find: [],
       get: [],
-      create: [schemaHooks.validateData(fieldsDataValidator), schemaHooks.resolveData(fieldsDataResolver)],
-      patch: [schemaHooks.validateData(fieldsPatchValidator), schemaHooks.resolveData(fieldsPatchResolver)],
+      create: [
+        validate.form(fieldsSchema,{abortEarly:false}),schemaHooks.validateData(fieldsDataValidator), schemaHooks.resolveData(fieldsDataResolver)],
+      patch: [validate.form(fieldsSchema,{abortEarly:false}),schemaHooks.validateData(fieldsPatchValidator), schemaHooks.resolveData(fieldsPatchResolver)],
       remove: []
     },
     after: {

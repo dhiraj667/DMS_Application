@@ -14,6 +14,7 @@ import {
 } from './users.schema.js'
 import { UserService, getOptions } from './users.class.js'
 import { userPath, userMethods } from './users.shared.js'
+import { userSchema } from './users.models.js'
 
 export * from './users.class.js'
 export * from './users.schema.js'
@@ -42,8 +43,8 @@ export const user = (app) => {
       all: [schemaHooks.validateQuery(userQueryValidator), schemaHooks.resolveQuery(userQueryResolver)],
       find: [],
       get: [],
-      create: [schemaHooks.validateData(userDataValidator), schemaHooks.resolveData(userDataResolver)],
-      patch: [schemaHooks.validateData(userPatchValidator), schemaHooks.resolveData(userPatchResolver)],
+      create: [validte.form(userSchema,{abortEarly:false}),schemaHooks.validateData(userDataValidator), schemaHooks.resolveData(userDataResolver)],
+      patch: [validte.form(userSchema,{abortEarly:false}),schemaHooks.validateData(userPatchValidator), schemaHooks.resolveData(userPatchResolver)],
       remove: []
     },
     after: {

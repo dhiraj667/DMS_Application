@@ -26,7 +26,7 @@ export const doctypesDataSchema = {
   $id: 'DoctypesData',
   type: 'object',
   additionalProperties: false,
-  required: ['text'],
+  required: ['name','docTypeCode','department'],
   properties: {
     ...doctypesSchema.properties
   }
