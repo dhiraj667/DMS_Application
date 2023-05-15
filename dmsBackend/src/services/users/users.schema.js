@@ -18,7 +18,7 @@ export const userSchema = {
     email: { type: 'string' },
     password: { type: 'string' },
     phone:{type:'string'},
-    departments:{type:'object'},
+    departments:{type:'array'},
     role:{type:'string'},
     lastLoggedIn:{type:'object'},
     isActive:{type:'boolean'},
