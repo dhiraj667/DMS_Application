@@ -1,6 +1,6 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.html
 import { authenticate } from '@feathersjs/authentication'
-
+import validate from "feathers-validate-joi"
 import { hooks as schemaHooks } from '@feathersjs/schema'
 import {
   doctypesDataValidator,

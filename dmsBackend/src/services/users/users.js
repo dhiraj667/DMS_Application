@@ -1,6 +1,6 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.html
 import { authenticate } from '@feathersjs/authentication'
-
+import validate from "feathers-validate-joi"
 import { hooks as schemaHooks } from '@feathersjs/schema'
 import {
   userDataValidator,
@@ -43,8 +43,8 @@ export const user = (app) => {
       all: [schemaHooks.validateQuery(userQueryValidator), schemaHooks.resolveQuery(userQueryResolver)],
       find: [],
       get: [],
-      create: [validte.form(userSchema,{abortEarly:false}),schemaHooks.validateData(userDataValidator), schemaHooks.resolveData(userDataResolver)],
-      patch: [validte.form(userSchema,{abortEarly:false}),schemaHooks.validateData(userPatchValidator), schemaHooks.resolveData(userPatchResolver)],
+      create: [validate.form(userSchema,{abortEarly:false}),schemaHooks.validateData(userDataValidator), schemaHooks.resolveData(userDataResolver)],
+      patch: [validate.form(userSchema,{abortEarly:false}),schemaHooks.validateData(userPatchValidator), schemaHooks.resolveData(userPatchResolver)],
       remove: []
     },
     after: {
