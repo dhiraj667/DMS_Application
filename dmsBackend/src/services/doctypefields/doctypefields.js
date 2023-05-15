@@ -17,6 +17,8 @@ import { DoctypefieldsService, getOptions } from './doctypefields.class.js'
 import { doctypefieldsPath, doctypefieldsMethods } from './doctypefields.shared.js'
 import validate from 'feathers-validate-joi'
 import { doctypefieldsSchema } from './doctypefields.model.js'
+import { fetchDoctype } from './hooks/fetchDoctype.js'
+import { fetchField } from './hooks/fetchField.js'
 
 export * from './doctypefields.class.js'
 export * from './doctypefields.schema.js'
@@ -49,6 +51,7 @@ export const doctypefields = (app) => {
       create: [
         // authenticate('jwt'),
         validate.form(doctypefieldsSchema, { abortEarly: false }),
+        fetchDoctype(),fetchField(),
         schemaHooks.validateData(doctypefieldsDataValidator),
         schemaHooks.resolveData(doctypefieldsDataResolver)
       ],

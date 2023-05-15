@@ -11,7 +11,10 @@ export const fieldsSchema = {
   required: ['_id', 'name'],
   properties: {
     _id: ObjectIdSchema(),
-    name: { type: 'string' }
+    name: {
+      type: 'object',
+      properties: { name: { type: 'string' }, label: { type: 'string' }, input: { type: 'string' } }
+    }
   }
 }
 export const fieldsValidator = getValidator(fieldsSchema, dataValidator)
@@ -24,7 +27,7 @@ export const fieldsDataSchema = {
   $id: 'FieldsData',
   type: 'object',
   additionalProperties: false,
-  required: ['text'],
+  required: ['name'],
   properties: {
     ...fieldsSchema.properties
   }

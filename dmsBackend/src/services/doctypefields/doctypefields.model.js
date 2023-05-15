@@ -3,8 +3,8 @@ import ObjectId from 'joi-objectid'
 const JoiObjectId=ObjectId(Joi)
 
 const attrs = {
-    doctype:JoiObjectId().required(),
-    field:JoiObjectId().required(),
+    doctypeId:JoiObjectId().required(),
+    fieldId:JoiObjectId().required(),
     isRequired:Joi.boolean()
 }
 

@@ -6,6 +6,5 @@ export const FetchDepartment=()=>{
         context.data.department=department;
         delete context.data.departmentId;
         return context
-
     }
 }

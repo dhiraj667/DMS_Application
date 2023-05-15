@@ -9,12 +9,12 @@ export const userSchema = {
   $id: 'User',
   type: 'object',
   additionalProperties: false,
-  required: ['_id', 'email','password','firstname','lastname','username','phone','departments','role'],
+  required: ['_id', 'email','password','firstName','lastName','userName','phone','departments','role'],
   properties: {
     _id: ObjectIdSchema(),
-    firstname:{type:'string'},
-    lastname:{type:'string'},
-    username:{type:'string'},
+    firstName:{type:'string'},
+    lastName:{type:'string'},
+    userName:{type:'string'},
     email: { type: 'string' },
     password: { type: 'string' },
     phone:{type:'string'},
@@ -39,7 +39,7 @@ export const userDataSchema = {
   $id: 'UserData',
   type: 'object',
   additionalProperties: false,
-  required: ['email','password','firstname','lastname','username','phone','departments','role'],
+  required: ['email','password','firstName','lastName','userName','phone','departments','role'],
   properties: {
     ...userSchema.properties
   }
