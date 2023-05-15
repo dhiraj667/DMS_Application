@@ -15,6 +15,7 @@ import {
 import { DoctypesService, getOptions } from './doctypes.class.js'
 import { doctypesPath, doctypesMethods } from './doctypes.shared.js'
 import { doctypesSchema } from './doctypes.models.js'
+import { FetchDepartment } from './hooks/FetchDepartment.js'
 
 export * from './doctypes.class.js'
 export * from './doctypes.schema.js'
@@ -46,6 +47,7 @@ export const doctypes = (app) => {
       get: [],
       create: [
         validate.form(doctypesSchema,{abortEarly:false}),
+        FetchDepartment(),
         schemaHooks.validateData(doctypesDataValidator),
         schemaHooks.resolveData(doctypesDataResolver)
       ],
