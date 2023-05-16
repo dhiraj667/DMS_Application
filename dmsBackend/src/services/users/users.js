@@ -2,6 +2,7 @@
 import { authenticate } from '@feathersjs/authentication'
 import validate from "feathers-validate-joi"
 import { hooks as schemaHooks } from '@feathersjs/schema'
+import { admin } from '../../hooks/auth.js'
 import {
   userDataValidator,
   userPatchValidator,
@@ -16,6 +17,7 @@ import { UserService, getOptions } from './users.class.js'
 import { userPath, userMethods } from './users.shared.js'
 import { userSchema } from './users.models.js'
 import { fetchUniqueUserName } from './hooks/uniqueUserName.js'
+import { Admin } from 'mongodb'
 
 export * from './users.class.js'
 export * from './users.schema.js'
@@ -36,16 +38,19 @@ export const user = (app) => {
       // find: [authenticate('jwt')],
       // get: [authenticate('jwt')],
       create: [],
-      update: [authenticate('jwt')],
-      patch: [authenticate('jwt')],
-      remove: [authenticate('jwt')]
+      // update: [authenticate('jwt')],
+      // patch: [authenticate('jwt')],
+      // remove: [authenticate('jwt')]
     },
     before: {
       all: [schemaHooks.validateQuery(userQueryValidator), schemaHooks.resolveQuery(userQueryResolver)],
       find: [],
       get: [],
       create: [validate.form(userSchema,{abortEarly:false}),
-        fetchUniqueUserName(),schemaHooks.validateData(userDataValidator), schemaHooks.resolveData(userDataResolver)],
+        authenticate('jwt'),
+        admin(),
+        fetchUniqueUserName()
+        ,schemaHooks.validateData(userDataValidator), schemaHooks.resolveData(userDataResolver)],
       patch: [validate.form(userSchema,{abortEarly:false}),schemaHooks.validateData(userPatchValidator), schemaHooks.resolveData(userPatchResolver)],
       remove: []
     },

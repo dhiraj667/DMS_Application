@@ -1,5 +1,6 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.html
 import { authenticate } from '@feathersjs/authentication'
+import { indexer } from '../../hooks/auth.js'
 
 import { hooks as schemaHooks } from '@feathersjs/schema'
 import {
@@ -46,8 +47,9 @@ export const documents = (app) => {
       find: [],
       get: [],
       create: [
-        // authenticate('jwt'),
-        validate.form(documentsSchema, { abortEarly: false }),
+        authenticate('jwt'),
+        // validate.form(documentsSchema, { abortEarly: false }),
+        indexer(),
         schemaHooks.validateData(documentsDataValidator),
         schemaHooks.resolveData(documentsDataResolver)
       ],
