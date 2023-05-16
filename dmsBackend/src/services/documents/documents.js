@@ -48,7 +48,7 @@ export const documents = (app) => {
       get: [],
       create: [
         authenticate('jwt'),
-        // validate.form(documentsSchema, { abortEarly: false }),
+        validate.form(documentsSchema, { abortEarly: false }),
         indexer(),
         schemaHooks.validateData(documentsDataValidator),
         schemaHooks.resolveData(documentsDataResolver)
