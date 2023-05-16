@@ -17,6 +17,8 @@ import { DocumentsService, getOptions } from './documents.class.js'
 import { documentsPath, documentsMethods } from './documents.shared.js'
 import validate from 'feathers-validate-joi'
 import { documentsSchema } from './documents.model.js'
+import { date } from './hooks/date.js'
+import { dcn } from './hooks/dcn.js'
 
 export * from './documents.class.js'
 export * from './documents.schema.js'
@@ -44,10 +46,11 @@ export const documents = (app) => {
         schemaHooks.validateQuery(documentsQueryValidator),
         schemaHooks.resolveQuery(documentsQueryResolver)
       ],
-      find: [],
-      get: [],
+      find: [dcn()],
+      get: [dcn()],
       create: [
-        authenticate('jwt'),
+        // authenticate('jwt'),
+        date(),dcn(),
         validate.form(documentsSchema, { abortEarly: false }),
         indexer(),
         schemaHooks.validateData(documentsDataValidator),

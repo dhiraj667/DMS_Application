@@ -45,10 +45,8 @@ export const user = (app) => {
       find: [],
       get: [],
       create: [validate.form(userSchema,{abortEarly:false}),
-        authenticate('jwt'),
-        fetchUniqueUserName()
-        ,schemaHooks.validateData(userDataValidator), schemaHooks.resolveData(userDataResolver)],
-      patch: [validate.form(userSchema,{abortEarly:false}),schemaHooks.validateData(userPatchValidator), schemaHooks.resolveData(userPatchResolver)],
+        fetchUniqueUserName(),schemaHooks.validateData(userDataValidator), schemaHooks.resolveData(userDataResolver)],
+      patch: [schemaHooks.validateData(userPatchValidator), schemaHooks.resolveData(userPatchResolver)],
       remove: []
     },
     after: {
