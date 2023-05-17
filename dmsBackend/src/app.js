@@ -20,6 +20,7 @@ import { authentication } from './authentication.js'
 
 import { services } from './services/index.js'
 import { channels } from './channels.js'
+import { lastLogin } from './hooks/lastLoginTime.js'
 
 const app = express(feathers())
 
@@ -50,6 +51,7 @@ app.configure(channels)
 // Configure a middleware for 404s and the error handler
 app.use(notFound())
 app.use(errorHandler({ logger }))
+lastLogin(app)
 
 // Register hooks that run on all service methods
 app.hooks({
