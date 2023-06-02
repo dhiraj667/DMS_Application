@@ -4,6 +4,7 @@ import SideBar from "./common/sideBar";
 import Admin from "./routes/admin/admin";
 import Deparments from "./routes/admin/childerns/department";
 import Demo from "./routes/demo";
+import Field from "./routes/admin/childerns/fields";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               <Route index element={<Admin />} />
             </Route>
             <Route path="/deparments" element={<Deparments />} />
+            <Route path="/fields" element={<Field />}/>
           </Routes>
         </div>
       </div>
