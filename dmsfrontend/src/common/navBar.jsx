@@ -1,80 +1,102 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
     <>
       <header className="flex items-center h-20 px-3 sm:px-10 bg-white">
         <div className="mr-8 cursor-pointer p-2 bg-white hover:shadow rounded-md">
-          <svg
-            width="24"
-            height="26"
-            viewBox="0 0 24 26"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            stroke="#f97316"
-          >
-            <path
-              d="M1.81781 9.60589L12 1.6864L22.1822 9.60589V22.0508C22.1822 22.6509 21.9438 23.2264 21.5195 23.6508C21.0951 24.0751 20.5196 24.3135 19.9195 24.3135H4.08052C3.48041 24.3135 2.90488 24.0751 2.48054 23.6508C2.0562 23.2264 1.81781 22.6509 1.81781 22.0508V9.60589Z"
-              stroke="#656565"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            ></path>
-            <path
-              d="M8.60593 24.3135V13H15.3941V24.3135"
-              stroke="#656565"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            ></path>
-          </svg>
+          <NavLink to={"/"}>
+            <svg
+              width="24"
+              height="26"
+              viewBox="0 0 24 26"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              stroke="#f97316"
+            >
+              <path
+                d="M1.81781 9.60589L12 1.6864L22.1822 9.60589V22.0508C22.1822 22.6509 21.9438 23.2264 21.5195 23.6508C21.0951 24.0751 20.5196 24.3135 19.9195 24.3135H4.08052C3.48041 24.3135 2.90488 24.0751 2.48054 23.6508C2.0562 23.2264 1.81781 22.6509 1.81781 22.0508V9.60589Z"
+                stroke="#656565"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              ></path>
+              <path
+                d="M8.60593 24.3135V13H15.3941V24.3135"
+                stroke="#656565"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              ></path>
+            </svg>
+          </NavLink>
         </div>
         <div className="hidden md:flex">
           <ul className="hidden md:flex">
-            <li className="text-md pr-4  p-2 bg-white hover:shadow rounded-md m-1 text-center pl-4">
-              <Link
-                className="transition duration-300 font-bold focus:outline-none"
+            <li className="text-md pr-4  mt-3 text-center pl-4">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? "transition duration-300 font-bold focus:outline-none p-2 bg-gray-100 shadow rounded-md m-1"
+                    : "transition duration-300 font-bold focus:outline-none p-2 hover:bg-gray-100 hover:shadow rounded-md m-1"
+                }
                 to={"/deparments"}
               >
                 DEPARMENTS
-              </Link>
+              </NavLink>
             </li>
-            <li className="text-md pr-4  p-2 bg-white hover:shadow rounded-md m-1 text-center pl-4">
-              <Link
-                className="transition duration-300 font-bold focus:outline-none "
+            <li className="text-md pr-4  mt-3 text-center pl-4">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? "transition duration-300 font-bold focus:outline-none p-2 bg-gray-100 shadow rounded-md m-1"
+                    : "transition duration-300 font-bold focus:outline-none p-2 hover:bg-gray-100 hover:shadow rounded-md m-1"
+                }
                 style={{ textUnderlineOffset: "8px" }}
                 to={"/users"}
               >
                 USERS
-              </Link>
+              </NavLink>
             </li>
-            <li className="text-md pr-4  p-2 bg-white hover:shadow rounded-md m-1 text-center pl-4">
-              <Link
-                className="transition duration-300  font-bold focus:outline-none "
+            <li className="text-md pr-4 mt-3 text-center pl-4">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? "transition duration-300 font-bold focus:outline-none p-2 bg-gray-100 shadow rounded-md m-1"
+                    : "transition duration-300 font-bold focus:outline-none p-2 hover:bg-gray-100 hover:shadow rounded-md m-1"
+                }
                 style={{ textUnderlineOffset: "8px" }}
                 to={"/docType"}
               >
                 DOCTYPE
-              </Link>
+              </NavLink>
             </li>
-            <li className="text-md pr-4  p-2 bg-white hover:shadow rounded-md m-1 text-center pl-4">
-              <Link
-                className="transition duration-300 font-bold focus:outline-none "
+            <li className="text-md pr-4 mt-3  text-center pl-4">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? "transition duration-300 font-bold focus:outline-none p-2 bg-gray-100 shadow rounded-md m-1"
+                    : "transition duration-300 font-bold focus:outline-none p-2 hover:bg-gray-100 hover:shadow rounded-md m-1"
+                }
                 style={{ textUnderlineOffset: "8px" }}
                 to={"/fields"}
               >
                 FIELDS
-              </Link>
+              </NavLink>
             </li>
-            <li className="text-md pr-4  p-2 bg-white hover:shadow rounded-md m-1 text-center pl-4">
-              <Link
-                className="transition duration-300 font-bold focus:outline-none "
+            <li className="text-md pr-4  mt-3 text-center pl-4">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? "transition duration-300 font-bold focus:outline-none p-2 bg-gray-100 shadow rounded-md m-1"
+                    : "transition duration-300 font-bold focus:outline-none p-2 hover:bg-gray-100 hover:shadow rounded-md m-1"
+                }
                 style={{ textUnderlineOffset: "8px" }}
                 to={"/docTypeFields"}
               >
                 DOCTYPEFIELDS
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>
