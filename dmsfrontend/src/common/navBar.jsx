@@ -5,6 +5,20 @@ const NavBar = () => {
   return (
     <>
       <header className="flex items-center h-20 px-3 sm:px-10 bg-white">
+        <div className="flex mr-14">
+          <a
+            href="#"
+            className="inline-flex items-center justify-center h-20 w-full bg-white"
+          >
+            <img
+              src={
+                "https://www.pngfind.com/pngs/b/229-2295347_document-png.png"
+              }
+              alt=""
+              className="w-20"
+            />
+          </a>
+        </div>
         <div className="mr-8 cursor-pointer p-2 bg-white hover:shadow rounded-md">
           <NavLink to={"/"}>
             <svg
