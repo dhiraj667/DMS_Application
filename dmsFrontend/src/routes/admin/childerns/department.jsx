@@ -42,8 +42,8 @@ const Deparments = () => {
                 </button>
               </div>
             </div>
-            <div class="py-3 sm:px-6 lg:px-3 m-3 bg-white drop-shadow-2xl rounded-2xl overflow-auto">
-              <div class="flex items-center">
+            <div class="py-3 sm:px-6 lg:px-3 mt-3  bg-white drop-shadow-2xl rounded-2xl overflow-auto">
+              <div class="flex items-center mr-4">
                 <span className="relative left-6">
                   <i class="fa fa-search"></i>
                 </span>
@@ -55,16 +55,16 @@ const Deparments = () => {
                 />
               </div>
               <div
-                className={`py-3 px-4 mt-5 flex justify-around bg-blue-200 rounded-md ml-4 shadow-lg shadow-blue-100/50`}
+                className={`py-3 px-4 mt-5 flex justify-between bg-blue-200 rounded-md mx-4 shadow-lg shadow-blue-100/50`}
               >
-                <div className={``}>
+                <div className={`ml-6`}>
                   <span
                     className={` tracking-wide text-sm text-blue-700 font-semibold`}
                   >
                     Departments Name
                   </span>
                 </div>
-                <div className={`px-2 `}>
+                <div className={`px-2 mr-10`}>
                   <span
                     className={`tracking-wide text-sm text-blue-700 font-semibold`}
                   >
@@ -74,62 +74,24 @@ const Deparments = () => {
                 </div>
               </div>
 
-              <div className="py-3 px-4 mt-3 flex hover:bg-gray-200 rounded-md ml-4 group">
+              <div className="py-3 px-4 mt-2 flex hover:bg-gray-200 rounded-md mx-4 group">
                 <div className="w-1 group-hover:bg-blue-500 rounded-md"></div>
-                <div className={`w-[45%] text-center`}>
+                <div className={`w-[45%] ml-5`}>
                   <span
-                    className={` tracking-wide text-sm text-black-700 font-semibold`}
+                    className={`  tracking-wide text-sm text-black-700 font-semibold`}
                   >
                     Human Resource
                   </span>
                 </div>
-                <div className={`w-[45%] text-center `}>
-                  <span
-                    className={`tracking-wide text-sm ms-36 text-black-700 font-semibold`}
-                  >
-                    <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
-                    <i class="fa fa-trash ml-7 fa-lg" aria-hidden="true"></i>
-                  </span>
-                </div>
-              </div>
-
-              <div className="py-3 px-4 mt-3 flex hover:bg-gray-200 rounded-md ml-4 group">
-                <div className="w-1 group-hover:bg-blue-500 rounded-md "></div>
-                <div className={`w-[45%] text-center`}>
-                  <span
-                    className={` tracking-wide text-sm text-black-700 font-semibold`}
-                  >
-                    Human Resource
-                  </span>
-                </div>
-                <div className={`w-[45%] text-center `}>
-                  <span
-                    className={`tracking-wide ms-36 text-sm text-black-700 font-semibold`}
-                  >
-                    <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
-                    <i class="fa fa-trash ml-7 fa-lg" aria-hidden="true"></i>
-                  </span>
-                </div>
-              </div>
-
-              <div className="py-3 px-4 mt-3 flex hover:bg-gray-200 rounded-md ml-4 group">
-                <div className=" w-1 group-hover:bg-blue-500 rounded-md"></div>
-                <div className={`w-[45%] text-center`}>
-                  <span
-                    className={` tracking-wide text-sm text-black-700 font-semibold`}
-                  >
-                    Human Resource
-                  </span>
-                </div>
-                <div className={`w-[45%] text-center `}>
+                <div className={`w-[45%] text-right mr-5`}>
                   <span
                     className={`tracking-wide text-sm ms-36 text-black-700 font-semibold`}
                   >
                     <Tooltip
-                      className="py-0.5 px-3"
+                      className="py-0.5 rounded"
                       content={
-                        <span className="bg-black text-white rounded-md">
-                          Edit
+                        <span className="bg-black text-white">
+                          Edit Department
                         </span>
                       }
                     >
@@ -138,26 +100,101 @@ const Deparments = () => {
                       {/* </Button> */}
                     </Tooltip>
 
-                    <i class="fa fa-trash ml-7 fa-lg" aria-hidden="true"></i>
+                    <Tooltip
+                      className="py-0.5 rounded"
+                      content={
+                        <span className="bg-black text-white">
+                          Delete Department
+                        </span>
+                      }
+                    >
+                      {/* <Button className="bg-white"> */}
+                      <i class="fa fa-trash ml-7 fa-lg" aria-hidden="true"></i>
+                      {/* </Button> */}
+                    </Tooltip>
                   </span>
                 </div>
               </div>
 
-              <div className="py-3 px-4 mt-3 flex hover:bg-gray-200 rounded-md ml-4 group">
-                <div className=" w-1 group-hover:bg-blue-500 rounded-md"></div>
-                <div className={`w-[45%] text-center`}>
+              <div className="py-3 px-4 mt-2 flex hover:bg-gray-200 rounded-md mx-4 group">
+                <div className="w-1 group-hover:bg-blue-500 rounded-md"></div>
+                <div className={`w-[45%] ml-5`}>
                   <span
-                    className={` tracking-wide text-sm text-black-700 font-semibold`}
+                    className={`  tracking-wide text-sm text-black-700 font-semibold`}
                   >
                     Human Resource
                   </span>
                 </div>
-                <div className={`w-[45%] text-center `}>
+                <div className={`w-[45%] text-right mr-5`}>
                   <span
                     className={`tracking-wide text-sm ms-36 text-black-700 font-semibold`}
                   >
-                    <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
-                    <i class="fa fa-trash ml-7 fa-lg" aria-hidden="true"></i>
+                    <Tooltip
+                      className="py-0.5 rounded"
+                      content={
+                        <span className="bg-black text-white">
+                          Edit Department
+                        </span>
+                      }
+                    >
+                      {/* <Button className="bg-white"> */}
+                      <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                      {/* </Button> */}
+                    </Tooltip>
+
+                    <Tooltip
+                      className="py-0.5 rounded"
+                      content={
+                        <span className="bg-black text-white">
+                          Delete Department
+                        </span>
+                      }
+                    >
+                      {/* <Button className="bg-white"> */}
+                      <i class="fa fa-trash ml-7 fa-lg" aria-hidden="true"></i>
+                      {/* </Button> */}
+                    </Tooltip>
+                  </span>
+                </div>
+              </div>
+              <div className="py-3 px-4 mt-2 flex hover:bg-gray-200 rounded-md mx-4 group">
+                <div className="w-1 group-hover:bg-blue-500 rounded-md"></div>
+                <div className={`w-[45%] ml-5`}>
+                  <span
+                    className={`  tracking-wide text-sm text-black-700 font-semibold`}
+                  >
+                    Human Resource
+                  </span>
+                </div>
+                <div className={`w-[45%] text-right mr-5`}>
+                  <span
+                    className={`tracking-wide text-sm ms-36 text-black-700 font-semibold`}
+                  >
+                    <Tooltip
+                      className="py-0.5 rounded"
+                      content={
+                        <span className="bg-black text-white">
+                          Edit Department
+                        </span>
+                      }
+                    >
+                      {/* <Button className="bg-white"> */}
+                      <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                      {/* </Button> */}
+                    </Tooltip>
+
+                    <Tooltip
+                      className="py-0.5 rounded"
+                      content={
+                        <span className="bg-black text-white">
+                          Delete Department
+                        </span>
+                      }
+                    >
+                      {/* <Button className="bg-white"> */}
+                      <i class="fa fa-trash ml-7 fa-lg" aria-hidden="true"></i>
+                      {/* </Button> */}
+                    </Tooltip>
                   </span>
                 </div>
               </div>
