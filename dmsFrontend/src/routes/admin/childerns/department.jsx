@@ -1,7 +1,7 @@
 import React from "react";
 import SideBar from "../../../common/sideBar";
 
-const Deparments = () => {
+const DEPARTMENTS = () => {
   return (
     <>
       <div class="flex w-full h-[33.5rem] bg-gray-100 ">
@@ -156,4 +156,4 @@ const Deparments = () => {
   );
 };
 
-export default Deparments;
+export default DEPARTMENTS;
