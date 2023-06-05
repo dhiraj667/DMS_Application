@@ -159,7 +159,7 @@ const SideBar = () => {
               <List className="p-0">
                 <a href="#" className="text-initial">
                   <ListItem>
-                    <ListItemPrefix></ListItemPrefix>
+                    {/* <ListItemPrefix></ListItemPrefix> */}
                     {/* ABC Construction */}{" "}
                     <h4 className="bold">Edit Account</h4>
                   </ListItem>

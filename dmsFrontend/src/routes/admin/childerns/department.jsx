@@ -1,17 +1,36 @@
 import React from "react";
 import SideBar from "../../../common/sideBar";
 import { Tooltip, Button } from "@material-tailwind/react";
+import Table from "../../../common/table/table";
 
 const DEPARTMENTS = () => {
+  const columns = [
+    { path: "department Name", header: "Department Name" },
+    { key: "Action" },
+  ];
+
+  const departments = [
+    { _id: "1", departmentName: "Human Resource" },
+    { _id: "2", departmentName: "Developers" },
+    { _id: "3", departmentName: "Account" },
+  ];
+
+  const handleDelete = (id) => {
+    console.log(`Deleted ${id}`);
+  };
+
+  const handleUpdate = (id) => {
+    console.log(`Update ${id}`);
+  };
   return (
     <>
-      <div class="flex w-full h-[33.5rem] bg-gray-100 ">
+      <div className="flex w-full h-[33.5rem] bg-gray-100 ">
         <SideBar />
-        <div class="mx-auto sm:px-6 lg:px-8 w-[88%]">
-          <div class="flex flex-col">
-            <div class="-mb-2 pb-4 flex flex-wrap flex-grow justify-between">
-              <div class="mt-5 ml-2">
-                <h1 class="text-2xl font-bold leading-tight text-black-900">
+        <div className="mx-auto sm:px-6 lg:px-8 w-[88%]">
+          <div className="flex flex-col">
+            <div className="-mb-2 pb-4 flex flex-wrap flex-grow justify-between">
+              <div className="mt-5 ml-2">
+                <h1 className="text-2xl font-bold leading-tight text-black-900">
                   Departments
                 </h1>
                 <div className="mt-2">
@@ -22,7 +41,7 @@ const DEPARTMENTS = () => {
                   </span>
                 </div>
               </div>
-              <div class="flex items-center py-2">
+              <div className="flex items-center py-2">
                 <button className="inline-flex px-5 py-2 mt-2 font-bold uppercase text-white bg-blue-600 hover:bg-purple-700 focus:bg-blue-700 rounded-md ml-6 mb-3">
                   <svg
                     aria-hidden="true"
@@ -38,166 +57,29 @@ const DEPARTMENTS = () => {
                       d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                     />
                   </svg>
-                  Create New Department
+                  Create New
                 </button>
               </div>
             </div>
-            <div class="py-3 sm:px-6 lg:px-3 mt-3  bg-white drop-shadow-2xl rounded-2xl overflow-auto">
-              <div class="flex items-center mr-4">
+            <div className="py-3 sm:px-6 lg:px-3 mt-3  bg-white drop-shadow-2xl rounded-2xl overflow-auto">
+              <div className="flex items-center mr-4">
                 <span className="relative left-6">
-                  <i class="fa fa-search"></i>
+                  <i className="fa fa-search"></i>
                 </span>
                 <input
-                  class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full pl-10 py-2 px-4 font-bold leading-tight focus:outline-none  text-gray-500"
+                  className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full pl-10 py-2 px-4 font-bold leading-tight focus:outline-none  text-gray-500"
                   id="inline-searcg"
                   type="text"
-                  placeholder="Search by department name....."
+                  placeholder={`Search by department name.....`}
                 />
               </div>
-              <div
-                className={`py-3 px-4 mt-5 flex justify-between bg-blue-200 rounded-md mx-4 shadow-lg shadow-blue-100/50`}
-              >
-                <div className={`ml-6`}>
-                  <span
-                    className={` tracking-wide text-sm text-blue-700 font-semibold`}
-                  >
-                    Departments Name
-                  </span>
-                </div>
-                <div className={`px-2 mr-10`}>
-                  <span
-                    className={`tracking-wide text-sm text-blue-700 font-semibold`}
-                  >
-                    {" "}
-                    Actions
-                  </span>
-                </div>
-              </div>
 
-              <div className="py-3 px-4 mt-2 flex hover:bg-gray-200 rounded-md mx-4 group">
-                <div className="w-1 group-hover:bg-blue-500 rounded-md"></div>
-                <div className={`w-[45%] ml-5`}>
-                  <span
-                    className={`  tracking-wide text-sm text-black-700 font-semibold`}
-                  >
-                    Human Resource
-                  </span>
-                </div>
-                <div className={`w-[45%] text-right mr-5`}>
-                  <span
-                    className={`tracking-wide text-sm ms-36 text-black-700 font-semibold`}
-                  >
-                    <Tooltip
-                      className="py-0.5 rounded"
-                      content={
-                        <span className="bg-black text-white">
-                          Edit Department
-                        </span>
-                      }
-                    >
-                      {/* <Button className="bg-white"> */}
-                      <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
-                      {/* </Button> */}
-                    </Tooltip>
-
-                    <Tooltip
-                      className="py-0.5 rounded"
-                      content={
-                        <span className="bg-black text-white">
-                          Delete Department
-                        </span>
-                      }
-                    >
-                      {/* <Button className="bg-white"> */}
-                      <i class="fa fa-trash ml-7 fa-lg" aria-hidden="true"></i>
-                      {/* </Button> */}
-                    </Tooltip>
-                  </span>
-                </div>
-              </div>
-
-              <div className="py-3 px-4 mt-2 flex hover:bg-gray-200 rounded-md mx-4 group">
-                <div className="w-1 group-hover:bg-blue-500 rounded-md"></div>
-                <div className={`w-[45%] ml-5`}>
-                  <span
-                    className={`  tracking-wide text-sm text-black-700 font-semibold`}
-                  >
-                    Human Resource
-                  </span>
-                </div>
-                <div className={`w-[45%] text-right mr-5`}>
-                  <span
-                    className={`tracking-wide text-sm ms-36 text-black-700 font-semibold`}
-                  >
-                    <Tooltip
-                      className="py-0.5 rounded"
-                      content={
-                        <span className="bg-black text-white">
-                          Edit Department
-                        </span>
-                      }
-                    >
-                      {/* <Button className="bg-white"> */}
-                      <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
-                      {/* </Button> */}
-                    </Tooltip>
-
-                    <Tooltip
-                      className="py-0.5 rounded"
-                      content={
-                        <span className="bg-black text-white">
-                          Delete Department
-                        </span>
-                      }
-                    >
-                      {/* <Button className="bg-white"> */}
-                      <i class="fa fa-trash ml-7 fa-lg" aria-hidden="true"></i>
-                      {/* </Button> */}
-                    </Tooltip>
-                  </span>
-                </div>
-              </div>
-              <div className="py-3 px-4 mt-2 flex hover:bg-gray-200 rounded-md mx-4 group">
-                <div className="w-1 group-hover:bg-blue-500 rounded-md"></div>
-                <div className={`w-[45%] ml-5`}>
-                  <span
-                    className={`  tracking-wide text-sm text-black-700 font-semibold`}
-                  >
-                    Human Resource
-                  </span>
-                </div>
-                <div className={`w-[45%] text-right mr-5`}>
-                  <span
-                    className={`tracking-wide text-sm ms-36 text-black-700 font-semibold`}
-                  >
-                    <Tooltip
-                      className="py-0.5 rounded"
-                      content={
-                        <span className="bg-black text-white">
-                          Edit Department
-                        </span>
-                      }
-                    >
-                      {/* <Button className="bg-white"> */}
-                      <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
-                      {/* </Button> */}
-                    </Tooltip>
-
-                    <Tooltip
-                      className="py-0.5 rounded"
-                      content={
-                        <span className="bg-black text-white">
-                          Delete Department
-                        </span>
-                      }
-                    >
-                      {/* <Button className="bg-white"> */}
-                      <i class="fa fa-trash ml-7 fa-lg" aria-hidden="true"></i>
-                      {/* </Button> */}
-                    </Tooltip>
-                  </span>
-                </div>
-              </div>
+              <Table
+                columns={columns}
+                items={departments}
+                onHandleDelete={handleDelete}
+                onHandleUpdate={handleUpdate}
+              />
             </div>
           </div>
         </div>
