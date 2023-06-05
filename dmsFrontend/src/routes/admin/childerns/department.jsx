@@ -1,5 +1,6 @@
 import React from "react";
 import SideBar from "../../../common/sideBar";
+import { Tooltip, Button } from "@material-tailwind/react";
 
 const DEPARTMENTS = () => {
   return (
@@ -41,7 +42,7 @@ const DEPARTMENTS = () => {
                 </button>
               </div>
             </div>
-            <div class="py-3 sm:px-6 lg:px-8 m-3 bg-white drop-shadow-2xl rounded-2xl overflow-auto">
+            <div class="py-3 sm:px-6 lg:px-3 m-3 bg-white drop-shadow-2xl rounded-2xl overflow-auto">
               <div class="flex items-center">
                 <span className="relative left-6">
                   <i class="fa fa-search"></i>
@@ -124,7 +125,19 @@ const DEPARTMENTS = () => {
                   <span
                     className={`tracking-wide text-sm ms-36 text-black-700 font-semibold`}
                   >
-                    <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                    <Tooltip
+                      className="py-0.5 px-3"
+                      content={
+                        <span className="bg-black text-white rounded-md">
+                          Edit
+                        </span>
+                      }
+                    >
+                      {/* <Button className="bg-white"> */}
+                      <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                      {/* </Button> */}
+                    </Tooltip>
+
                     <i class="fa fa-trash ml-7 fa-lg" aria-hidden="true"></i>
                   </span>
                 </div>
