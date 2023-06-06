@@ -12,6 +12,7 @@ import FIELD from "./routes/admin/childerns/fields";
 
 function App() {
   const [login, setLogin] = useState(true);
+
   return (
     <>
       <div
@@ -19,17 +20,16 @@ function App() {
         x-data="{panel:false, menu:true}"
       >
         <div className="text-gray-800">
-          <NavBar />
-
+          <NavBar role="Admin" />
           <Routes>
             <Route path="/" element={<Admin />}>
               <Route index element={<Admin />} />
             </Route>
             <Route path="/deparments" element={<DEPARTMENTS />} />
-            <Route path="/users" element={<USERS />}/>
-            <Route path="/doctype" element={<DOCTYPE />}/>
-            <Route path="/fields" element={<FIELD />}/>
-            <Route path="/doctypefields" element={<DOCTYPEFIELDS />}/>
+            <Route path="/users" element={<USERS />} />
+            <Route path="/doctype" element={<DOCTYPE />} />
+            <Route path="/fields" element={<FIELD />} />
+            <Route path="/doctypefields" element={<DOCTYPEFIELDS />} />
           </Routes>
         </div>
       </div>
