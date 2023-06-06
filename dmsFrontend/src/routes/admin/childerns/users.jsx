@@ -16,6 +16,13 @@ const USERS = () => {
     { _id: "41", userName: "Surya", departmentName: "Account" },
   ];
 
+  const dept = [
+    { _id: "0", departmentName: "All" },
+    { _id: "1", departmentName: "Human Resource" },
+    { _id: "2", departmentName: "Developers" },
+    { _id: "3", departmentName: "Account" },
+  ];
+
   const handleUpdate = (id) => {
     console.log(`Update ${id}`);
   };
@@ -24,10 +31,14 @@ const USERS = () => {
     console.log(`Deleted ${id}`);
   };
 
+  const onSelectItem = (id) => {
+    console.log(id);
+  };
+
   return (
     <>
       <div className="flex w-full h-[33.5rem] bg-gray-100 ">
-        <SideBar />
+        <SideBar items={dept} onSelectItem={onSelectItem} />
         <div className="mx-auto sm:px-6 lg:px-8 w-[88%]">
           <div className="flex flex-col">
             <div className="-mb-2 pb-4 flex flex-wrap flex-grow justify-between">

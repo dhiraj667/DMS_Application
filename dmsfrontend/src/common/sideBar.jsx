@@ -10,101 +10,49 @@ import {
   ListItem,
   ListItemPrefix,
 } from "@material-tailwind/react";
-const SideBar = () => {
+const SideBar = (props) => {
+  const { items, onSelectItem } = props;
+  console.log(items);
   return (
     <>
-      {/* <aside className="flex flex-col"> */}
-      <div className="flex-grow flex flex-col justify-between text-gray-500 bg-gray-800  w-[12%] ">
-        <nav className="flex flex-col mx-4 my-6 space-y-4 invisible">
-          <a
-            href="#"
-            className="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg px-2"
-          >
-            <svg
-              aria-hidden="true"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeidth="2"
-                d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-              />
-            </svg>
-            <span className="ml-2" x-show="menu">
-              Folders
-            </span>
-          </a>
-          <a
-            href="#"
-            className="inline-flex items-center py-3 text-blue-600 bg-white rounded-lg px-2"
-          >
-            <svg
-              aria-hidden="true"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeidth="2"
-                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-              />
-            </svg>
-            <span className="ml-2" x-show="menu">
-              Dashboard
-            </span>
-          </a>
-          <a
-            href="#"
-            className="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg px-2"
-          >
-            <svg
-              aria-hidden="true"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeidth="2"
-                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-              />
-            </svg>
-            <span className="ml-2" x-show="menu">
-              Messages
-            </span>
-          </a>
-          <a
-            href="#"
-            className="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg px-2"
-          >
-            <svg
-              aria-hidden="true"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeidth="2"
-                d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-              />
-            </svg>
-            <span className="ml-2" x-show="menu">
-              Documents
-            </span>
-          </a>
-        </nav>
+      <div className="flex-grow flex flex-col justify-between text-gray-500 bg-gray-800  w-[15%] ">
+        <div className="flex flex-col mx-2 my-6 ">
+          {items !== undefined ? (
+            <>
+              <nav id="">
+                <ul class="list-unstyled components mt-5 ml-2">
+                  <h5 className="h5 text-white font-bold ml-2 uppercase">
+                    Department
+                  </h5>
+                  <li className="mt-1 pt-0">
+                    {items.map((item, index) => (
+                      <div className="flex mt-1" key={item._id}>
+                        <input
+                          id={`radio`}
+                          type="checkbox"
+                          className="radio"
+                          name="radio"
+                          value={item.name}
+                          //   checked={checked}
+                          style={{ cursor: "pointer" }}
+                          onChange={() => {
+                            onSelectItem(item.departmentName);
+                          }}
+                        />
+                        <label className="text-white fw-bold h6 mx-1.5 line-clamp-1">
+                          {item.departmentName}
+                        </label>
+                        {/* <a href="#">forget password</a> */}
+                      </div>
+                    ))}
+                  </li>
+                </ul>
+              </nav>
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
         <div className="flex justify-end">
           <Popover placement="right">
             <PopoverHandler>
