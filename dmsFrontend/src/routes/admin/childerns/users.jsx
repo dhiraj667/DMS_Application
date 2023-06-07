@@ -31,8 +31,8 @@ const USERS = () => {
     console.log(`Deleted ${id}`);
   };
 
-  const onSelectItem = (id) => {
-    console.log(id);
+  const onSelectItem = (name) => {
+    console.log(name);
   };
 
   return (

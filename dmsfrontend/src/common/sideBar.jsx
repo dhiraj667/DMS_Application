@@ -15,14 +15,16 @@ const SideBar = (props) => {
   console.log(items);
   return (
     <>
-      <div className="flex-grow flex flex-col justify-between text-gray-500 bg-gray-800  w-[15%] ">
+      <div className="flex-grow flex flex-col justify-between text-gray-500 bg-gray-800 h-[87vh] w-[15%] ">
         <div className="flex flex-col mx-2 my-6 ">
           {items !== undefined ? (
             <>
               <nav id="">
                 <ul class="list-unstyled components mt-5 ml-2">
                   <h5 className="h5 text-white font-bold ml-2 uppercase">
-                    Department
+                    {items[0].hasOwnProperty("docType")
+                      ? "Document Types"
+                      : "Departments"}
                   </h5>
                   <li className="mt-1 pt-0">
                     {items.map((item, index) => (
@@ -36,11 +38,17 @@ const SideBar = (props) => {
                           //   checked={checked}
                           style={{ cursor: "pointer" }}
                           onChange={() => {
-                            onSelectItem(item.departmentName);
+                            onSelectItem(
+                              item.hasOwnProperty("docType")
+                                ? item.docType
+                                : item.departmentName
+                            );
                           }}
                         />
                         <label className="text-white fw-bold h6 mx-1.5 line-clamp-1">
-                          {item.departmentName}
+                          {item.hasOwnProperty("docType")
+                            ? item.docType
+                            : item.departmentName}
                         </label>
                         {/* <a href="#">forget password</a> */}
                       </div>

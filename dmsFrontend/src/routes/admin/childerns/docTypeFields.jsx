@@ -28,6 +28,27 @@ const DOCTYPEFIELDS = () => {
     },
   ];
 
+  const dept = [
+    {
+      _id: "11",
+      docType: "Birth Certificate",
+      departmentName: "Human Resource",
+      docTypeCode: "BR100",
+    },
+    {
+      _id: "12",
+      docType: "Birth Certificate",
+      departmentName: "Human Resource",
+      docTypeCode: "BR100",
+    },
+    {
+      _id: "13",
+      docType: "E-BILL",
+      departmentName: "Human Resource",
+      docTypeCode: "BR100",
+    },
+  ];
+
   const handleUpdate = (id) => {
     console.log(`Update ${id}`);
   };
@@ -36,10 +57,14 @@ const DOCTYPEFIELDS = () => {
     console.log(`Deleted ${id}`);
   };
 
+  const onSelectItem = (name) => {
+    console.log(name);
+  };
+
   return (
     <>
       <div className="flex w-full h-[33.5rem] bg-gray-100 ">
-        <SideBar />
+        <SideBar items={dept} onSelectItem={onSelectItem} />
         <div className="mx-auto sm:px-6 lg:px-8 w-[88%]">
           <div className="flex flex-col">
             <div className="-mb-2 pb-4 flex flex-wrap flex-grow justify-between">
