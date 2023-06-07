@@ -5,9 +5,9 @@ import Admin from "./routes/admin/admin";
 import Demo from "./routes/demo";
 import Login from "./routes/Auth/login";
 import DOCTYPEFIELDS from "./routes/admin/childerns/docTypeFields";
-import DOCTYPE from "./routes/admin/childerns/docType";
+import DOCTYPE from "./routes/admin/childerns/documentTypes/docType";
 import USERS from "./routes/admin/childerns/users";
-import DEPARTMENTS from "./routes/admin/childerns/department";
+import DEPARTMENTS from "./routes/admin/childerns/departments/department";
 import FIELD from "./routes/admin/childerns/fields";
 
 function App() {
