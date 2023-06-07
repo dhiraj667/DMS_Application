@@ -84,22 +84,61 @@ const DOCTYPE = () => {
                 </button>
                 <div className="px-6 py-6 lg:px-8">
                   <h3 className="mb-4 text-xl font-bold text-gray-900 dark:text-white ">
-                    Add Department
+                    Add Document
                   </h3>
                   <form className="space-y-6" action="#">
+                    <div>
+                      <label
+                        for="department"
+                        className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                      >
+                        Select Department
+                      </label>
+
+                      <div className="relative">
+                        <select
+                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white p-2"
+                          name="department"
+                          required
+                        >
+                          <option value="" hidden>
+                            Select Department&hellip;
+                          </option>
+                          <option value="1">Item 1</option>
+                          <option value="2">Item 2</option>
+                          <option value="3">Item 3</option>
+                        </select>
+                      </div>
+                    </div>
                     <div>
                       <label
                         for="name"
                         className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
                       >
-                        Document type
+                        Document Type Name
                       </label>
                       <input
                         type="text"
                         name="name"
                         id="name"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
-                        placeholder="Enter Department"
+                        placeholder="Enter Document Name"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label
+                        for="name"
+                        className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                      >
+                        Document Code
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Enter Document Code"
                         required
                       />
                     </div>
@@ -137,7 +176,10 @@ const DOCTYPE = () => {
                 </div>
               </div>
               <div className="flex items-center py-2">
-                <button className="inline-flex px-5 py-2 mt-2 font-bold uppercase text-white bg-blue-600 hover:bg-purple-700 focus:bg-blue-700 rounded-md ml-6 mb-3">
+                <button
+                  className="inline-flex px-5 py-2 mt-2 font-bold uppercase text-white bg-blue-600 hover:bg-purple-700 focus:bg-blue-700 rounded-md ml-6 mb-3"
+                  onClick={handleOpen}
+                >
                   <svg
                     aria-hidden="true"
                     fill="none"
