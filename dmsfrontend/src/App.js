@@ -25,7 +25,7 @@ function App() {
             <Route path="/" element={<Admin />}>
               <Route index element={<Admin />} />
             </Route>
-            <Route path="/deparments" element={<DEPARTMENTS />} />
+            <Route path="/departments" element={<DEPARTMENTS />} />
             <Route path="/users" element={<USERS />} />
             <Route path="/doctype" element={<DOCTYPE />} />
             <Route path="/fields" element={<FIELD />} />

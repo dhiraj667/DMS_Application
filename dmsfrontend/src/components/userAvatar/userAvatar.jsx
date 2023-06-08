@@ -4,7 +4,7 @@ const UserAvatar = (props) => {
   const { name, size, className } = props;
   return (
     <>
-      <div></div>
+      <div ></div>
     </>
   );
 };

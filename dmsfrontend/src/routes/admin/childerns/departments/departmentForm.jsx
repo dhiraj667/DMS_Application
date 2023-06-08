@@ -2,28 +2,36 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
+import { useBoundStore } from "../../../../store/store";
 
 const DepartmentForm = (props) => {
   const schema = yup.object().shape({
     departmentName: yup.string().min(5).max(50).required(),
   });
   const { handleOpen, open, id } = props;
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
+    reset,
   } = useForm({ resolver: yupResolver(schema) });
 
-  const departments = [
-    { _id: "1", departmentName: "Human Resource" },
-    { _id: "2", departmentName: "Developers" },
-    { _id: "3", departmentName: "Account" },
-  ];
+  const saveDepartment = useBoundStore((state) => state.saveDepartment);
+  const departments = useBoundStore((state) => state.departments);
+  const updateDepartment = useBoundStore((state) => state.updateDepartment);
 
   const onSubmitHandler = (data) => {
+    if (!id) {
+      saveDepartment(data);
+      reset();
+    } else {
+      updateDepartment(data);
+    }
     handleOpen();
-    console.log(data);
+    // console.log(data);
   };
 
   console.log(id);
@@ -80,7 +88,6 @@ const DepartmentForm = (props) => {
                       <input
                         {...register("departmentName")}
                         type="text"
-                        id="name"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
                         placeholder="Enter Department"
                         required

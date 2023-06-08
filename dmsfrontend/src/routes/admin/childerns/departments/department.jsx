@@ -1,35 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SideBar from "../../../../common/sideBar";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import Table from "../../../../common/table/table";
 import DepartmentForm from "./departmentForm";
+import { useBoundStore } from "../../../../store/store";
+import Loader from "../../../../components/userAvatar/loader";
 
 const DEPARTMENTS = () => {
+  //states
   const columns = [
     { path: "department Name", header: "Department Name" },
     { key: "Action" },
   ];
-
   const [id, setId] = useState("");
-
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
   const handleOpen = () => setOpen(!open);
-
-  const departments = [
-    { _id: "1", departmentName: "Human Resource" },
-    { _id: "2", departmentName: "Developers" },
-    { _id: "3", departmentName: "Account" },
-  ];
+  //store calls
+  const getDepartments = useBoundStore((state) => state.getDepartments);
+  const departments = useBoundStore((state) => state.departments);
+  const deleteDepartment = useBoundStore((state) => state.deleteDepartment);
 
   const handleDelete = (id) => {
-    console.log(`Deleted ${id}`);
+    deleteDepartment(id);
   };
-
-  const handleUpdate = (id) => {
-    console.log(`Update ${id}`);
-    setId(id);
+  const handleUpdate = (data) => {
+    setId(data._id);
     handleOpen();
   };
+
+  useEffect(() => {
+    getDepartments()
+      .then((res) => {
+        setLoading(false);
+        console.log("success");
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  console.log(departments);
   return (
     <>
       <DepartmentForm handleOpen={handleOpen} open={open} id={id} />
@@ -91,6 +100,7 @@ const DEPARTMENTS = () => {
                 items={departments}
                 onHandleDelete={handleDelete}
                 onHandleUpdate={handleUpdate}
+                loading={loading}
               />
             </div>
           </div>

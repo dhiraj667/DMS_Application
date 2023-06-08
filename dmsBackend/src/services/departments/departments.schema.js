@@ -8,11 +8,10 @@ export const departmentsSchema = {
   $id: 'Departments',
   type: 'object',
   additionalProperties: false,
-  required: ['_id', 'name','departmentCode'],
+  required: ['_id', 'departmentName'],
   properties: {
     _id: ObjectIdSchema(),
-    name: { type: 'string' },
-    departmentCode: { type: 'string' }
+    departmentName: { type: 'string' }
   }
 }
 export const departmentsValidator = getValidator(departmentsSchema, dataValidator)
@@ -25,7 +24,7 @@ export const departmentsDataSchema = {
   $id: 'DepartmentsData',
   type: 'object',
   additionalProperties: false,
-  required: ['name','departmentCode'],
+  required: ['departmentName'],
   properties: {
     ...departmentsSchema.properties
   }
