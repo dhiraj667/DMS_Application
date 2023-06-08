@@ -4,7 +4,7 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import Table from "../../../../common/table/table";
 import DepartmentForm from "./departmentForm";
 import { useBoundStore } from "../../../../store/store";
-import Loader from "../../../../components/userAvatar/loader";
+import Loader from "../../../../components/loader";
 
 const DEPARTMENTS = () => {
   //states

@@ -1,7 +1,7 @@
 import React from "react";
 import { Tooltip, Button } from "@material-tailwind/react";
 import TableHeader from "./tableHeader";
-import Loader from "../../components/userAvatar/loader";
+import Loader from "../../components/loader";
 
 const Table = (props) => {
   const { items, columns, onHandleDelete, onHandleUpdate, loading } = props;
