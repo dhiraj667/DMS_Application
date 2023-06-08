@@ -22,6 +22,7 @@ const DepartmentForm = (props) => {
   ];
 
   const onSubmitHandler = (data) => {
+    handleOpen();
     console.log(data);
   };
 
