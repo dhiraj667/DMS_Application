@@ -18,6 +18,7 @@ const DocumentTypeForm = (props) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmitHandler = (data) => {
+    handleOpen();
     console.log(data);
   };
   return (

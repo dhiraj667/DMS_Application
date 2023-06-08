@@ -10,6 +10,8 @@ const DEPARTMENTS = () => {
     { key: "Action" },
   ];
 
+  const [id, setId] = useState("");
+
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(!open);
@@ -26,10 +28,12 @@ const DEPARTMENTS = () => {
 
   const handleUpdate = (id) => {
     console.log(`Update ${id}`);
+    setId(id);
+    handleOpen();
   };
   return (
     <>
-      <DepartmentForm handleOpen={handleOpen} open={open} />
+      <DepartmentForm handleOpen={handleOpen} open={open} id={id} />
       <div className="flex w-full h-[33.5rem] bg-gray-100 ">
         <SideBar />
         <div className="mx-auto sm:px-6 lg:px-8 w-[88%]">

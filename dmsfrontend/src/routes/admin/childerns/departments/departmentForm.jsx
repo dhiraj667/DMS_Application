@@ -7,7 +7,7 @@ const DepartmentForm = (props) => {
   const schema = yup.object().shape({
     departmentName: yup.string().min(5).max(50).required(),
   });
-  const { handleOpen, open } = props;
+  const { handleOpen, open, id } = props;
   const {
     register,
     handleSubmit,
@@ -15,11 +15,24 @@ const DepartmentForm = (props) => {
     setValue,
   } = useForm({ resolver: yupResolver(schema) });
 
+  const departments = [
+    { _id: "1", departmentName: "Human Resource" },
+    { _id: "2", departmentName: "Developers" },
+    { _id: "3", departmentName: "Account" },
+  ];
+
   const onSubmitHandler = (data) => {
     console.log(data);
   };
 
-  useEffect(() => {}, []);
+  console.log(id);
+
+  useEffect(() => {
+    if (!id) return;
+    const department = departments.filter((dept) => dept._id === id);
+    setValue("_id", department[0]._id);
+    setValue("departmentName", department[0].departmentName);
+  }, [id]);
   return (
     <>
       {open ? (
