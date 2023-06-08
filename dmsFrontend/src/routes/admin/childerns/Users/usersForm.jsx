@@ -17,6 +17,7 @@ const USERFORM = (props) => {
       } = useForm({ resolver: yupResolver(schema) });
     
       const onSubmitHandler = (data) => {
+        handleOpen();
         console.log(data);
       };
     
@@ -67,14 +68,14 @@ const USERFORM = (props) => {
                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white p-2"
                           name="department"
                           {...register("selectDepartment")}
-                          required
+                          
                         >
                           <option value="" hidden>
                             Select Department&hellip;
                           </option>
-                          <option value="1">Item 1</option>
-                          <option value="2">Item 2</option>
-                          <option value="3">Item 3</option>
+                          <option value="1rtgctcft">Item 1</option>
+                          <option value="2nvhv">Item 2</option>
+                          <option value="3jgvhhg">Item 3</option>
                         </select>
                         <p className="text-red-500 m-1">
                         {errors.selectDepartment?.message}
@@ -95,7 +96,7 @@ const USERFORM = (props) => {
                         id="name"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
                         placeholder="Enter User Name"
-                        required
+                    
                       />
                        <p className="text-red-500 m-1">
                         {errors.userName?.message}
