@@ -9,7 +9,7 @@ const DocumentTypeForm = (props) => {
     docTypeName: yup.string().min(5).max(50),
     docTypeCode: yup.string().min(5).max(50),
   });
-  const { handleOpen, open } = props;
+  const { handleOpen, open, id } = props;
   const {
     register,
     handleSubmit,
@@ -17,10 +17,41 @@ const DocumentTypeForm = (props) => {
     setValue,
   } = useForm({ resolver: yupResolver(schema) });
 
+  const departments = [
+    {
+      _id: "11",
+      docTypeName: "Birth Certificate",
+      departmentName: "Human Resource",
+      docTypeCode: "BR100",
+    },
+    {
+      _id: "12",
+      docTypeName: "Birth Certificate",
+      departmentName: "Human Resource",
+      docTypeCode: "BR100",
+    },
+    {
+      _id: "13",
+      docTypeName: "Birth Certificate",
+      departmentName: "Human Resource",
+      docTypeCode: "BR100",
+    },
+  ];
+
   const onSubmitHandler = (data) => {
     handleOpen();
     console.log(data);
   };
+
+  useEffect(() => {
+    if (!id) return;
+    const docType = departments.filter((dept) => dept._id === id);
+    console.log(docType[0]);
+    setValue("_id", docType[0]._id);
+    setValue("docTypeName", docType[0].docTypeName);
+    setValue("departmentName", docType[0].departmentName);
+    setValue("docTypeCode", docType[0].docTypeCode);
+  }, [id]);
   return (
     <>
       {open ? (
@@ -68,15 +99,17 @@ const DocumentTypeForm = (props) => {
                       <div className="relative">
                         <select
                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white p-2"
-                          name="department"
                           {...register("departmentName")}
                         >
                           <option value="" hidden>
                             Select Department&hellip;
                           </option>
-                          <option value="abcjhb">Item 1</option>
-                          <option value="asdmn jas">Item 2</option>
-                          <option value="asdbjhs">Item 3</option>
+                          <option value="Item 1">Item 1</option>
+                          <option value="Item 2">Item 2</option>
+                          <option value="Item 3">Item 3</option>
+                          <option value={"Human Resource"}>
+                            Human Resource
+                          </option>
                         </select>
                         <p className="text-red-500 m-1">
                           {errors.departmentName?.message}

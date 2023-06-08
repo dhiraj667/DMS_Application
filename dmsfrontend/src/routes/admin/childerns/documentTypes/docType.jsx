@@ -11,6 +11,7 @@ const DOCTYPE = () => {
     { key: "Action" },
   ];
 
+  const [id, setId] = useState("");
   const departments = [
     {
       _id: "11",
@@ -42,6 +43,8 @@ const DOCTYPE = () => {
 
   const handleUpdate = (id) => {
     console.log(`Update ${id}`);
+    setId(id);
+    handleOpen();
   };
 
   const dept = [
@@ -56,7 +59,7 @@ const DOCTYPE = () => {
 
   return (
     <>
-      <DocumentTypeForm handleOpen={handleOpen} open={open} />
+      <DocumentTypeForm handleOpen={handleOpen} open={open} id={id} />
       <div className="flex w-full h-[33.5rem] bg-gray-100 ">
         <SideBar items={dept} onSelectItem={onSelectItem} />
         <div className="mx-auto sm:px-6 lg:px-8 w-[88%]">
