@@ -8,10 +8,10 @@ export const fieldsSchema = {
   $id: 'Fields',
   type: 'object',
   additionalProperties: false,
-  required: ['_id', 'name'],
+  required: ['_id', 'fieldName'],
   properties: {
     _id: ObjectIdSchema(),
-    name: {
+    fieldName: {
       type: 'object',
       properties: { name: { type: 'string' }, label: { type: 'string' }, input: { type: 'string' } }
     }
@@ -27,7 +27,7 @@ export const fieldsDataSchema = {
   $id: 'FieldsData',
   type: 'object',
   additionalProperties: false,
-  required: ['name'],
+  required: ['fieldName'],
   properties: {
     ...fieldsSchema.properties
   }

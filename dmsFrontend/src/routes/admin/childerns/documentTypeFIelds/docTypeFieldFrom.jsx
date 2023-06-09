@@ -4,27 +4,29 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const DocTypeFieldForm = (props) => {
-    const schema = yup.object().shape({
-        departmentName: yup.string().min(5).max(50).required(),
-        documentName: yup.string().min(5).max(50).required(),
-        fieldName: yup.string().min(5).max(50).required(),
-      });
-      const { handleOpen, open } = props;
-      const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        setValue,
-      } = useForm({ resolver: yupResolver(schema) });
-    
-      const onSubmitHandler = (data) => {
-        handleOpen();
-        console.log(data);
-      };
-    
-      useEffect(() => {}, []);
-    return ( <>
-    {open ? (
+  const schema = yup.object().shape({
+    departmentName: yup.string().min(5).max(50).required(),
+    documentName: yup.string().min(5).max(50).required(),
+    fieldName: yup.string().min(5).max(50).required(),
+  });
+  const { handleOpen, open } = props;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    reset,
+  } = useForm({ resolver: yupResolver(schema) });
+
+  const onSubmitHandler = (data) => {
+    handleOpen();
+    console.log(data);
+  };
+
+  useEffect(() => {}, []);
+  return (
+    <>
+      {open ? (
         <>
           <div className="bg-black bg-opacity-50 flex absolute top-0 bottom-0 left-0 right-0 items-center justify-center z-40">
             <div className="rounded min-w-[400px] min-h-[225px] bg-white">
@@ -54,7 +56,10 @@ const DocTypeFieldForm = (props) => {
                   <h3 className="mb-4 text-xl font-bold text-gray-900 dark:text-white ">
                     Add Document Type Fields
                   </h3>
-                  <form className="space-y-6" onSubmit={handleSubmit(onSubmitHandler)}>
+                  <form
+                    className="space-y-6"
+                    onSubmit={handleSubmit(onSubmitHandler)}
+                  >
                     <div>
                       <label
                         for="department"
@@ -78,8 +83,8 @@ const DocTypeFieldForm = (props) => {
                           <option value="3">Item 3</option>
                         </select>
                         <p className="text-red-500 m-1">
-                        {errors.departmentName?.message}
-                      </p>
+                          {errors.departmentName?.message}
+                        </p>
                       </div>
                     </div>
                     <div>
@@ -105,8 +110,8 @@ const DocTypeFieldForm = (props) => {
                           <option value="3">Item 3</option>
                         </select>
                         <p className="text-red-500 m-1">
-                        {errors.documentName?.message}
-                      </p>
+                          {errors.documentName?.message}
+                        </p>
                       </div>
                     </div>
                     <div>
@@ -132,8 +137,8 @@ const DocTypeFieldForm = (props) => {
                           <option value="3">Item 3</option>
                         </select>
                         <p className="text-red-500 m-1">
-                        {errors.fieldName?.message}
-                      </p>
+                          {errors.fieldName?.message}
+                        </p>
                       </div>
                     </div>
 
@@ -152,7 +157,8 @@ const DocTypeFieldForm = (props) => {
       ) : (
         <></>
       )}
-    </> );
-}
- 
+    </>
+  );
+};
+
 export default DocTypeFieldForm;

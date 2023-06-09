@@ -26,10 +26,15 @@ function App() {
               <Route index element={<Admin />} />
             </Route>
             <Route path="/departments" element={<DEPARTMENTS />} />
+            <Route path="/departments/:id" element={<DEPARTMENTS />} />
             <Route path="/users" element={<USERS />} />
-            <Route path="/doctype" element={<DOCTYPE />} />
+            <Route path="/users/:id" element={<USERS />} />
+            <Route path="/doctypes" element={<DOCTYPE />} />
+            <Route path="/doctypes/:id" element={<DOCTYPE />} />
             <Route path="/fields" element={<FIELD />} />
+            <Route path="/fields/:id" element={<FIELD />} />
             <Route path="/doctypefields" element={<DOCTYPEFIELDS />} />
+            <Route path="/doctypefields/:id" element={<DOCTYPEFIELDS />} />
           </Routes>
         </div>
       </div>

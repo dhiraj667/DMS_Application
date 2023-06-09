@@ -50,8 +50,8 @@ const USERS = () => {
 
   return (
     <>
-      <USERFORM open={open} handleOpen={handleOpen} id={id}/>
       
+      <USERFORM open={open} handleOpen={handleOpen} />
       <div className="flex w-full h-[33.5rem] bg-gray-100 ">
         <SideBar items={dept} onSelectItem={onSelectItem} />
         <div className="mx-auto sm:px-6 lg:px-8 w-[88%]">
@@ -105,6 +105,7 @@ const USERS = () => {
                 />
               </div>
               <Table
+                urlName={"users"}
                 columns={columns}
                 items={newUsers}
                 onHandleDelete={handleDelete}

@@ -2,28 +2,71 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useBoundStore } from "../../../../store/store";
+import { useParams } from "react-router-dom";
 
 const FieldForm = (props) => {
-    const schema = yup.object().shape({
-        fieldName: yup.string().min(5).max(50).required(),
-      });
-      const { handleOpen, open } = props;
-      const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        setValue,
-      } = useForm({ resolver: yupResolver(schema) });
-    
-      const onSubmitHandler = (data) => {
-        handleOpen();
-        console.log(data);
-      };
-    
-      useEffect(() => {}, []);
+  const schema = yup.object().shape({
+    name: yup.string().min(3).max(50).required(),
+    label: yup.string().min(3).max(50).required(),
+    input: yup.string().min(2).max(50).required(),
+  });
+  const { handleOpen, open } = props;
+  const { id } = useParams();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    reset,
+  } = useForm({ resolver: yupResolver(schema) });
+  const fields = useBoundStore((state) => state.fields);
+  const saveField = useBoundStore((state) => state.saveField);
+  const updateField = useBoundStore((state) => state.updateField);
 
-    return ( <>
-        {open ? (
+  const onSubmitHandler = (data) => {
+    console.log(data);
+    if (!id) {
+      saveField(data);
+    } else {
+      updateField(data);
+    }
+    reset();
+    handleOpen();
+    console.log(data);
+  };
+
+  const inputTypeArray = [
+    {
+      type: "text",
+    },
+    {
+      type: "email",
+    },
+    {
+      type: "date",
+    },
+    {
+      type: "url",
+    },
+    {
+      type: "number",
+    },
+  ];
+
+  useEffect(() => {
+    if (!id) return;
+    const field = fields.find((f) => f._id === id);
+    if (!field) return;
+    setValue("_id", field._id);
+    setValue("name", field.fieldName.name);
+    setValue("label", field.fieldName.label);
+    setValue("input", field.fieldName.input);
+  }, [id]);
+
+  return (
+    <>
+      {open ? (
         <>
           <div className="bg-black bg-opacity-50 flex absolute top-0 bottom-0 left-0 right-0 items-center justify-center z-40">
             <div className="rounded min-w-[400px] min-h-[225px] bg-white">
@@ -32,7 +75,10 @@ const FieldForm = (props) => {
                   type="button"
                   className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
                   data-modal-hide="authentication-modal"
-                  onClick={handleOpen}
+                  onClick={() => {
+                    handleOpen();
+                    reset();
+                  }}
                 >
                   <svg
                     aria-hidden="true"
@@ -53,26 +99,67 @@ const FieldForm = (props) => {
                   <h3 className="mb-4 text-xl font-bold text-gray-900 dark:text-white ">
                     Add Field
                   </h3>
-                  <form className="space-y-6" onSubmit={handleSubmit(onSubmitHandler)}>
+                  <form
+                    className="space-y-6"
+                    onSubmit={handleSubmit(onSubmitHandler)}
+                  >
                     <div>
                       <label
                         for="name"
                         className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
                       >
-                        Field
+                        Field Name
                       </label>
                       <input
                         type="text"
-                        name="name"
-                        {...register("fieldName")}
+                        {...register("name")}
                         id="name"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
                         placeholder="Enter Field"
                         required
                       />
+                      <p className="text-red-500 m-1">{errors.name?.message}</p>
+                    </div>
+
+                    <div>
+                      <label className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">
+                        Label Name
+                      </label>
+                      <input
+                        type="text"
+                        {...register("label")}
+                        id="name"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
+                        placeholder="Enter Label"
+                        required
+                      />
                       <p className="text-red-500 m-1">
-                        {errors.fieldName?.message}
+                        {errors.label?.message}
                       </p>
+                    </div>
+
+                    <div>
+                      <label className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">
+                        Select Input Type
+                      </label>
+
+                      <div className="relative">
+                        <select
+                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white p-2"
+                          name="input"
+                          {...register("input")}
+                        >
+                          <option value="" hidden>
+                            Select Input&hellip;
+                          </option>
+                          {inputTypeArray.map((input) => (
+                            <option value={input.type}>{input.type}</option>
+                          ))}
+                        </select>
+                        <p className="text-red-500 m-1">
+                          {errors.input?.message}
+                        </p>
+                      </div>
                     </div>
 
                     <button
@@ -90,7 +177,8 @@ const FieldForm = (props) => {
       ) : (
         <></>
       )}
-    </> );
-}
- 
+    </>
+  );
+};
+
 export default FieldForm;

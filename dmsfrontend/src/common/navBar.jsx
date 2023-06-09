@@ -96,7 +96,7 @@ const NavBar = (props) => {
                         : "transition duration-300 font-bold focus:outline-none p-2 hover:bg-gray-100 hover:shadow rounded-md m-1"
                     }
                     style={{ textUnderlineOffset: "8px" }}
-                    to={"/docType"}
+                    to={"/docTypes"}
                   >
                     DOCTYPE
                   </NavLink>

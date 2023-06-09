@@ -1,6 +1,6 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.html
 import { authenticate } from '@feathersjs/authentication'
-import validate from "feathers-validate-joi"
+import validate from 'feathers-validate-joi'
 import { hooks as schemaHooks } from '@feathersjs/schema'
 import {
   doctypesDataValidator,
@@ -46,13 +46,14 @@ export const doctypes = (app) => {
       find: [],
       get: [],
       create: [
-        validate.form(doctypesSchema,{abortEarly:false}),
+        validate.form(doctypesSchema, { abortEarly: false }),
         FetchDepartment(),
         schemaHooks.validateData(doctypesDataValidator),
         schemaHooks.resolveData(doctypesDataResolver)
       ],
       patch: [
-        validate.form(doctypesSchema,{abortEarly:false}),
+        // validate.form(doctypesSchema,{abortEarly:false}),
+        FetchDepartment(),
         schemaHooks.validateData(doctypesPatchValidator),
         schemaHooks.resolveData(doctypesPatchResolver)
       ],

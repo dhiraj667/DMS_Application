@@ -1,36 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SideBar from "../../../../common/sideBar";
 import { Tooltip, Button } from "@material-tailwind/react";
 import Table from "../../../../common/table/table";
 import FieldForm from "./fieldForm";
+import { useBoundStore } from "../../../../store/store";
+import { Link } from "react-router-dom";
 
 const FIELD = () => {
-  const [open,setOpen]=useState(false);
-
-  const handleOpen =() =>setOpen(!open)
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const handleOpen = () => setOpen(!open);
 
   const columns = [
     { path: "fieldName", header: "Field Name" },
     { key: "Action" },
   ];
 
-  const departments = [
-    { _id: "31", fieldName: "First Name" },
-    { _id: "32", fieldName: "Last Name" },
-    { _id: "33", fieldName: "DOB" },
-  ];
+  const getFields = useBoundStore((state) => state.getFields);
+  const fields = useBoundStore((state) => state.fields);
+  const deleteField = useBoundStore((state) => state.deleteField);
+  const updateField = useBoundStore((state) => state.updateField);
 
-  const handleUpdate = (id) => {
-    console.log(`Update ${id}`);
+  const handleUpdate = (data) => {
+    console.log();
+    handleOpen();
   };
 
   const handleDelete = (id) => {
-    console.log(`Deleted ${id}`);
+    deleteField(id);
   };
+
+  const newFields = fields.map((field) => ({
+    _id: field._id,
+    name: field.fieldName.name,
+  }));
+  console.log(newFields);
+  useEffect(() => {
+    getFields()
+      .then((res) => setLoading(false))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <>
-      <FieldForm open={open} handleOpen={handleOpen}/>
+      <FieldForm open={open} handleOpen={handleOpen} />
       <div className="flex w-full h-[33.5rem] bg-gray-100 ">
         <SideBar />
         <div className="mx-auto sm:px-6 lg:px-8 w-[88%]">
@@ -49,23 +62,28 @@ const FIELD = () => {
                 </div>
               </div>
               <div className="flex items-center py-2">
-                <button onClick={handleOpen} className="inline-flex px-5 py-2 mt-2 font-bold uppercase text-white bg-blue-600 hover:bg-purple-700 focus:bg-blue-700 rounded-md ml-6 mb-3">
-                  <svg
-                    aria-hidden="true"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    className="flex-shrink-0 h-6 w-6 text-white -ml-1 mr-2"
+                <Link to={"/fields"}>
+                  <button
+                    onClick={handleOpen}
+                    className="inline-flex px-5 py-2 mt-2 font-bold uppercase text-white bg-blue-600 hover:bg-purple-700 focus:bg-blue-700 rounded-md ml-6 mb-3"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeidth="2"
-                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                    />
-                  </svg>
-                  Create New
-                </button>
+                    <svg
+                      aria-hidden="true"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      className="flex-shrink-0 h-6 w-6 text-white -ml-1 mr-2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeidth="2"
+                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                      />
+                    </svg>
+                    Create New
+                  </button>
+                </Link>
               </div>
             </div>
             <div className="py-3 sm:px-6 lg:px-3 mt-3  bg-white drop-shadow-2xl rounded-2xl overflow-auto">
@@ -81,10 +99,12 @@ const FIELD = () => {
                 />
               </div>
               <Table
+                urlName={"fields"}
                 columns={columns}
-                items={departments}
+                items={newFields}
                 onHandleDelete={handleDelete}
                 onHandleUpdate={handleUpdate}
+                loading={loading}
               />
             </div>
           </div>
