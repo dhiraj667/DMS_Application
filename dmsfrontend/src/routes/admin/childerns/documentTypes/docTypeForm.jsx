@@ -40,7 +40,7 @@ const DocumentTypeForm = (props) => {
     }
     reset();
     handleOpen();
-    navigate("/doctype");
+    navigate("/doctypes");
   };
 
   useEffect(() => {
