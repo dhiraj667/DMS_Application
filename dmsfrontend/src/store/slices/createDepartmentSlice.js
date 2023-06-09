@@ -6,6 +6,8 @@ export const createDepartmentSlice = (set) => ({
   departments: [],
   getDepartments: async function () {
     const response = await axios.get(apiEndPoint);
+    console.log(response.data);
+    console.log(response.data.data);
     set(() => ({ departments: response.data.data }));
   },
   saveDepartment: async function (data) {

@@ -1,21 +1,24 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import SideBar from "../../../../common/sideBar";
 import { Tooltip, Button } from "@material-tailwind/react";
 import Table from "../../../../common/table/table";
 import USERFORM from "./usersForm";
+import { useBoundStore } from "../../../../store/store";
 
 const USERS = () => {
+  const [id, setId] = useState("");
   const columns = [
     { path: "userName", header: "User Name" },
     { path: "department Name", header: "Department Name" },
     { key: "Action" },
   ];
 
-  const departments = [
-    { _id: "41", userName: "Sada", departmentName: "Human Resource" },
-    { _id: "41", userName: "Suraj", departmentName: "Developers" },
-    { _id: "41", userName: "Surya", departmentName: "Account" },
-  ];
+  const getUsers = useBoundStore((state) => state.getUsers);
+  const users = useBoundStore((state) => state.users);
+  const deleteUser = useBoundStore((state)=>state.deleteUser)
+
+// console.log(users);
+  const newUsers=users.map((user)=>({_id:user._id,userName:user.userName,departmentName:`[${user.departments}]`}))
 
   const dept = [
     { _id: "0", departmentName: "All" },
@@ -23,14 +26,19 @@ const USERS = () => {
     { _id: "2", departmentName: "Developers" },
     { _id: "3", departmentName: "Account" },
   ];
+  
+  useEffect(()=>{
+    getUsers();
+  },[])
 
   const handleUpdate = (id) => {
     console.log(`Update ${id}`);
   };
 
   const handleDelete = (id) => {
-    console.log(`Deleted ${id}`);
+    deleteUser(id);
   };
+ 
 
   const [open, setOpen] = useState(false);
 
@@ -42,7 +50,7 @@ const USERS = () => {
 
   return (
     <>
-      <USERFORM open={open} handleOpen={handleOpen}/>
+      <USERFORM open={open} handleOpen={handleOpen} id={id}/>
       
       <div className="flex w-full h-[33.5rem] bg-gray-100 ">
         <SideBar items={dept} onSelectItem={onSelectItem} />
@@ -98,7 +106,7 @@ const USERS = () => {
               </div>
               <Table
                 columns={columns}
-                items={departments}
+                items={newUsers}
                 onHandleDelete={handleDelete}
                 onHandleUpdate={handleUpdate}
               />
