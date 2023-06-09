@@ -68,8 +68,8 @@ const DOCTYPEFIELDS = () => {
 
   return (
     <>
-      <DocTypeFieldForm open={open} handleOpen={handleOpen}/>
-      
+      <DocTypeFieldForm open={open} handleOpen={handleOpen} />
+
       <div className="flex w-full h-[33.5rem] bg-gray-100 ">
         <SideBar items={dept} onSelectItem={onSelectItem} />
         <div className="mx-auto sm:px-6 lg:px-8 w-[88%]">
@@ -122,7 +122,13 @@ const DOCTYPEFIELDS = () => {
                   placeholder="Search by Document Type and by Fields....."
                 />
               </div>
-              <Table columns={columns} items={departments} />
+              <Table
+                urlName={"doctypefields"}
+                columns={columns}
+                items={departments}
+                handleDelete={handleDelete}
+                handleUpdate={handleUpdate}
+              />
             </div>
           </div>
         </div>

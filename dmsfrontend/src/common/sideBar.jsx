@@ -19,43 +19,49 @@ const SideBar = (props) => {
         <div className="flex flex-col mx-2 my-6 ">
           {items !== undefined ? (
             <>
-              <nav id="">
-                <ul class="list-unstyled components mt-5 ml-2">
-                  <h5 className="h5 text-white font-bold ml-2 uppercase">
-                    {items[0].hasOwnProperty("docType")
-                      ? "Document Types"
-                      : "Departments"}
-                  </h5>
-                  <li className="mt-1 pt-0">
-                    {items.map((item, index) => (
-                      <div className="flex mt-1" key={item._id}>
-                        <input
-                          id={`radio`}
-                          type="checkbox"
-                          className="radio"
-                          name="radio"
-                          value={item.name}
-                          //   checked={checked}
-                          style={{ cursor: "pointer" }}
-                          onChange={() => {
-                            onSelectItem(
-                              item.hasOwnProperty("docType")
+              {items.length !== 0 ? (
+                <>
+                  <nav id="">
+                    <ul class="list-unstyled components mt-5 ml-2">
+                      <h5 className="h5 text-white font-bold ml-2 uppercase">
+                        {items[0].hasOwnProperty("docType")
+                          ? "Document Types"
+                          : "Departments"}
+                      </h5>
+                      <li className="mt-1 pt-0">
+                        {items.map((item, index) => (
+                          <div className="flex mt-1" key={item._id}>
+                            <input
+                              id={`radio`}
+                              type="checkbox"
+                              className="radio"
+                              name="radio"
+                              value={item.name}
+                              //   checked={checked}
+                              style={{ cursor: "pointer" }}
+                              onChange={() => {
+                                onSelectItem(
+                                  item.hasOwnProperty("docType")
+                                    ? item.docType
+                                    : item.departmentName
+                                );
+                              }}
+                            />
+                            <label className="text-white fw-bold h6 mx-1.5 line-clamp-1">
+                              {item.hasOwnProperty("docType")
                                 ? item.docType
-                                : item.departmentName
-                            );
-                          }}
-                        />
-                        <label className="text-white fw-bold h6 mx-1.5 line-clamp-1">
-                          {item.hasOwnProperty("docType")
-                            ? item.docType
-                            : item.departmentName}
-                        </label>
-                        {/* <a href="#">forget password</a> */}
-                      </div>
-                    ))}
-                  </li>
-                </ul>
-              </nav>
+                                : item.departmentName}
+                            </label>
+                            {/* <a href="#">forget password</a> */}
+                          </div>
+                        ))}
+                      </li>
+                    </ul>
+                  </nav>
+                </>
+              ) : (
+                <></>
+              )}
             </>
           ) : (
             <></>

@@ -1,56 +1,58 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useBoundStore } from "../../../../store/store";
+import { useNavigate, useParams } from "react-router-dom";
 
 const DocumentTypeForm = (props) => {
   const schema = yup.object().shape({
-    departmentName: yup.string().min(5).max(50),
-    docTypeName: yup.string().min(5).max(50),
+    departmentId: yup.string().required(),
+    docType: yup.string().min(5).max(50),
     docTypeCode: yup.string().min(5).max(50),
   });
-  const { handleOpen, open, id } = props;
+  const { handleOpen, open } = props;
+  const { id } = useParams();
+  console.log(id);
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
+    reset,
   } = useForm({ resolver: yupResolver(schema) });
 
-  const departments = [
-    {
-      _id: "11",
-      docTypeName: "Birth Certificate",
-      departmentName: "Human Resource",
-      docTypeCode: "BR100",
-    },
-    {
-      _id: "12",
-      docTypeName: "Birth Certificate",
-      departmentName: "Human Resource",
-      docTypeCode: "BR100",
-    },
-    {
-      _id: "13",
-      docTypeName: "Birth Certificate",
-      departmentName: "Human Resource",
-      docTypeCode: "BR100",
-    },
-  ];
+  const navigate = useNavigate();
+
+  const saveDocType = useBoundStore((state) => state.saveDocType);
+  const getDepartments = useBoundStore((state) => state.getDepartments);
+  const departments = useBoundStore((state) => state.departments);
+  const docTypes = useBoundStore((state) => state.docTypes);
+  const updateDocType = useBoundStore((state) => state.updateDocType);
 
   const onSubmitHandler = (data) => {
+    if (!id) {
+      saveDocType(data);
+      reset();
+    } else {
+      updateDocType(data);
+      // reset();
+    }
+    reset();
     handleOpen();
-    console.log(data);
+    navigate("/doctype");
   };
 
   useEffect(() => {
+    getDepartments();
     if (!id) return;
-    const docType = departments.filter((dept) => dept._id === id);
-    console.log(docType[0]);
-    setValue("_id", docType[0]._id);
-    setValue("docTypeName", docType[0].docTypeName);
-    setValue("departmentName", docType[0].departmentName);
-    setValue("docTypeCode", docType[0].docTypeCode);
+    // console.log("dhiraj");
+    const currentDocType = docTypes.find((d) => d._id === id);
+    if (!currentDocType) return;
+    setValue("_id", currentDocType?._id);
+    setValue("docType", currentDocType.docType);
+    setValue("departmentId", currentDocType.department?._id);
+    setValue("docTypeCode", currentDocType.docTypeCode);
   }, [id]);
   return (
     <>
@@ -63,7 +65,10 @@ const DocumentTypeForm = (props) => {
                   type="button"
                   className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
                   data-modal-hide="authentication-modal"
-                  onClick={handleOpen}
+                  onClick={() => {
+                    handleOpen();
+                    reset();
+                  }}
                 >
                   <svg
                     aria-hidden="true"
@@ -99,17 +104,16 @@ const DocumentTypeForm = (props) => {
                       <div className="relative">
                         <select
                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white p-2"
-                          {...register("departmentName")}
+                          {...register("departmentId")}
                         >
-                          <option value="" hidden>
+                          <option value=" " hidden>
                             Select Department&hellip;
                           </option>
-                          <option value="Item 1">Item 1</option>
-                          <option value="Item 2">Item 2</option>
-                          <option value="Item 3">Item 3</option>
-                          <option value={"Human Resource"}>
-                            Human Resource
-                          </option>
+                          {departments.map((dept) => (
+                            <option value={dept._id} key={dept._id}>
+                              {dept.departmentName}
+                            </option>
+                          ))}
                         </select>
                         <p className="text-red-500 m-1">
                           {errors.departmentName?.message}
@@ -125,7 +129,7 @@ const DocumentTypeForm = (props) => {
                       </label>
                       <input
                         type="text"
-                        {...register("docTypeName")}
+                        {...register("docType")}
                         id="name"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
                         placeholder="Enter Document Name"

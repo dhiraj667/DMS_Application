@@ -2,9 +2,11 @@ import React from "react";
 import { Tooltip, Button } from "@material-tailwind/react";
 import TableHeader from "./tableHeader";
 import Loader from "../../components/loader";
+import { Link } from "react-router-dom";
 
 const Table = (props) => {
-  const { items, columns, onHandleDelete, onHandleUpdate, loading } = props;
+  const { items, columns, onHandleDelete, onHandleUpdate, loading, urlName } =
+    props;
   return (
     <>
       <TableHeader columns={columns} />
@@ -22,7 +24,7 @@ const Table = (props) => {
                 <>
                   {nextItem !== "_id" ? (
                     <div
-                      key={new Date().toString()}
+                      key={item[nextItem]._id}
                       className={
                         columns.length === 4
                           ? `w-[23%] ml-5`
@@ -44,7 +46,13 @@ const Table = (props) => {
                       <span
                         className={`tracking-wide text-sm text-black-700 font-semibold`}
                       >
-                        {item[nextItem]}
+                        {item.hasOwnProperty("docTypeCode") &&
+                        iteration == 3 ? (
+                          <>{item[nextItem].departmentName}</>
+                        ) : (
+                          <>{item[nextItem]}</>
+                        )}
+                        {/* {item[nextItem]} */}
                       </span>
                     </div>
                   ) : (
@@ -68,11 +76,13 @@ const Table = (props) => {
                     className="py-0.5 rounded"
                     content={<span className="bg-black text-white">Edit</span>}
                   >
-                    <i
-                      className="fa fa-pencil fa-lg"
-                      aria-hidden="true"
-                      onClick={() => onHandleUpdate(item)}
-                    ></i>
+                    <Link to={`/${urlName}/${item._id}`}>
+                      <i
+                        className="fa fa-pencil fa-lg"
+                        aria-hidden="true"
+                        onClick={() => onHandleUpdate(item)}
+                      ></i>
+                    </Link>
                   </Tooltip>
 
                   <Tooltip

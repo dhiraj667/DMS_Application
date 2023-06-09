@@ -8,12 +8,12 @@ export const doctypesSchema = {
   $id: 'Doctypes',
   type: 'object',
   additionalProperties: false,
-  required: ['_id', 'name','docTypeCode','department'],
+  required: ['_id', 'docType', 'docTypeCode', 'department'],
   properties: {
     _id: ObjectIdSchema(),
-    name: { type: 'string' },
-    docTypeCode:{type:'string'},
-    department:{type:'object'}
+    docType: { type: 'string' },
+    docTypeCode: { type: 'string' },
+    department: { type: 'object' }
   }
 }
 export const doctypesValidator = getValidator(doctypesSchema, dataValidator)
@@ -26,7 +26,7 @@ export const doctypesDataSchema = {
   $id: 'DoctypesData',
   type: 'object',
   additionalProperties: false,
-  required: ['name','docTypeCode','department'],
+  required: ['docType', 'docTypeCode', 'department'],
   properties: {
     ...doctypesSchema.properties
   }

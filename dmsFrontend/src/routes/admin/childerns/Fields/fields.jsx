@@ -5,9 +5,9 @@ import Table from "../../../../common/table/table";
 import FieldForm from "./fieldForm";
 
 const FIELD = () => {
-  const [open,setOpen]=useState(false);
+  const [open, setOpen] = useState(false);
 
-  const handleOpen =() =>setOpen(!open)
+  const handleOpen = () => setOpen(!open);
 
   const columns = [
     { path: "fieldName", header: "Field Name" },
@@ -30,7 +30,7 @@ const FIELD = () => {
 
   return (
     <>
-      <FieldForm open={open} handleOpen={handleOpen}/>
+      <FieldForm open={open} handleOpen={handleOpen} />
       <div className="flex w-full h-[33.5rem] bg-gray-100 ">
         <SideBar />
         <div className="mx-auto sm:px-6 lg:px-8 w-[88%]">
@@ -49,7 +49,10 @@ const FIELD = () => {
                 </div>
               </div>
               <div className="flex items-center py-2">
-                <button onClick={handleOpen} className="inline-flex px-5 py-2 mt-2 font-bold uppercase text-white bg-blue-600 hover:bg-purple-700 focus:bg-blue-700 rounded-md ml-6 mb-3">
+                <button
+                  onClick={handleOpen}
+                  className="inline-flex px-5 py-2 mt-2 font-bold uppercase text-white bg-blue-600 hover:bg-purple-700 focus:bg-blue-700 rounded-md ml-6 mb-3"
+                >
                   <svg
                     aria-hidden="true"
                     fill="none"
@@ -81,6 +84,7 @@ const FIELD = () => {
                 />
               </div>
               <Table
+                urlName={"fields"}
                 columns={columns}
                 items={departments}
                 onHandleDelete={handleDelete}
