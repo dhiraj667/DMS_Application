@@ -11,7 +11,7 @@ import {
   ListItemPrefix,
 } from "@material-tailwind/react";
 const SideBar = (props) => {
-  const { items, onSelectItem } = props;
+  const { items, items2,onSelectItem } = props;
   console.log(items);
   return (
     <>
@@ -30,6 +30,55 @@ const SideBar = (props) => {
                       </h5>
                       <li className="mt-1 pt-0">
                         {items.map((item, index) => (
+                          <div className="flex mt-1" key={item._id}>
+                            <input
+                              id={`radio`}
+                              type="checkbox"
+                              className="radio"
+                              name="radio"
+                              value={item.name}
+                              //   checked={checked}
+                              style={{ cursor: "pointer" }}
+                              onChange={() => {
+                                onSelectItem(
+                                  item.hasOwnProperty("docType")
+                                    ? item.docType
+                                    : item.departmentName
+                                );
+                              }}
+                            />
+                            <label className="text-white fw-bold h6 mx-1.5 line-clamp-1">
+                              {item.hasOwnProperty("docType")
+                                ? item.docType
+                                : item.departmentName}
+                            </label>
+                            {/* <a href="#">forget password</a> */}
+                          </div>
+                        ))}
+                      </li>
+                    </ul>
+                  </nav>
+                </>
+              ) : (
+                <></>
+              )}
+            </>
+          ) : (
+            <></>
+          )}
+           {items2 !== undefined ? (
+            <>
+              {items2.length !== 0 ? (
+                <>
+                  <nav id="">
+                    <ul class="list-unstyled components mt-5 ml-2">
+                      <h5 className="h5 text-white font-bold ml-2 uppercase">
+                        {items2[0].hasOwnProperty("docType")
+                          ? "Document Types"
+                          : "Departments"}
+                      </h5>
+                      <li className="mt-1 pt-0">
+                        {items2.map((item, index) => (
                           <div className="flex mt-1" key={item._id}>
                             <input
                               id={`radio`}
