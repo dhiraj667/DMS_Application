@@ -346,7 +346,7 @@ const NavBar = (props) => {
                             ? "transition duration-300 font-bold focus:outline-none p-2 bg-gray-100 shadow rounded-md m-1"
                             : "transition duration-300 font-bold focus:outline-none p-2 hover:bg-gray-100 hover:shadow rounded-md m-1"
                         }
-                        to={"/deparments"}
+                        to={"/index"}
                       >
                         Index
                       </NavLink>
@@ -359,7 +359,7 @@ const NavBar = (props) => {
                             : "transition duration-300 font-bold focus:outline-none p-2 hover:bg-gray-100 hover:shadow rounded-md m-1"
                         }
                         style={{ textUnderlineOffset: "8px" }}
-                        to={"/users"}
+                        to={"/addDoc"}
                       >
                         Add Doc
                       </NavLink>

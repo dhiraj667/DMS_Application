@@ -107,7 +107,7 @@ const DocumentTypeForm = (props) => {
                           {...register("departmentId")}
                         >
                           <option value=" " hidden>
-                            Select Department&hellip;
+                            Select Department &hellip;
                           </option>
                           {departments.map((dept) => (
                             <option value={dept._id} key={dept._id}>
