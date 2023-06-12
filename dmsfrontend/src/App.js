@@ -9,6 +9,8 @@ import DOCTYPE from "./routes/admin/childerns/documentTypes/docType";
 import USERS from "./routes/admin/childerns/Users/users";
 import DEPARTMENTS from "./routes/admin/childerns/departments/department";
 import FIELD from "./routes/admin/childerns/Fields/fields";
+import Index from "./routes/indexer";
+import AddDoc from "./routes/indexer/addDoc";
 
 function App() {
   const [login, setLogin] = useState(true);
@@ -20,7 +22,7 @@ function App() {
         x-data="{panel:false, menu:true}"
       >
         <div className="text-gray-800">
-          <NavBar role="Admin" />
+          <NavBar role="indexer" />
           <Routes>
             <Route path="/" element={<Admin />}>
               <Route index element={<Admin />} />
@@ -35,6 +37,9 @@ function App() {
             <Route path="/fields/:id" element={<FIELD />} />
             <Route path="/doctypefields" element={<DOCTYPEFIELDS />} />
             <Route path="/doctypefields/:id" element={<DOCTYPEFIELDS />} />
+
+            <Route path="/index" element={<Index />}/>
+            <Route path="/addDoc" element={<AddDoc />}/>
           </Routes>
         </div>
       </div>
