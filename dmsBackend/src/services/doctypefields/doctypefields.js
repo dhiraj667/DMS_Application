@@ -19,6 +19,7 @@ import validate from 'feathers-validate-joi'
 import { doctypefieldsSchema } from './doctypefields.model.js'
 import { fetchDoctype } from './hooks/fetchDoctype.js'
 import { fetchField } from './hooks/fetchField.js'
+import { FetchDepartment } from '../doctypes/hooks/FetchDepartment.js'
 
 export * from './doctypefields.class.js'
 export * from './doctypefields.schema.js'
@@ -51,11 +52,16 @@ export const doctypefields = (app) => {
       create: [
         // authenticate('jwt'),
         validate.form(doctypefieldsSchema, { abortEarly: false }),
-        fetchDoctype(),fetchField(),
+        fetchDoctype(),
+        fetchField(),
+        FetchDepartment(),
         schemaHooks.validateData(doctypefieldsDataValidator),
         schemaHooks.resolveData(doctypefieldsDataResolver)
       ],
       patch: [
+        fetchDoctype(),
+        fetchField(),
+        FetchDepartment(),
         schemaHooks.validateData(doctypefieldsPatchValidator),
         schemaHooks.resolveData(doctypefieldsPatchResolver)
       ],

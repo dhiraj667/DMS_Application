@@ -8,14 +8,13 @@ export const doctypefieldsSchema = {
   $id: 'Doctypefields',
   type: 'object',
   additionalProperties: false,
-  required: ['_id', 'doctype','field','isRequired'],
+  required: ['_id', 'department', 'doctype', 'field'],
   properties: {
     _id: ObjectIdSchema(),
+    department: { type: 'object' },
     doctype: { type: 'object' },
-    field :{type:'object'},
-    isRequired:{type:'boolean'}
-
-
+    field: { type: 'object' },
+    isRequired: { type: 'boolean' }
   }
 }
 export const doctypefieldsValidator = getValidator(doctypefieldsSchema, dataValidator)
@@ -28,7 +27,7 @@ export const doctypefieldsDataSchema = {
   $id: 'DoctypefieldsData',
   type: 'object',
   additionalProperties: false,
-  required: ['doctype','field','isRequired'],
+  required: ['doctype', 'field', 'department'],
   properties: {
     ...doctypefieldsSchema.properties
   }

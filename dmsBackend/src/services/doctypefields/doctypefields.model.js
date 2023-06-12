@@ -1,11 +1,12 @@
 import Joi from 'joi'
 import ObjectId from 'joi-objectid'
-const JoiObjectId=ObjectId(Joi)
+const JoiObjectId = ObjectId(Joi)
 
 const attrs = {
-    doctypeId:JoiObjectId().required(),
-    fieldId:JoiObjectId().required(),
-    isRequired:Joi.boolean()
+  departmentId: JoiObjectId(),
+  doctypeId: JoiObjectId().required(),
+  fieldId: JoiObjectId().required(),
+  isRequired: Joi.boolean()
 }
 
 export const doctypefieldsSchema = Joi.object(attrs)

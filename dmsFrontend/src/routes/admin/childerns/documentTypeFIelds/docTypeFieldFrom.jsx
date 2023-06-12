@@ -2,14 +2,18 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useBoundStore } from "../../../../store/store";
+import { useParams } from "react-router-dom";
 
 const DocTypeFieldForm = (props) => {
   const schema = yup.object().shape({
-    departmentName: yup.string().min(5).max(50).required(),
-    documentName: yup.string().min(5).max(50).required(),
-    fieldName: yup.string().min(5).max(50).required(),
+    departmentId: yup.string().required(),
+    doctypeId: yup.string().required(),
+    fieldId: yup.string().required(),
   });
   const { handleOpen, open } = props;
+
+  const { id } = useParams();
   const {
     register,
     handleSubmit,
@@ -18,12 +22,45 @@ const DocTypeFieldForm = (props) => {
     reset,
   } = useForm({ resolver: yupResolver(schema) });
 
+  const getDocTypeFields = useBoundStore((state) => state.getDocTypeFields);
+  const docTypeFields = useBoundStore((state) => state.docTypeFields);
+
+  const docTypes = useBoundStore((state) => state.docTypes);
+  const getDocTypes = useBoundStore((state) => state.getDocTypes);
+  const updateDocTypeField = useBoundStore((state) => state.updateDocTypeField);
+
+  const getDepartments = useBoundStore((state) => state.getDepartments);
+  const departments = useBoundStore((state) => state.departments);
+
+  const getFields = useBoundStore((state) => state.getFields);
+  const fields = useBoundStore((state) => state.fields);
+
+  const saveDocTypeField = useBoundStore((state) => state.saveDocTypeField);
+
   const onSubmitHandler = (data) => {
+    if (!id) {
+      saveDocTypeField(data);
+    } else {
+      updateDocTypeField(data);
+    }
+    reset();
     handleOpen();
     console.log(data);
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getDepartments();
+    getDocTypes();
+    getFields();
+    if (!id) return;
+    getDocTypeFields();
+    const newDoctype = docTypeFields.find((f) => f._id === id);
+    if (!newDoctype) return;
+    setValue("_id", newDoctype._id);
+    setValue("departmentId", newDoctype.department._id);
+    setValue("doctypeId", newDoctype.doctype._id);
+    setValue("fieldId", newDoctype.field._id);
+  }, [id]);
   return (
     <>
       {open ? (
@@ -35,7 +72,10 @@ const DocTypeFieldForm = (props) => {
                   type="button"
                   className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
                   data-modal-hide="authentication-modal"
-                  onClick={handleOpen}
+                  onClick={() => {
+                    handleOpen();
+                    reset();
+                  }}
                 >
                   <svg
                     aria-hidden="true"
@@ -54,71 +94,64 @@ const DocTypeFieldForm = (props) => {
                 </button>
                 <div className="px-6 py-6 lg:px-8">
                   <h3 className="mb-4 text-xl font-bold text-gray-900 dark:text-white ">
-                    Add Document Type Fields
+                    {!id ? "Add" : "Edit"} Document Type Fields
                   </h3>
                   <form
                     className="space-y-6"
                     onSubmit={handleSubmit(onSubmitHandler)}
                   >
                     <div>
-                      <label
-                        for="department"
-                        className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
-                      >
+                      <label className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">
                         Select Department
                       </label>
 
                       <div className="relative">
                         <select
                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white p-2"
-                          name="department"
-                          {...register("departmentName")}
+                          name="departmentId"
+                          {...register("departmentId")}
                           required
                         >
                           <option value="" hidden>
                             Select Department&hellip;
                           </option>
-                          <option value="1">Item 1</option>
-                          <option value="2">Item 2</option>
-                          <option value="3">Item 3</option>
+                          {departments.map((dept) => (
+                            <option value={dept._id}>
+                              {dept.departmentName}
+                            </option>
+                          ))}
                         </select>
                         <p className="text-red-500 m-1">
-                          {errors.departmentName?.message}
+                          {errors.departmentId?.message}
                         </p>
                       </div>
                     </div>
                     <div>
-                      <label
-                        for="department"
-                        className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
-                      >
+                      <label className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">
                         Select Document Type
                       </label>
 
                       <div className="relative">
                         <select
-                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white p-2"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400  p-2"
                           name="department"
-                          {...register("documentName")}
+                          {...register("doctypeId")}
                           required
                         >
                           <option value="" hidden>
                             Select Document Type&hellip;
                           </option>
-                          <option value="1">Item 1</option>
-                          <option value="2">Item 2</option>
-                          <option value="3">Item 3</option>
+                          {docTypes.map((d) => (
+                            <option value={d._id}>{d.docType}</option>
+                          ))}
                         </select>
                         <p className="text-red-500 m-1">
-                          {errors.documentName?.message}
+                          {errors.doctypeId?.message}
                         </p>
                       </div>
                     </div>
                     <div>
-                      <label
-                        for="department"
-                        className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
-                      >
+                      <label className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">
                         Select Field
                       </label>
 
@@ -126,18 +159,18 @@ const DocTypeFieldForm = (props) => {
                         <select
                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white p-2"
                           name="department"
-                          {...register("fieldName")}
+                          {...register("fieldId")}
                           required
                         >
                           <option value="" hidden>
                             Select Field&hellip;
                           </option>
-                          <option value="1">Item 1</option>
-                          <option value="2">Item 2</option>
-                          <option value="3">Item 3</option>
+                          {fields.map((f, index) => (
+                            <option value={f._id}>{f.fieldName.name}</option>
+                          ))}
                         </select>
                         <p className="text-red-500 m-1">
-                          {errors.fieldName?.message}
+                          {errors.fieldId?.message}
                         </p>
                       </div>
                     </div>

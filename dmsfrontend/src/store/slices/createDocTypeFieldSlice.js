@@ -14,24 +14,24 @@ export const createDocTypeFieldSlice = (set) => ({
       docTypeFields: [response.data, ...state.docTypeFields],
     }));
   },
-  // deleteDepartment: async function (id) {
-  //   const response = await axios.delete(`${apiEndPoint}/${id}`);
-  //   set((state) => ({
-  //     departments: state.departments.filter(
-  //       (dept) => dept._id !== response.data._id
-  //     ),
-  //   }));
-  // },
-  // updateDepartment: async function (data) {
-  //   // console.log(data);
-  //   const response = await axios.patch(`${apiEndPoint}/${data._id}`, data);
-  //   set((state) => {
-  //     const index = state.departments.findIndex((d) => d._id === data._id);
-  //     console.log(index);
-  //     let newDepartments = [...state.departments];
-  //     newDepartments[index] = response.data;
-  //     console.log(newDepartments);
-  //     return { departments: newDepartments };
-  //   });
-  // },
+  deleteDocTypeField: async function (id) {
+    const response = await axios.delete(`${apiEndPoint}/${id}`);
+    set((state) => ({
+      docTypeFields: state.docTypeFields.filter(
+        (d) => d._id !== response.data._id
+      ),
+    }));
+  },
+  updateDocTypeField: async function (data) {
+    // console.log(data);
+    const response = await axios.patch(`${apiEndPoint}/${data._id}`, data);
+    set((state) => {
+      const index = state.docTypeFields.findIndex((d) => d._id === data._id);
+      console.log(index);
+      let newDocTypeField = [...state.docTypeFields];
+      newDocTypeField[index] = response.data;
+      console.log(newDocTypeField);
+      return { docTypeFields: newDocTypeField };
+    });
+  },
 });
