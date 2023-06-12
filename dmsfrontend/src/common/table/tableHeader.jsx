@@ -9,7 +9,7 @@ const TableHeader = (props) => {
       >
         {columns.map((item, index) =>
           index === 0 ? (
-            <div key={new Date().toString()} className={`ml-6`}>
+            <div key={item.path + new Date().toString()} className={`ml-6`}>
               <span
                 className={` tracking-wide text-sm text-blue-700 font-semibold`}
               >

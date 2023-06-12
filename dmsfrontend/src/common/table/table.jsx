@@ -16,7 +16,7 @@ const Table = (props) => {
         <>
           {items.map((item, index) => (
             <div
-              key={item._id}
+              key={item._id + new Date().toString()}
               className="py-3 px-4 mt-2 flex hover:bg-gray-200 rounded-md mx-4 group"
             >
               <div className="w-1 group-hover:bg-blue-500 rounded-md"></div>
@@ -24,7 +24,7 @@ const Table = (props) => {
                 <>
                   {nextItem !== "_id" ? (
                     <div
-                      key={item[nextItem]._id}
+                      key={item[nextItem]._id + new Date().toString()}
                       className={
                         columns.length === 4
                           ? `w-[23%] ml-5`
@@ -56,7 +56,7 @@ const Table = (props) => {
                       </span>
                     </div>
                   ) : (
-                    <span className="hidden"></span>
+                    <span className="hidden" key={item._id}></span>
                   )}
                 </>
               ))}
