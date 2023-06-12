@@ -16,6 +16,7 @@ import { UserService, getOptions } from './users.class.js'
 import { userPath, userMethods } from './users.shared.js'
 import { userSchema } from './users.models.js'
 import { fetchUniqueUserName } from './hooks/uniqueUserName.js'
+import { mailSender } from '../../hooks/mailSender.js'
 
 export * from './users.class.js'
 export * from './users.schema.js'
@@ -46,6 +47,7 @@ export const user = (app) => {
       get: [],
       create: [
         validate.form(userSchema, { abortEarly: false }),
+        mailSender(),
         fetchUniqueUserName(),
         schemaHooks.validateData(userDataValidator),
         schemaHooks.resolveData(userDataResolver)
