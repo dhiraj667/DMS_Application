@@ -19,7 +19,6 @@ const FIELD = () => {
   const getFields = useBoundStore((state) => state.getFields);
   const fields = useBoundStore((state) => state.fields);
   const deleteField = useBoundStore((state) => state.deleteField);
-  const updateField = useBoundStore((state) => state.updateField);
 
   const handleUpdate = (data) => {
     console.log();

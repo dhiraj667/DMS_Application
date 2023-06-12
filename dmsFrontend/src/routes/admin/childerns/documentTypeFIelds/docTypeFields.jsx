@@ -56,6 +56,7 @@ const DOCTYPEFIELDS = () => {
 
   const handleUpdate = (id) => {
     console.log(`Update ${id}`);
+    handleOpen();
   };
 
   const handleDelete = (id) => {
@@ -126,8 +127,8 @@ const DOCTYPEFIELDS = () => {
                 urlName={"doctypefields"}
                 columns={columns}
                 items={departments}
-                handleDelete={handleDelete}
-                handleUpdate={handleUpdate}
+                onHandleDelete={handleDelete}
+                onHandleUpdate={handleUpdate}
               />
             </div>
           </div>

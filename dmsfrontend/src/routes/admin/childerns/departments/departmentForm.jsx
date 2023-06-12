@@ -75,7 +75,7 @@ const DepartmentForm = (props) => {
                 </button>
                 <div className="px-6 py-6 lg:px-8">
                   <h3 className="mb-4 text-xl font-bold text-gray-900 dark:text-white ">
-                    Add Department
+                    {id ? " Edit Department" : " Add Department"}
                   </h3>
                   <form
                     className="space-y-6"
