@@ -31,9 +31,13 @@ const DEPARTMENTS = () => {
   const deleteDepartment = useBoundStore((state) => state.deleteDepartment);
 
   const newDepartments = departments.filter((val) => {
-    if (searchTerm == "") {
+    if (searchTerm === "" || searchTerm.toLowerCase() === "") {
       return val;
     } else if (val.departmentName.includes(searchTerm)) {
+      return val;
+    } else if (
+      val.departmentName.toLowerCase().includes(searchTerm.toLowerCase())
+    ) {
       return val;
     }
   });

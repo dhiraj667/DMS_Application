@@ -33,13 +33,25 @@ const DOCTYPE = () => {
 
   const newDocType = docTypes.filter((val) => {
     console.log(val);
-    if (searchTerm == "") {
+    if (searchTerm == "" || searchTerm.toLowerCase() === "") {
       return val;
     } else if (val.docType.includes(searchTerm)) {
       return val;
     } else if (val.docTypeCode.includes(searchTerm)) {
       return val;
     } else if (val.department.departmentName.includes(searchTerm)) {
+      return val;
+    } else if (val.docType.toLowerCase().includes(searchTerm.toLowerCase())) {
+      return val;
+    } else if (
+      val.docTypeCode.toLowerCase().includes(searchTerm.toLowerCase())
+    ) {
+      return val;
+    } else if (
+      val.department.departmentName
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+    ) {
       return val;
     }
   });
