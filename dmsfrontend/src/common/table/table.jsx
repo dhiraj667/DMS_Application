@@ -5,7 +5,7 @@ import Loader from "../../components/loader";
 import { Link } from "react-router-dom";
 
 const Table = (props) => {
-  const { items, columns, onHandleDelete, onHandleUpdate, loading, urlName } =
+  const { items, columns, onHandleDelete, onHandleUpdate, loading, urlName} =
     props;
   return (
     <>

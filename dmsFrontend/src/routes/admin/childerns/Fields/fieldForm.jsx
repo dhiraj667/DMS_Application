@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,6 +6,7 @@ import { useBoundStore } from "../../../../store/store";
 import { useParams } from "react-router-dom";
 
 const FieldForm = (props) => {
+
   const schema = yup.object().shape({
     name: yup.string().min(3).max(50).required(),
     label: yup.string().min(3).max(50).required(),

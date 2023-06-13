@@ -5,8 +5,18 @@ import Table from "../../../../common/table/table";
 import USERFORM from "./usersForm";
 import { useBoundStore } from "../../../../store/store";
 import { Link } from "react-router-dom";
+import Pagination from "../../../../common/pagination";
 
 const USERS = () => {
+  //searching
+  const [searchTerm,setSearchTerm] = useState("");
+  //pagination
+  const [currentPage,setCurrentPage] = useState(1);
+  const [dataPerPage,setDataPerPage] = useState(4);
+  const lastDataIndex = currentPage * dataPerPage;
+  const firstDataIndex = lastDataIndex - dataPerPage;
+  
+  //othercode
   const [open, setOpen] = useState(false);
   const columns = [
     { path: "userName", header: "User Name" },
@@ -22,13 +32,23 @@ const USERS = () => {
   const deleteUser = useBoundStore((state) => state.deleteUser);
   const getDepartments = useBoundStore((state) => state.getDepartments);
   const departments = useBoundStore((state) => state.departments);
-  console.log(users);
+  
+
   const newUsers = users.map((user) => ({
     _id: user._id,
     userName: user.userName,
     departmentName: `[${user.departments}]`,
   }));
-  console.log(newUsers);
+
+  const newUsersF=newUsers.filter((val)=>{
+    if (searchTerm =="") {
+      return val
+    }else if(val.userName.includes(searchTerm)){
+      return val
+    }
+  })
+
+  const user = newUsersF.slice(firstDataIndex,lastDataIndex);
 
   useEffect(() => {
     getUsers()
@@ -103,6 +123,9 @@ const USERS = () => {
                   <i className="fa fa-search"></i>
                 </span>
                 <input
+                  onChange={(event)=>{
+                    setSearchTerm(event.target.value)
+                  }}
                   className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full pl-10 py-2 px-4 font-bold leading-tight focus:outline-none  text-gray-500"
                   id="inline-searcg"
                   type="text"
@@ -112,11 +135,12 @@ const USERS = () => {
               <Table
                 urlName={"users"}
                 columns={columns}
-                items={newUsers}
+                items={user}
                 onHandleDelete={handleDelete}
                 onHandleUpdate={handleUpdate}
                 loading={loading}
               />
+              <Pagination total={newUsers.length} pageSize={dataPerPage} setCurrentPage={setCurrentPage} />
             </div>
           </div>
         </div>

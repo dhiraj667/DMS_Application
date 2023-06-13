@@ -5,8 +5,17 @@ import Table from "../../../../common/table/table";
 import FieldForm from "./fieldForm";
 import { useBoundStore } from "../../../../store/store";
 import { Link } from "react-router-dom";
+import Pagination from "../../../../common/pagination";
 
 const FIELD = () => {
+  //searching
+  const [searchTerm,setSearchTerm] = useState("")
+  //pagination
+  const [currentPage,setCurrentPage] = useState(1);
+  const [dataPerPage,setDataPerPage] = useState(4);
+  const lastDataIndex = currentPage * dataPerPage;
+  const firstDataIndex = lastDataIndex - dataPerPage;
+
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const handleOpen = () => setOpen(!open);
@@ -33,7 +42,17 @@ const FIELD = () => {
     _id: field._id,
     name: field.fieldName.name,
   }));
-  console.log(newFields);
+
+  const newFieldsF=newFields.filter((val)=>{
+    if (searchTerm =="") {
+      return val
+    }else if(val.name.includes(searchTerm)){
+      return val
+    }
+  })
+
+  const field = newFieldsF.slice(firstDataIndex,lastDataIndex)
+
   useEffect(() => {
     getFields()
       .then((res) => setLoading(false))
@@ -91,6 +110,9 @@ const FIELD = () => {
                   <i className="fa fa-search"></i>
                 </span>
                 <input
+                  onChange={(event)=>{
+                    setSearchTerm(event.target.value)
+                  }}
                   className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full pl-10 py-2 px-4 font-bold leading-tight focus:outline-none  text-gray-500"
                   id="inline-searcg"
                   type="text"
@@ -100,11 +122,12 @@ const FIELD = () => {
               <Table
                 urlName={"fields"}
                 columns={columns}
-                items={newFields}
+                items={field}
                 onHandleDelete={handleDelete}
                 onHandleUpdate={handleUpdate}
                 loading={loading}
               />
+              <Pagination total={newFields.length} pageSize={dataPerPage} setCurrentPage={setCurrentPage}/>
             </div>
           </div>
         </div>

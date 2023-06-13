@@ -34,6 +34,7 @@ function App() {
         className="bg-gray-100 min-h-screen"
         x-data="{panel:false, menu:true}"
       >
+<<<<<<< HEAD
         {(login && canShowNavBar()) || sessionStorage.getItem("loginData") ? (
           <>
             <NavBar setLogin={setLogin} />
@@ -41,6 +42,24 @@ function App() {
         ) : (
           <></>
         )}
+=======
+        <div className="text-gray-800">
+          <NavBar role="Admin" />
+          <Routes>
+            <Route path="/" element={<Admin />}>
+              <Route index element={<Admin />} />
+            </Route>
+            <Route path="/departments" element={<DEPARTMENTS />} />
+            <Route path="/departments/:id" element={<DEPARTMENTS />} />
+            <Route path="/users" element={<USERS />} />
+            <Route path="/users/:id" element={<USERS />} />
+            <Route path="/doctypes" element={<DOCTYPE />} />
+            <Route path="/doctypes/:id" element={<DOCTYPE />} />
+            <Route path="/fields" element={<FIELD />} />
+            <Route path="/fields/:id" element={<FIELD />} />
+            <Route path="/doctypefields" element={<DOCTYPEFIELDS />} />
+            <Route path="/doctypefields/:id" element={<DOCTYPEFIELDS />} />
+>>>>>>> 27fdd0f74e51055a5aa865775a51d066283d541d
 
         <div className="text-gray-800">
           <Routes>

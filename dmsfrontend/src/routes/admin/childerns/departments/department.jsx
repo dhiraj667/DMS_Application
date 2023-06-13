@@ -4,10 +4,18 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import Table from "../../../../common/table/table";
 import DepartmentForm from "./departmentForm";
 import { useBoundStore } from "../../../../store/store";
-import Loader from "../../../../components/loader";
 import { Link } from "react-router-dom";
+import Pagination from "../../../../common/pagination";
 
 const DEPARTMENTS = () => {
+  const [searchTerm, setSearchTerm] = useState("")
+  //pagination
+  // const totalDept = departments.length;
+  // console.log(totalDept);
+  const [currentPage,setCurrentPage] = useState(1);
+  const [dataPerPage,setDataPerPage] = useState(4);
+  const lastDataIndex = currentPage * dataPerPage;
+  const firstDataIndex = lastDataIndex - dataPerPage;
   //states
   const columns = [
     { path: "department Name", header: "Department Name" },
@@ -21,6 +29,15 @@ const DEPARTMENTS = () => {
   const getDepartments = useBoundStore((state) => state.getDepartments);
   const departments = useBoundStore((state) => state.departments);
   const deleteDepartment = useBoundStore((state) => state.deleteDepartment);
+
+  const newDepartments=departments.filter((val)=>{
+    if (searchTerm =="") {
+      return val
+    }else if(val.departmentName.includes(searchTerm)){
+      return val
+    }
+  })
+  const department = newDepartments.slice(firstDataIndex,lastDataIndex);
 
   const handleDelete = (id) => {
     deleteDepartment(id);
@@ -38,8 +55,7 @@ const DEPARTMENTS = () => {
       })
       .catch((err) => console.log(err));
   }, []);
-
-  console.log(departments);
+  
   return (
     <>
       <DepartmentForm handleOpen={handleOpen} open={open} id={id} />
@@ -90,7 +106,10 @@ const DEPARTMENTS = () => {
                 <span className="relative left-6">
                   <i className="fa fa-search"></i>
                 </span>
-                <input
+                <input 
+                  onChange={(event)=>{
+                    setSearchTerm(event.target.value);
+                  }}
                   className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full pl-10 py-2 px-4 font-bold leading-tight focus:outline-none  text-gray-500"
                   id="inline-searcg"
                   type="text"
@@ -101,13 +120,14 @@ const DEPARTMENTS = () => {
               <Table
                 urlName={"departments"}
                 columns={columns}
-                items={departments}
+                items={department}
                 onHandleDelete={handleDelete}
                 onHandleUpdate={handleUpdate}
                 loading={loading}
               />
-            </div>
-          </div>
+              <Pagination total={departments.length} pageSize={dataPerPage} setCurrentPage={setCurrentPage}/>
+              </div>
+              </div>
         </div>
       </div>
     </>

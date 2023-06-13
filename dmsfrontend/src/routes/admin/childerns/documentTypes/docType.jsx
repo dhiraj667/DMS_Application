@@ -4,8 +4,17 @@ import Table from "../../../../common/table/table";
 import DocumentTypeForm from "./docTypeForm";
 import { useBoundStore } from "../../../../store/store";
 import { Link } from "react-router-dom";
+import Pagination from "../../../../common/pagination";
 
 const DOCTYPE = () => {
+  //searching
+  const [searchTerm,setSearchTerm]=useState("");
+    //pagination
+  const [currentPage,setCurrentPage] = useState(1);
+  const [dataPerPage,setDataPerPage] = useState(4);
+  const lastDataIndex = currentPage * dataPerPage;
+  const firstDataIndex = lastDataIndex - dataPerPage;
+  
   const columns = [
     { path: "docTypeCode", header: "Document Type Code" },
     { path: "docType", header: "Document Type" },
@@ -15,12 +24,28 @@ const DOCTYPE = () => {
 
   const [id, setId] = useState("");
   const [loading, setLoading] = useState(true);
-  const docTypes = useBoundStore((state) => state.docTypes);
   const getDocTypes = useBoundStore((state) => state.getDocTypes);
+  const docTypes = useBoundStore((state) => state.docTypes);
   const getDepartments = useBoundStore((state) => state.getDepartments);
   const departments = useBoundStore((state) => state.departments);
   const deleteDocType = useBoundStore((state) => state.deleteDocType);
   const [open, setOpen] = useState(false);
+
+  const newDocType=docTypes.filter((val)=>{
+    console.log(val);
+    if (searchTerm =="") {
+      return val
+    }else if((val.docType).includes(searchTerm)){
+      return val
+    } else if((val.docTypeCode).includes(searchTerm)){
+      return val
+    } else if(val.department.departmentName.includes(searchTerm)){
+       return val
+    }
+    
+  })
+
+  const docType = newDocType.slice(firstDataIndex,lastDataIndex);
 
   const handleOpen = () => setOpen(!open);
 
@@ -100,6 +125,9 @@ const DOCTYPE = () => {
                   <i className="fa fa-search"></i>
                 </span>
                 <input
+                onChange={(event)=>{
+                  setSearchTerm(event.target.value)
+                }}
                   className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full pl-10 py-2 px-4 font-bold leading-tight focus:outline-none  text-gray-500"
                   id="inline-searcg"
                   type="text"
@@ -109,11 +137,12 @@ const DOCTYPE = () => {
               <Table
                 urlName={"doctypes"}
                 columns={columns}
-                items={docTypes}
+                items={docType}
                 onHandleDelete={handleDelete}
                 onHandleUpdate={handleUpdate}
                 loading={loading}
               />
+              <Pagination total={docTypes.length} pageSize={dataPerPage} setCurrentPage={setCurrentPage}/>
             </div>
           </div>
         </div>
