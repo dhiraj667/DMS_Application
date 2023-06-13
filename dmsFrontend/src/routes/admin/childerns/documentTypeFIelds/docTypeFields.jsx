@@ -7,6 +7,8 @@ import { useBoundStore } from "../../../../store/store";
 import { Link } from "react-router-dom";
 import Pagination from "../../../../common/pagination";
 const DOCTYPEFIELDS = () => {
+  //searching
+  const [searchTerm,setSearchTerm] =useState("");
   //pagination
   const [currentPage,setCurrentPage] = useState(1);
   const [dataPerPage,setDataPerPage] = useState(2);
@@ -34,7 +36,18 @@ const DOCTYPEFIELDS = () => {
     docType: d.doctype.docType,
   }));
 
-  const docTypeField = newDocTypefields.slice(firstDataIndex,lastDataIndex);
+  const newDocTypeFieldsF=newDocTypefields.filter((val)=>{
+    if (searchTerm =="") {
+      return val
+    }else if((val.fieldName).includes(searchTerm)){
+      return val
+    } else if((val.docType).includes(searchTerm)){
+      return val
+    }
+    
+  })
+
+  const docTypeField = newDocTypeFieldsF.slice(firstDataIndex,lastDataIndex);
 
   const [open, setOpen] = useState(false);
 
@@ -112,6 +125,9 @@ const DOCTYPEFIELDS = () => {
                   <i className="fa fa-search"></i>
                 </span>
                 <input
+                onChange={(event)=>{
+                  setSearchTerm(event.target.value)
+                }}
                   className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full pl-10 py-2 px-4 font-bold leading-tight focus:outline-none  text-gray-500"
                   id="inline-searcg"
                   type="text"
