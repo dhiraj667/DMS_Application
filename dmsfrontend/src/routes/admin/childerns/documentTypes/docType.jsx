@@ -8,13 +8,13 @@ import Pagination from "../../../../common/pagination";
 
 const DOCTYPE = () => {
   //searching
-  const [searchTerm,setSearchTerm]=useState("");
-    //pagination
-  const [currentPage,setCurrentPage] = useState(1);
-  const [dataPerPage,setDataPerPage] = useState(4);
+  const [searchTerm, setSearchTerm] = useState("");
+  //pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [dataPerPage, setDataPerPage] = useState(4);
   const lastDataIndex = currentPage * dataPerPage;
   const firstDataIndex = lastDataIndex - dataPerPage;
-  
+
   const columns = [
     { path: "docTypeCode", header: "Document Type Code" },
     { path: "docType", header: "Document Type" },
@@ -31,21 +31,20 @@ const DOCTYPE = () => {
   const deleteDocType = useBoundStore((state) => state.deleteDocType);
   const [open, setOpen] = useState(false);
 
-  const newDocType=docTypes.filter((val)=>{
+  const newDocType = docTypes.filter((val) => {
     console.log(val);
-    if (searchTerm =="") {
-      return val
-    }else if((val.docType).includes(searchTerm)){
-      return val
-    } else if((val.docTypeCode).includes(searchTerm)){
-      return val
-    } else if(val.department.departmentName.includes(searchTerm)){
-       return val
+    if (searchTerm == "") {
+      return val;
+    } else if (val.docType.includes(searchTerm)) {
+      return val;
+    } else if (val.docTypeCode.includes(searchTerm)) {
+      return val;
+    } else if (val.department.departmentName.includes(searchTerm)) {
+      return val;
     }
-    
-  })
+  });
 
-  const docType = newDocType.slice(firstDataIndex,lastDataIndex);
+  const docType = newDocType.slice(firstDataIndex, lastDataIndex);
 
   const handleOpen = () => setOpen(!open);
 
@@ -119,15 +118,15 @@ const DOCTYPE = () => {
                 </Link>
               </div>
             </div>
-            <div className="py-3 sm:px-6 lg:px-3 mt-3  bg-white drop-shadow-2xl rounded-2xl overflow-auto">
+            <div className="py-3 sm:px-6 lg:px-3 mt-3  bg-white drop-shadow-2xl rounded-2xl overflow-auto h-[66vh]">
               <div className="flex items-center mr-4">
                 <span className="relative left-6">
                   <i className="fa fa-search"></i>
                 </span>
                 <input
-                onChange={(event)=>{
-                  setSearchTerm(event.target.value)
-                }}
+                  onChange={(event) => {
+                    setSearchTerm(event.target.value);
+                  }}
                   className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full pl-10 py-2 px-4 font-bold leading-tight focus:outline-none  text-gray-500"
                   id="inline-searcg"
                   type="text"
@@ -142,7 +141,11 @@ const DOCTYPE = () => {
                 onHandleUpdate={handleUpdate}
                 loading={loading}
               />
-              <Pagination total={docTypes.length} pageSize={dataPerPage} setCurrentPage={setCurrentPage}/>
+              <Pagination
+                total={docTypes.length}
+                pageSize={dataPerPage}
+                setCurrentPage={setCurrentPage}
+              />
             </div>
           </div>
         </div>
