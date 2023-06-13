@@ -40,9 +40,11 @@ const USERS = () => {
   }));
 
   const newUsersF=newUsers.filter((val)=>{
-    if (searchTerm =="") {
+    if (searchTerm =="" || searchTerm.toLowerCase()==="") {
       return val
     }else if(val.userName.includes(searchTerm)){
+      return val
+    }else if(val.userName.toLowerCase().includes(searchTerm.toLowerCase())){
       return val
     }
   })

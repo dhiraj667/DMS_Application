@@ -37,11 +37,15 @@ const DOCTYPEFIELDS = () => {
   }));
 
   const newDocTypeFieldsF=newDocTypefields.filter((val)=>{
-    if (searchTerm =="") {
+    if (searchTerm =="" || searchTerm.toLowerCase()==="") {
       return val
     }else if((val.fieldName).includes(searchTerm)){
       return val
     } else if((val.docType).includes(searchTerm)){
+      return val
+    }else if(val.fieldName.toLowerCase().includes(searchTerm.toLowerCase())){
+      return val
+    } else if(val.docType.toLowerCase().includes(searchTerm.toLowerCase())){
       return val
     }
     
