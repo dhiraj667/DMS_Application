@@ -38,6 +38,7 @@ const USERFORM = (props) => {
 
   const onSubmitHandler = (data) => {
     if (!id) {
+      data = { ...data, role: "Indexer" };
       saveUser(data);
     } else {
       updateUser(data);

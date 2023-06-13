@@ -1,106 +1,145 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate, Link } from "react-router-dom";
+import bgImage from "../../assests/images/img6.png";
+import log0 from "../../assests/images/log0.jpg";
+import { useBoundStore } from "../../store/store";
 
-const Login = () => {
+const Login = ({ setLogin }) => {
+  const schema = yup.object().shape({
+    userName: yup.string().min(3).max(366).required(),
+    password: yup.string().min(8).max(1024).required(),
+  });
+  const navigate = useNavigate();
+  const loginUser = useBoundStore((state) => state.loginUser);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
+
+  const onSubmitHandler = (data) => {
+    console.log(data);
+    loginUser(data)
+      .then((res) => {
+        const role = res.data.user.role;
+        setLogin(true);
+        if (role === "Admin") {
+          navigate("/");
+        } else {
+          navigate("/allDoc");
+        }
+      })
+      .catch((err) => {
+        console.log("wrong data");
+      });
+    // setLoginData(data);
+  };
+
   return (
     <>
-      <div class="bg-gray-200 min-h-screen font-sans">
-        <div class="max-w-sm mx-auto px-6">
-          <div class="relative flex flex-wrap">
-            <div class="w-full relative">
-              <div class="mt-6">
-                <div class="mb-5 pb-1border-b-2 text-center font-base text-gray-700">
-                  <span>
-                    By{" "}
-                    <a
-                      class="text-blue-500"
-                      href="https://twitter.com/framansi"
-                    >
-                      @framansi
-                    </a>
-                  </span>
-                </div>
-                <div class="text-center font-semibold text-black">
-                  Lorem ipsum dolor, sit amet?
-                </div>
+      {" "}
+      <div className="  h-screen w-90 mx-3">
+        <div className="pt-8"></div>
+        <div className="w-3/4 m-auto shadow-lg shadow-blue-100/50 bg-blue-200 px-5 rounded-md">
+          <ul className="nav justify-end  flex flex-row  ">
+            <li className="nav-item me-4 mt-4 mb-4 font-bold italic">
+              <Link className="nav-link" to="/aboutus">
+                ABOUT US
+              </Link>
+            </li>
+            <li className="nav-item mt-4 mb-4 font-bold italic text-orange-500">
+              <Link className="nav-link" to="/login">
+                LOGIN
+              </Link>
+            </li>
+          </ul>
 
-                <form class="mt-8">
-                  <div class="mx-auto max-w-lg">
-                    <div class="py-2">
-                      <span class="px-1 text-sm text-gray-600">Username</span>
+          <div className="border-black">
+            <div className="g-6 flex  flex-wrap items-center justify-center lg:justify-between">
+              <div className="bg-repeat mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12 rounded-lg">
+                <img src={bgImage} className="w-full rounded-lg" alt="" />
+              </div>
+
+              <div className="mb-6 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12 ">
+                <form
+                  className="bg-white shadow-md rounded-lg  pt-3 pb-8 mb-4"
+                  onSubmit={handleSubmit(onSubmitHandler)}
+                >
+                  <div className=" w-96 mb-5 ">
+                    <img
+                      src={
+                        "https://www.pngfind.com/pngs/b/229-2295347_document-png.png"
+                      }
+                      className=" w-1/4  my-3 mx-auto"
+                      alt=""
+                    />
+                    <div className="font-lg text-3xl font-black text-center text-orange-500">
+                      <h1>WELCOME</h1>
+                    </div>
+                  </div>
+                  <div className="w-3/4 m-auto">
+                    <div className="mb-4">
+                      <label className="block text-gray-700 text-sm font-bold mb-2">
+                        Username
+                      </label>
                       <input
-                        placeholder=""
+                        {...register("userName")}
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="username"
                         type="text"
-                        class="text-md block px-3 py-2  rounded-lg w-full 
-                bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none"
+                        placeholder="Username"
                       />
                     </div>
-                    <div class="py-2" x-data="{ show: true }">
-                      <span class="px-1 text-sm text-gray-600">Password</span>
-                      <div class="relative">
-                        <input
-                          placeholder=""
-                          class="text-md block px-3 py-2 rounded-lg w-full 
-                bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md
-                focus:placeholder-gray-500
-                focus:bg-white 
-                focus:border-gray-600  
-                focus:outline-none"
-                        />
-                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
-                          <svg
-                            class="h-6 text-gray-700"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewbox="0 0 576 512"
-                          >
-                            <path
-                              fill="currentColor"
-                              d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z"
-                            ></path>
-                          </svg>
-
-                          <svg
-                            class="h-6 text-gray-700"
-                            fill="none"
-                            viewbox="0 0 640 512"
-                          >
-                            <path
-                              fill="currentColor"
-                              d="M320 400c-75.85 0-137.25-58.71-142.9-133.11L72.2 185.82c-13.79 17.3-26.48 35.59-36.72 55.59a32.35 32.35 0 0 0 0 29.19C89.71 376.41 197.07 448 320 448c26.91 0 52.87-4 77.89-10.46L346 397.39a144.13 144.13 0 0 1-26 2.61zm313.82 58.1l-110.55-85.44a331.25 331.25 0 0 0 81.25-102.07 32.35 32.35 0 0 0 0-29.19C550.29 135.59 442.93 64 320 64a308.15 308.15 0 0 0-147.32 37.7L45.46 3.37A16 16 0 0 0 23 6.18L3.37 31.45A16 16 0 0 0 6.18 53.9l588.36 454.73a16 16 0 0 0 22.46-2.81l19.64-25.27a16 16 0 0 0-2.82-22.45zm-183.72-142l-39.3-30.38A94.75 94.75 0 0 0 416 256a94.76 94.76 0 0 0-121.31-92.21A47.65 47.65 0 0 1 304 192a46.64 46.64 0 0 1-1.54 10l-73.61-56.89A142.31 142.31 0 0 1 320 112a143.92 143.92 0 0 1 144 144c0 21.63-5.29 41.79-13.9 60.11z"
-                            ></path>
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flex justify-between">
-                      <label class="block text-gray-500 font-bold my-4">
-                        <input
-                          type="checkbox"
-                          class="leading-loose text-pink-600"
-                        />{" "}
-                        <span class="py-2 text-sm text-gray-600 leading-snug">
-                          {" "}
-                          Remember Me{" "}
-                        </span>
-                      </label>{" "}
-                      <label class="block text-gray-500 font-bold my-4">
-                        <a
-                          href="#"
-                          class="cursor-pointer tracking-tighter text-black border-b-2 border-gray-200 hover:border-gray-400"
-                        >
-                          <span>Forgot Password?</span>
-                        </a>
+                    <div className="mb-6">
+                      <label className="block text-gray-700 text-sm font-bold mb-2">
+                        Password
                       </label>
-                    </div>{" "}
-                    <button
-                      class="mt-3 text-lg font-semibold 
-                bg-gray-800 w-full text-white rounded-lg
-                px-6 py-3 block shadow-xl hover:text-white hover:bg-black"
-                    >
+                      <input
+                        {...register("password")}
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="password"
+                        type="password"
+                        placeholder="******************"
+                      />
+                      {/* <p className="text-red-500 text-xs italic">
+                        Please choose a password.
+                      </p> */}
+                    </div>
+                  </div>
+                  <div className="text-center lg:text-centre justify-items-start">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border  lg w-3/4">
                       Login
                     </button>
                   </div>
+                  <div className="mb-6 flex items-center justify-between">
+                    <span className="ml-20 font-semibold text-sm mt-2 ">
+                      {" "}
+                      <Link
+                        to="/register"
+                        style={{ cursor: "pointer" }}
+                        className="text-center"
+                      >
+                        Create account
+                      </Link>
+                    </span>
+
+                    <span className="mr-20 font-extralight text-sm mt-2 ">
+                      <Link
+                        to="/forgetPassword"
+                        className="align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 text-center"
+                      >
+                        Forgot password?
+                      </Link>
+                    </span>
+                  </div>
                 </form>
+                <p className="text-center text-gray-500 text-xs my-2">
+                  &copy;2023 VAST Corp. All rights reserved.
+                </p>
               </div>
             </div>
           </div>
@@ -109,5 +148,4 @@ const Login = () => {
     </>
   );
 };
-
 export default Login;

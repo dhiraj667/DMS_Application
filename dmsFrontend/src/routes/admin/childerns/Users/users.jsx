@@ -15,7 +15,8 @@ const USERS = () => {
   ];
 
   const [loading, setLoading] = useState(true);
-
+  const a = sessionStorage.getItem("loginData");
+  console.log(a);
   const getUsers = useBoundStore((state) => state.getUsers);
   const users = useBoundStore((state) => state.users);
   const deleteUser = useBoundStore((state) => state.deleteUser);
