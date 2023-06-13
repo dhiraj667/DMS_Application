@@ -5,7 +5,14 @@ import Table from "../../../../common/table/table";
 import DocTypeFieldForm from "./docTypeFieldFrom";
 import { useBoundStore } from "../../../../store/store";
 import { Link } from "react-router-dom";
+import Pagination from "../../../../common/pagination";
 const DOCTYPEFIELDS = () => {
+  //pagination
+  const [currentPage,setCurrentPage] = useState(1);
+  const [dataPerPage,setDataPerPage] = useState(2);
+  const lastDataIndex = currentPage * dataPerPage;
+  const firstDataIndex = lastDataIndex - dataPerPage;
+  
   const [loading, setLoading] = useState(true);
   const columns = [
     { path: "fieldName", header: "Field Name" },
@@ -27,7 +34,7 @@ const DOCTYPEFIELDS = () => {
     docType: d.doctype.docType,
   }));
 
-  console.log(newDocTypefields);
+  const docTypeField = newDocTypefields.slice(firstDataIndex,lastDataIndex);
 
   const [open, setOpen] = useState(false);
 
@@ -114,11 +121,12 @@ const DOCTYPEFIELDS = () => {
               <Table
                 urlName={"doctypefields"}
                 columns={columns}
-                items={newDocTypefields}
+                items={docTypeField}
                 onHandleDelete={handleDelete}
                 onHandleUpdate={handleUpdate}
                 loading={loading}
               />
+              <Pagination total={newDocTypefields.length} pageSize={dataPerPage} setCurrentPage={setCurrentPage}/>
             </div>
           </div>
         </div>

@@ -5,8 +5,15 @@ import Table from "../../../../common/table/table";
 import FieldForm from "./fieldForm";
 import { useBoundStore } from "../../../../store/store";
 import { Link } from "react-router-dom";
+import Pagination from "../../../../common/pagination";
 
 const FIELD = () => {
+  //pagination
+  const [currentPage,setCurrentPage] = useState(1);
+  const [dataPerPage,setDataPerPage] = useState(2);
+  const lastDataIndex = currentPage * dataPerPage;
+  const firstDataIndex = lastDataIndex - dataPerPage;
+
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const handleOpen = () => setOpen(!open);
@@ -33,7 +40,9 @@ const FIELD = () => {
     _id: field._id,
     name: field.fieldName.name,
   }));
-  console.log(newFields);
+
+  const field = newFields.slice(firstDataIndex,lastDataIndex)
+
   useEffect(() => {
     getFields()
       .then((res) => setLoading(false))
@@ -100,11 +109,12 @@ const FIELD = () => {
               <Table
                 urlName={"fields"}
                 columns={columns}
-                items={newFields}
+                items={field}
                 onHandleDelete={handleDelete}
                 onHandleUpdate={handleUpdate}
                 loading={loading}
               />
+              <Pagination total={newFields.length} pageSize={dataPerPage} setCurrentPage={setCurrentPage}/>
             </div>
           </div>
         </div>

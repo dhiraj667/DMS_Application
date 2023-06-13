@@ -6,7 +6,7 @@ export const createDepartmentSlice = (set) => ({
   departments: [],
   getDepartments: async function () {
     const response = await axios.get(apiEndPoint);
-    console.log(response.data);
+    console.log(response.data.total);
     console.log(response.data.data);
     set(() => ({ departments: response.data.data }));
   },
@@ -21,7 +21,7 @@ export const createDepartmentSlice = (set) => ({
     set((state) => ({
       departments: state.departments.filter(
         (dept) => dept._id !== response.data._id
-      ),
+      ), 
     }));
   },
   updateDepartment: async function (data) {
