@@ -11,7 +11,7 @@ const DOCTYPEFIELDS = () => {
   const [searchTerm,setSearchTerm] =useState("");
   //pagination
   const [currentPage,setCurrentPage] = useState(1);
-  const [dataPerPage,setDataPerPage] = useState(2);
+  const [dataPerPage,setDataPerPage] = useState(4);
   const lastDataIndex = currentPage * dataPerPage;
   const firstDataIndex = lastDataIndex - dataPerPage;
   
