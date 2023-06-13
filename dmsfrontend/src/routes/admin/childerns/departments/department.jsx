@@ -6,8 +6,16 @@ import DepartmentForm from "./departmentForm";
 import { useBoundStore } from "../../../../store/store";
 import Loader from "../../../../components/loader";
 import { Link } from "react-router-dom";
+import Pagination from "../../../../common/pagination";
 
 const DEPARTMENTS = () => {
+    //pagination
+  // const totalDept = departments.length;
+  // console.log(totalDept);
+  const [currentPage,setCurrentPage] = useState(1);
+  const [dataPerPage,setDataPerPage] = useState(2);
+  const lastDataIndex = currentPage * dataPerPage;
+  const firstDataIndex = lastDataIndex - dataPerPage;
   //states
   const columns = [
     { path: "department Name", header: "Department Name" },
@@ -21,6 +29,8 @@ const DEPARTMENTS = () => {
   const getDepartments = useBoundStore((state) => state.getDepartments);
   const departments = useBoundStore((state) => state.departments);
   const deleteDepartment = useBoundStore((state) => state.deleteDepartment);
+
+  const department = departments.slice(firstDataIndex,lastDataIndex);
 
   const handleDelete = (id) => {
     deleteDepartment(id);
@@ -40,6 +50,7 @@ const DEPARTMENTS = () => {
   }, []);
 
   console.log(departments);
+  
   return (
     <>
       <DepartmentForm handleOpen={handleOpen} open={open} id={id} />
@@ -101,13 +112,14 @@ const DEPARTMENTS = () => {
               <Table
                 urlName={"departments"}
                 columns={columns}
-                items={departments}
+                items={department}
                 onHandleDelete={handleDelete}
                 onHandleUpdate={handleUpdate}
                 loading={loading}
               />
-            </div>
-          </div>
+              <Pagination total={departments.length} pageSize={dataPerPage} setCurrentPage={setCurrentPage}/>
+              </div>
+              </div>
         </div>
       </div>
     </>

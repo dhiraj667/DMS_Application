@@ -4,8 +4,15 @@ import Table from "../../../../common/table/table";
 import DocumentTypeForm from "./docTypeForm";
 import { useBoundStore } from "../../../../store/store";
 import { Link } from "react-router-dom";
+import Pagination from "../../../../common/pagination";
 
 const DOCTYPE = () => {
+  //pagination
+  const [currentPage,setCurrentPage] = useState(1);
+  const [dataPerPage,setDataPerPage] = useState(2);
+  const lastDataIndex = currentPage * dataPerPage;
+  const firstDataIndex = lastDataIndex - dataPerPage;
+  
   const columns = [
     { path: "docTypeCode", header: "Document Type Code" },
     { path: "docType", header: "Document Type" },
@@ -15,12 +22,14 @@ const DOCTYPE = () => {
 
   const [id, setId] = useState("");
   const [loading, setLoading] = useState(true);
-  const docTypes = useBoundStore((state) => state.docTypes);
   const getDocTypes = useBoundStore((state) => state.getDocTypes);
+  const docTypes = useBoundStore((state) => state.docTypes);
   const getDepartments = useBoundStore((state) => state.getDepartments);
   const departments = useBoundStore((state) => state.departments);
   const deleteDocType = useBoundStore((state) => state.deleteDocType);
   const [open, setOpen] = useState(false);
+
+  const docType = docTypes.slice(firstDataIndex,lastDataIndex);
 
   const handleOpen = () => setOpen(!open);
 
@@ -109,11 +118,12 @@ const DOCTYPE = () => {
               <Table
                 urlName={"doctypes"}
                 columns={columns}
-                items={docTypes}
+                items={docType}
                 onHandleDelete={handleDelete}
                 onHandleUpdate={handleUpdate}
                 loading={loading}
               />
+              <Pagination total={docTypes.length} pageSize={dataPerPage} setCurrentPage={setCurrentPage}/>
             </div>
           </div>
         </div>

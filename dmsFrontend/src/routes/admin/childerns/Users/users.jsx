@@ -5,8 +5,16 @@ import Table from "../../../../common/table/table";
 import USERFORM from "./usersForm";
 import { useBoundStore } from "../../../../store/store";
 import { Link } from "react-router-dom";
+import Pagination from "../../../../common/pagination";
 
 const USERS = () => {
+  //pagination
+  const [currentPage,setCurrentPage] = useState(1);
+  const [dataPerPage,setDataPerPage] = useState(2);
+  const lastDataIndex = currentPage * dataPerPage;
+  const firstDataIndex = lastDataIndex - dataPerPage;
+  
+  //othercode
   const [open, setOpen] = useState(false);
   const columns = [
     { path: "userName", header: "User Name" },
@@ -21,13 +29,15 @@ const USERS = () => {
   const deleteUser = useBoundStore((state) => state.deleteUser);
   const getDepartments = useBoundStore((state) => state.getDepartments);
   const departments = useBoundStore((state) => state.departments);
-  console.log(users);
+  
+
   const newUsers = users.map((user) => ({
     _id: user._id,
     userName: user.userName,
     departmentName: `[${user.departments}]`,
   }));
-  console.log(newUsers);
+
+  const user = newUsers.slice(firstDataIndex,lastDataIndex);
 
   useEffect(() => {
     getUsers()
@@ -111,11 +121,12 @@ const USERS = () => {
               <Table
                 urlName={"users"}
                 columns={columns}
-                items={newUsers}
+                items={user}
                 onHandleDelete={handleDelete}
                 onHandleUpdate={handleUpdate}
                 loading={loading}
               />
+              <Pagination total={newUsers.length} pageSize={dataPerPage} setCurrentPage={setCurrentPage}/>
             </div>
           </div>
         </div>

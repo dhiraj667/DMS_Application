@@ -22,7 +22,7 @@ function App() {
         x-data="{panel:false, menu:true}"
       >
         <div className="text-gray-800">
-          <NavBar role="indexer" />
+          <NavBar role="Admin" />
           <Routes>
             <Route path="/" element={<Admin />}>
               <Route index element={<Admin />} />
