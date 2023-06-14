@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,8 +6,11 @@ import { useNavigate, Link } from "react-router-dom";
 import bgImage from "../../assests/images/img6.png";
 import log0 from "../../assests/images/log0.jpg";
 import { useBoundStore } from "../../store/store";
+import ForgetPass from "./forgetPassword";
 
 const Login = ({ setLogin }) => {
+  const [show,setShow]=useState(false);
+
   const schema = yup.object().shape({
     userName: yup.string().min(3).max(366).required(),
     password: yup.string().min(8).max(1024).required(),
@@ -43,7 +46,9 @@ const Login = ({ setLogin }) => {
     <>
       {" "}
       <div className="  h-screen w-90 mx-3">
-        <div className="pt-8"></div>
+        <div className="pt-8">
+        <ForgetPass show={show} onClose={()=>setShow(false)}/>
+        </div>
         <div className="w-3/4 m-auto shadow-lg shadow-blue-100/50 bg-blue-200 px-5 rounded-md">
           <ul className="nav justify-end  flex flex-row  ">
             <li className="nav-item me-4 mt-4 mb-4 font-bold italic">
@@ -124,7 +129,8 @@ const Login = ({ setLogin }) => {
 
                     <span className="mr-20 font-extralight text-sm mt-2 ">
                       <Link
-                        to="/forgetPassword"
+                      onClick={()=>setShow(true)}
+                        to=""
                         className="align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 text-center"
                       >
                         Forgot password?

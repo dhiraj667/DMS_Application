@@ -18,7 +18,7 @@ import {
   PrivateRouteForgUser,
 } from "./common/privateRoute";
 import RegisterForm from "./routes/Auth/register";
-import ForgetPassword from "./routes/Auth/forgetPassword";
+import AboutUs from "./routes/Auth/aboutUs";
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -52,8 +52,7 @@ function App() {
             ></Route>
 
             <Route path="/register" element={<RegisterForm />}></Route>
-
-            {/* <Route path="/forgetPassword" element={<ForgetPassword />}></Route> */}
+            <Route path="/aboutus" element={<AboutUs />}></Route>
 
             <Route
               path="/"
