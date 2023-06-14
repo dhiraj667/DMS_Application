@@ -9,6 +9,8 @@ export function PrivateRoute({ children }) {
   // const {pathname}=location
   // console.log(pathname);
 
+  if (!sessionStorage.getItem("loginData")) return <Navigate to="/login" />;
+
   const loginData = JSON.parse(sessionStorage.getItem("loginData"));
 
   const user = loginData.user;
@@ -28,7 +30,7 @@ export function PrivateRouteForIndexer({ children }) {
   // let location = useLocation();
   // const {pathname}=location
   // console.log(pathname);
-
+  if (!sessionStorage.getItem("loginData")) return <Navigate to="/login" />;
   const loginData = JSON.parse(sessionStorage.getItem("loginData"));
 
   const user = loginData.user;
@@ -49,7 +51,7 @@ export function PrivateRouteForgUser({ children }) {
   // let location = useLocation();
   // const {pathname}=location
   // console.log(pathname);
-
+  if (!sessionStorage.getItem("loginData")) return <Navigate to="/login" />;
   const loginData = JSON.parse(sessionStorage.getItem("loginData"));
 
   const user = loginData.user;
