@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import Pagination from "../../../../common/pagination";
 
 const DOCTYPE = () => {
+  //checkBoxSearch
+  const [clickItem,setClickItem]=useState("");
   //searching
   const [searchTerm, setSearchTerm] = useState("");
   //pagination
@@ -30,7 +32,7 @@ const DOCTYPE = () => {
   const departments = useBoundStore((state) => state.departments);
   const deleteDocType = useBoundStore((state) => state.deleteDocType);
   const [open, setOpen] = useState(false);
-
+  //searching
   const newDocType = docTypes.filter((val) => {
     console.log(val);
     if (searchTerm == "" || searchTerm.toLowerCase() === "") {
@@ -55,8 +57,22 @@ const DOCTYPE = () => {
       return val;
     }
   });
-
-  const docType = newDocType.slice(firstDataIndex, lastDataIndex);
+  const onCheckBoxSelect = docTypes.filter((val)=>{
+    if(clickItem==""){
+      return val;
+    }else if(val.department.departmentName.includes(clickItem)){
+      return val
+    }
+  })
+  //pagination
+  let docType;
+  if(searchTerm){
+    docType = newDocType.slice(firstDataIndex, lastDataIndex);
+  }else if(clickItem){
+    docType = onCheckBoxSelect.slice(firstDataIndex,lastDataIndex);
+  }else{
+    docType = docTypes;
+  }
 
   const handleOpen = () => setOpen(!open);
 
@@ -71,9 +87,9 @@ const DOCTYPE = () => {
 
     handleOpen();
   };
-
+  //checkboxSearch
   const onSelectItem = (name) => {
-    console.log(name);
+    setClickItem(name);
   };
 
   console.log(departments);

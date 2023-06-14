@@ -7,6 +7,8 @@ import { useBoundStore } from "../../../../store/store";
 import { Link } from "react-router-dom";
 import Pagination from "../../../../common/pagination";
 const DOCTYPEFIELDS = () => {
+  //checkBoxSearch
+  const [clickItem,setClickItem] =useState("");
   //searching
   const [searchTerm, setSearchTerm] = useState("");
   //pagination
@@ -50,7 +52,22 @@ const DOCTYPEFIELDS = () => {
     }
   });
 
-  const docTypeField = newDocTypeFieldsF.slice(firstDataIndex, lastDataIndex);
+  const onCheckBoxSelect = newDocTypefields.filter((val)=>{
+    if(clickItem==""){
+      return val;
+    }else if(val.docType.includes(clickItem)){
+      return val
+    }
+  })
+
+  let docTypeField;
+  if(searchTerm){
+    docTypeField = newDocTypeFieldsF.slice(firstDataIndex, lastDataIndex);
+  }else if(clickItem){
+    docTypeField = onCheckBoxSelect.slice(firstDataIndex,lastDataIndex);
+  }else{
+    docTypeField = newDocTypefields;
+  }
 
   const [open, setOpen] = useState(false);
 
@@ -67,7 +84,7 @@ const DOCTYPEFIELDS = () => {
   };
 
   const onSelectItem = (name) => {
-    console.log(name);
+    setClickItem(name);
   };
 
   useEffect(() => {
