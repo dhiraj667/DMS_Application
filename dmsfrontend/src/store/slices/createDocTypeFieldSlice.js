@@ -4,9 +4,14 @@ const apiEndPoint = process.env.REACT_APP_API_URL + "doctypefields";
 
 export const createDocTypeFieldSlice = (set) => ({
   docTypeFields: [],
+  docTypeAndDept: [],
   getDocTypeFields: async function () {
     const response = await axios.get(apiEndPoint);
     set(() => ({ docTypeFields: response.data.data }));
+  },
+  getByDocTypeAndDept: async function (data) {
+    const response = await axios.get(apiEndPoint, { params: data });
+    set(() => ({ docTypeAndDept: response.data.data }));
   },
   saveDocTypeField: async function (data) {
     const response = await axios.post(apiEndPoint, data);

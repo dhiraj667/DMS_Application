@@ -54,7 +54,9 @@ export const doctypefieldsQuerySchema = {
   type: 'object',
   additionalProperties: false,
   properties: {
-    ...querySyntax(doctypefieldsSchema.properties)
+    ...querySyntax(doctypefieldsSchema.properties),
+    departmentName: { type: 'string' },
+    doctype: { type: 'string' }
   }
 }
 export const doctypefieldsQueryValidator = getValidator(doctypefieldsQuerySchema, queryValidator)

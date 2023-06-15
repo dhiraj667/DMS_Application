@@ -20,6 +20,7 @@ import { doctypefieldsSchema } from './doctypefields.model.js'
 import { fetchDoctype } from './hooks/fetchDoctype.js'
 import { fetchField } from './hooks/fetchField.js'
 import { FetchDepartment } from '../doctypes/hooks/FetchDepartment.js'
+import { findByDocAndDept } from './hooks/findByDocTypeAndDept.js'
 
 export * from './doctypefields.class.js'
 export * from './doctypefields.schema.js'
@@ -47,7 +48,7 @@ export const doctypefields = (app) => {
         schemaHooks.validateQuery(doctypefieldsQueryValidator),
         schemaHooks.resolveQuery(doctypefieldsQueryResolver)
       ],
-      find: [],
+      find: [findByDocAndDept()],
       get: [],
       create: [
         // authenticate('jwt'),
