@@ -46,9 +46,28 @@ export const uploadFile = () => {
       console.log(error.message)
     }
 
+    let file_Url
+    try {
+      await drive.permissions.create({
+        fileId: driveFile_Id,
+        requestBody: {
+          role: 'reader',
+          type: 'anyone'
+        }
+      })
+      const response = await drive.files.get({
+        fileId: driveFile_Id,
+        fields: 'webViewLink, webContentLink'
+      })
+      file_Url = response.data
+    } catch (error) {
+      console.log(error.message)
+    }
+
+    // console.log(file_Url)
     delete context.data.file
     context.data.driveFile_Id = driveFile_Id
-    context.data.path = 'hiii'
+    context.data.path = file_Url.webViewLink
     return context
   }
 }
