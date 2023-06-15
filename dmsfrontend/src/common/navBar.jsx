@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   Popover,
@@ -12,10 +12,12 @@ import {
   ListItemPrefix,
 } from "@material-tailwind/react";
 import { ClockIcon, CreditCardIcon, BellIcon } from "@heroicons/react/24/solid";
+import LogOutModal from "../routes/Auth/logOutModal";
 
 const NavBar = (props) => {
+  const [show,setShow]=useState(false);
   const { setLogin } = props;
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   if (!sessionStorage.getItem("loginData")) return;
   const loginData = JSON.parse(sessionStorage.getItem("loginData"));
   // console.log(loginData.user);
@@ -24,6 +26,7 @@ const NavBar = (props) => {
 
   return (
     <>
+      <LogOutModal show={show} onClose={()=>setShow(false)} setShow={setShow} setLogin={setLogin}/>
       <header className="flex items-center h-20 px-3 sm:px-10 bg-white">
         <div className="flex mr-14">
           <a
@@ -209,6 +212,7 @@ const NavBar = (props) => {
               />
             </span>
             <svg
+              
               aria-hidden="true"
               viewBox="0 0 20 20"
               fill="currentColor"
@@ -245,7 +249,7 @@ const NavBar = (props) => {
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    className="h-6 w-6"
+                    className="h-6 w-6 "
                   >
                     <path
                       strokeLinecap="round"
@@ -264,7 +268,7 @@ const NavBar = (props) => {
                       alt="item-1"
                       size="sm"
                       variant="circular"
-                      className="rounded-full w-8"
+                      className="rounded-full w-8 "
                     />
                     <div className="ml-3">
                       <Typography
@@ -359,9 +363,7 @@ const NavBar = (props) => {
             <button
               className="relative p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600 rounded-full"
               onClick={() => {
-                navigate("/login");
-                setLogin(false);
-                sessionStorage.clear();
+                setShow(true);
               }}
             >
               <span className="sr-only">Log out</span>

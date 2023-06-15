@@ -5,12 +5,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import { useBoundStore } from "../../../../store/store";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const DepartmentForm = (props) => {
+  const notify = () => toast.error("Wow so easy!")
   const schema = yup.object().shape({
     departmentName: yup.string().min(5).max(50).required(),
   });
+
   const { handleOpen, open, id } = props;
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -31,10 +37,7 @@ const DepartmentForm = (props) => {
     }
     reset();
     handleOpen();
-    // console.log(data);
   };
-
-  console.log(id);
 
   useEffect(() => {
     if (!id) return;
@@ -42,10 +45,12 @@ const DepartmentForm = (props) => {
     setValue("_id", department[0]._id);
     setValue("departmentName", department[0].departmentName);
   }, [id]);
+
   return (
     <>
       {open ? (
         <>
+            <ToastContainer />
           <div className="bg-black bg-opacity-50 flex absolute top-0 bottom-0 left-0 right-0 items-center justify-center z-40">
             <div className="rounded min-w-[400px] min-h-[225px] bg-white">
               <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -101,6 +106,7 @@ const DepartmentForm = (props) => {
                     </div>
 
                     <button
+                    onClick={notify}
                       type="submit"
                       className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >

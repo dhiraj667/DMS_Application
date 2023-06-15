@@ -6,8 +6,15 @@ import DepartmentForm from "./departmentForm";
 import { useBoundStore } from "../../../../store/store";
 import { Link } from "react-router-dom";
 import Pagination from "../../../../common/pagination";
+ 
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+// const notify = () => toast.error("Wow so easy!");
+// <button onClick={notify}>toaster</button>
+//     <ToastContainer />
 
 const DEPARTMENTS = () => {
+ 
   const [searchTerm, setSearchTerm] = useState("");
   //pagination
   // const totalDept = departments.length;
@@ -62,6 +69,7 @@ const DEPARTMENTS = () => {
 
   return (
     <>
+    
       <DepartmentForm handleOpen={handleOpen} open={open} id={id} />
       <div className="flex w-full h-[33.5rem] bg-gray-100 ">
         <SideBar />
