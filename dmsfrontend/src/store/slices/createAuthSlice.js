@@ -10,6 +10,7 @@ export const createAuthSlice = (set) => ({
     data = { ...data, strategy: "local" };
     console.log(data);
     const response = await axios.post(apiEndPoint, data);
+    console.log(response);
     sessionStorage.setItem("loginData", JSON.stringify(response.data));
     console.log(response);
     set(() => ({

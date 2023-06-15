@@ -8,7 +8,7 @@ export const otpSchema = {
   $id: 'Otp',
   type: 'object',
   additionalProperties: false,
-  required: ['_id', 'email', 'otp'],
+  required: ['_id', 'otp'],
   properties: {
     _id: ObjectIdSchema(),
     email: { type: 'string' },
@@ -25,7 +25,7 @@ export const otpDataSchema = {
   $id: 'OtpData',
   type: 'object',
   additionalProperties: false,
-  required: ['email', 'otp'],
+  required: ['otp'],
   properties: {
     ...otpSchema.properties
   }

@@ -28,11 +28,11 @@ export const otp = (app) => {
   })
   // Initialize hooks
   app.service(otpPath).hooks({
-    around: {
-      all: [schemaHooks.resolveExternal(otpExternalResolver), schemaHooks.resolveResult(otpResolver)]
-    },
+    // around: {
+    //   all: [schemaHooks.resolveExternal(otpExternalResolver), schemaHooks.resolveResult(otpResolver)]
+    // },
     before: {
-      all: [schemaHooks.validateQuery(otpQueryValidator), schemaHooks.resolveQuery(otpQueryResolver)],
+      // all: [schemaHooks.validateQuery(otpQueryValidator), schemaHooks.resolveQuery(otpQueryResolver)],
       find: [],
       get: [],
       create: [schemaHooks.validateData(otpDataValidator), schemaHooks.resolveData(otpDataResolver)],
