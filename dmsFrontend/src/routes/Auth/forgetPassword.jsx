@@ -5,7 +5,7 @@ const ForgetPass = ({show,onClose}) => {
     return ( <>
     <div>
         {show?<><div className='absolute flex top-0 right-0 left-0 bottom-0 bg-black bg-opacity-50 items-center justify-center'>
-            <div className='relative min-w-[350px] min-h-[425px] bg-white rounded flex items-center justify-center border-2 border-black'>
+            <div className='relative min-w-[350px] min-h-[425px] bg-white rounded flex items-center justify-center border'>
                 <button onClick={onClose} className='absolute top-2 right-3'><svg
                     aria-hidden="true"
                     className="w-5 h-5"

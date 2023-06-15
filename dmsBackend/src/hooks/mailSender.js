@@ -14,7 +14,7 @@ export const mailSender = () => {
     let mailoptions = {
       from: 'Sadanand Fulari',
       to: `${context.data.email}`,
-      subject: 'Hello, You was now a user in DMS app created by dheeraj,sadanand and sumit',
+      subject: 'Hello, You was now a user in DMS app created by dheeraj and sadanand',
       text: `Your userName for login is :${context.data.userName} and password for login in app is : ${context.data.password}`
     }
 

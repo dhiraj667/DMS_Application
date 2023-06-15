@@ -8,15 +8,16 @@ import { useBoundStore } from "../../store/store";
 import Multiselect from "multiselect-react-dropdown";
 
 const RegisterForm = () => {
+  const [deptArray, setDeptArray] = useState();
 
   const schema = yup.object().shape({
     firstName: yup.string().min(5).max(50).required(),
     lastName: yup.string().min(5).max(50).required(),
-    email: yup.string().min(5).max(50).required(),
+    email: yup.string().min(5).max(50),
     phone: yup.string().min(5).max(50).required(),
     userName: yup.string().min(5).max(50).required(),
-    password: yup.string().min(5).max(50).required(),
-    // departments: yup.array().required(),
+    password: yup.string().min(5).max(50),
+    departments: yup.array(),
   });
 
   const getDepartments = useBoundStore((state) => state.getDepartments);
@@ -34,9 +35,11 @@ const RegisterForm = () => {
           let i = dept.departmentName;
           return i;
   })
-
+  
   const onSubmitHandler = (data) => {
+    data = { ...data, departments: deptArray};
       // data = { ...data, role: "General User" };
+      data = { ...data, role: "General User" };
       saveUser(data);
       console.log(data);
   };
@@ -147,13 +150,13 @@ const RegisterForm = () => {
                       <Multiselect
                       placeholder="Select Department"
                         // class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white p-2"
-                        name="departments"
+                        name="departments[]"
                         {...register("departments")}
                         // required
                           isObject={false}
                           options= {deptArr}
-                          onRemove={(event)=>console.log(event)}
-                          onSelect={(event)=>console.log(event)}
+                          onRemove={(value)=>setDeptArray(value)}
+                          onSelect={(value)=>setDeptArray(value)}
                           showCheckbox
                       />
                       <p className="text-red-500 m-1">
