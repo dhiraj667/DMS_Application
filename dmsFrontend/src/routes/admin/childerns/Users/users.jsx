@@ -9,7 +9,7 @@ import Pagination from "../../../../common/pagination";
 
 const USERS = () => {
   //DeptSearchSideBar
-  const [clickItem,setClickItem]=useState("");
+  const [clickItem, setClickItem] = useState("");
   //searching
   const [searchTerm, setSearchTerm] = useState("");
   //pagination
@@ -51,23 +51,21 @@ const USERS = () => {
     }
   });
 
-  const onCheckBoxSelect = newUsers.filter((val)=>{
-    if(clickItem==""){
+  const onCheckBoxSelect = newUsers.filter((val) => {
+    if (clickItem == "") {
       return val;
-    }else if(val.departmentName.includes(clickItem)){
-      return val
+    } else if (val.departmentName.includes(clickItem)) {
+      return val;
     }
-  })
+  });
 
   let user;
-  if(searchTerm)
-  {
-    user = newUseronSearch.slice(firstDataIndex, lastDataIndex)
-  }
-  else if(clickItem){
-    user = onCheckBoxSelect.slice(firstDataIndex,lastDataIndex)
-  }else{
-    user=newUsers;
+  if (searchTerm) {
+    user = newUseronSearch.slice(firstDataIndex, lastDataIndex);
+  } else if (clickItem) {
+    user = onCheckBoxSelect.slice(firstDataIndex, lastDataIndex);
+  } else {
+    user = newUsers;
   }
 
   useEffect(() => {
@@ -83,7 +81,9 @@ const USERS = () => {
   };
 
   const handleDelete = (id) => {
-    deleteUser(id);
+    if (!id) return;
+    const userData = users.find((u) => u._id === id);
+    deleteUser(userData);
   };
 
   const handleOpen = () => setOpen(!open);

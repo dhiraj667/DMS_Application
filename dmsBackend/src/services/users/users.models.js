@@ -12,7 +12,7 @@ const attrs = {
   phone: Joi.string().min(0).max(10).required(),
   departments: Joi.array().required(),
   role: Joi.string(),
-  isActive: Joi.boolean().default(false)
+  isActive: Joi.boolean().default(true)
 }
 
 export const userSchema = Joi.object(attrs)

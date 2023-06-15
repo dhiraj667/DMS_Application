@@ -7,13 +7,13 @@ export const forgetPasswordSchema = {
   $id: 'ForgetPassword',
   type: 'object',
   additionalProperties: false,
-  required: ['id', 'userName','password','newPassword','confirmPassword'],
+  required: ['id', 'newPassword', 'confirmPassword'],
   properties: {
     id: { type: 'number' },
     userName: { type: 'string' },
-    password: {type:'string'},
-    newPassword : {type:'string'},
-    confirmPassword: {type: 'string'}
+    password: { type: 'string' },
+    newPassword: { type: 'string' },
+    confirmPassword: { type: 'string' }
   }
 }
 export const forgetPasswordValidator = getValidator(forgetPasswordSchema, dataValidator)
@@ -26,7 +26,7 @@ export const forgetPasswordDataSchema = {
   $id: 'ForgetPasswordData',
   type: 'object',
   additionalProperties: false,
-  required: ['userName','password','newPassword','confirmPassword'],
+  required: ['userName', 'password', 'newPassword', 'confirmPassword'],
   properties: {
     ...forgetPasswordSchema.properties
   }

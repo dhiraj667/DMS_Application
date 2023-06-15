@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useBoundStore } from "../../store/store";
+import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import ResetPassWord from "./resetPassword";
 
-const ForgetPass = ({ show, onClose }) => {
-  const [showResetPassModal, setShowResetPassMode] = useState(false);
+const ResetPassWord = (props) => {
+  const { showResetPassModal, setShowResetPassMode } = props;
   const schema = yup.object().shape({
-    email: yup.string().min(3).max(366).required(),
+    otp: yup.string().min(6).max(6).required(),
+    newPassword: yup.string().min(8).max(1024).required(),
+    confirmPassword: yup.string().min(8).max(1024).required(),
   });
 
   const {
@@ -18,37 +18,23 @@ const ForgetPass = ({ show, onClose }) => {
     reset,
   } = useForm({ resolver: yupResolver(schema) });
 
-  const findByEmailId = useBoundStore((state) => state.findByEmailId);
-
   const onSubmitHandler = (data) => {
-    findByEmailId(data)
-      .then((res) => {
-        reset();
-        if (res.data.data.length === 0) {
-          console.log("email is not Registerd");
-        } else {
-          onClose();
-          setShowResetPassMode(true);
-          console.log("email is  Registerd");
-        }
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
-
-  const onSubmitHandlerResetPass = (data) => {
     console.log(data);
+    reset();
   };
-
   return (
     <>
       <div>
-        {show ? (
+        {showResetPassModal ? (
           <>
             <div className="absolute flex top-0 right-0 left-0 bottom-0 bg-black bg-opacity-50 items-center justify-center">
-              <div className="relative w-[350px] min-h-[200px] bg-white rounded flex items-center justify-center">
-                <button onClick={onClose} className="absolute top-6 right-3">
+              <div className="relative min-w-[350px] min-h-[200px] bg-white rounded flex items-center justify-center">
+                <button
+                  onClick={() => {
+                    setShowResetPassMode(false);
+                  }}
+                  className="absolute top-7 right-3"
+                >
                   <svg
                     aria-hidden="true"
                     className="w-5 h-5"
@@ -65,20 +51,44 @@ const ForgetPass = ({ show, onClose }) => {
                 </button>
                 <div className="px-6 py-6 lg:px-8">
                   <h3 className="mb-4 text-l font-bold text-gray-900 dark:text-white  ">
-                    Forget Password
+                    Reset Password
                   </h3>
                   <form onSubmit={handleSubmit(onSubmitHandler)}>
                     <div className=" m-auto">
                       <div className="mb-6">
                         <label className="block text-gray-700 text-sm font-bold mb-2">
-                          Email
+                          OTP
                         </label>
                         <input
-                          {...register("email")}
+                          {...register("otp")}
                           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                          id="email"
-                          type="email"
-                          placeholder="Enter Email...."
+                          id="password"
+                          type="password"
+                          placeholder="******************"
+                        />
+                      </div>
+                      <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2">
+                          New Password
+                        </label>
+                        <input
+                          {...register("newPassword")}
+                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="passWord"
+                          type="text"
+                          placeholder="Enter New Password....."
+                        />
+                      </div>
+                      <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2">
+                          Confirm Password
+                        </label>
+                        <input
+                          {...register("confirmPassword")}
+                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="username"
+                          type="text"
+                          placeholder="Enter Confirm Password...."
                         />
                       </div>
                       <button
@@ -97,13 +107,8 @@ const ForgetPass = ({ show, onClose }) => {
           <></>
         )}
       </div>
-
-      <ResetPassWord
-        showResetPassModal={showResetPassModal}
-        setShowResetPassMode={setShowResetPassMode}
-      />
     </>
   );
 };
 
-export default ForgetPass;
+export default ResetPassWord;

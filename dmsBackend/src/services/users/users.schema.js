@@ -22,8 +22,8 @@ export const userSchema = {
     role: { type: 'string' },
     lastLoggedIn: { type: 'object' },
     isActive: { type: 'boolean' },
-    updatedBy: { type: 'object' },
-    updateAt: { type: 'object' }
+    updatedBy: ObjectIdSchema(),
+    updateAt: { type: 'string' }
   }
 }
 export const userValidator = getValidator(userSchema, dataValidator)
