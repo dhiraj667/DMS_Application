@@ -1,12 +1,18 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import bgImage from "../../assests/images/img6.png";
 import { useBoundStore } from "../../store/store";
+import Multiselect from "multiselect-react-dropdown";
 
 const RegisterForm = () => {
+
   const getDepartments = useBoundStore((state) => state.getDepartments);
   const departments = useBoundStore((state) => state.departments);
-
+  let deptArr = departments.map((dept)=>{
+          let i = dept.departmentName;
+          return i;
+  })
+  console.log(deptArr);
   useEffect(() => {
     getDepartments();
   }, []);
@@ -92,21 +98,20 @@ const RegisterForm = () => {
                       </p> */}
                     </div>
                     <div className="mb-2">
-                      <select
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white p-2"
-                        name="departmentId"
+                      <Multiselect
+                        // class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white p-2"
+                        // name="departmentId"
                         // {...register("departmentId")}
-                        required
-                      >
-                        <option value="" hidden>
-                          Select Department&hellip;
-                        </option>
-                        {departments.map((dept) => (
-                          <option value={dept._id}>
-                            {dept.departmentName}
-                          </option>
-                        ))}
-                      </select>
+                        // required
+
+                        // {departments.map((dept) => (
+                          isObject={false}
+                          options= {deptArr}
+                          onRemove={(event)=>console.log(event)}
+                          onSelect={(event)=>console.log(event)}
+                          showCheckbox
+                        // ))}
+                      />
                       {/* <p className="text-red-500 m-1">
                         {errors.departmentId?.message}
                       </p> */}
