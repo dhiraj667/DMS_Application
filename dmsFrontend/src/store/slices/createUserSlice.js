@@ -14,6 +14,7 @@ export const createUserSlice = (set) => ({
   saveUser: async function (data) {
     const response = await axios.post(apiEndPoint, data);
     set((state) => ({ users: [response.data, ...state.users] }));
+    return response;
   },
   deleteUser: async function (id) {
     const response = await axios.delete(`${apiEndPoint}/${id}`);
