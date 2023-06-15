@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import Pagination from "../../../../common/pagination";
 
 const USERS = () => {
+  //DeptSearchSideBar
+  const [clickItem,setClickItem]=useState("");
   //searching
   const [searchTerm, setSearchTerm] = useState("");
   //pagination
@@ -39,7 +41,7 @@ const USERS = () => {
     departmentName: `[${user.departments}]`,
   }));
 
-  const newUsersF = newUsers.filter((val) => {
+  const newUseronSearch = newUsers.filter((val) => {
     if (searchTerm == "" || searchTerm.toLowerCase() === "") {
       return val;
     } else if (val.userName.includes(searchTerm)) {
@@ -49,7 +51,24 @@ const USERS = () => {
     }
   });
 
-  const user = newUsersF.slice(firstDataIndex, lastDataIndex);
+  const onCheckBoxSelect = newUsers.filter((val)=>{
+    if(clickItem==""){
+      return val;
+    }else if(val.departmentName.includes(clickItem)){
+      return val
+    }
+  })
+
+  let user;
+  if(searchTerm)
+  {
+    user = newUseronSearch.slice(firstDataIndex, lastDataIndex)
+  }
+  else if(clickItem){
+    user = onCheckBoxSelect.slice(firstDataIndex,lastDataIndex)
+  }else{
+    user=newUsers;
+  }
 
   useEffect(() => {
     getUsers()
@@ -70,7 +89,7 @@ const USERS = () => {
   const handleOpen = () => setOpen(!open);
 
   const onSelectItem = (name) => {
-    console.log(name);
+    setClickItem(name);
   };
 
   return (

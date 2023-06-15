@@ -17,6 +17,8 @@ import {
   PrivateRouteForIndexer,
   PrivateRouteForgUser,
 } from "./common/privateRoute";
+import RegisterForm from "./routes/Auth/register";
+import AboutUs from "./routes/Auth/aboutUs";
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -48,6 +50,9 @@ function App() {
               path="/login"
               element={<Login setLogin={setLogin} />}
             ></Route>
+
+            <Route path="/register" element={<RegisterForm />}></Route>
+            <Route path="/aboutus" element={<AboutUs />}></Route>
 
             <Route
               path="/"
