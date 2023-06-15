@@ -44,7 +44,7 @@ const USERFORM = (props) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmitHandler = (data) => {
-    data = { ...data, departments: deptArray };
+    data = { ...data, departments: deptArray};
     console.log(data);
     if (!id) {
       data = { ...data, role: "Indexer" };
