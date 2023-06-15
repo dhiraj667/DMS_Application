@@ -1,6 +1,8 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/client.html
 import { feathers } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
+import { otpClient } from './services/otp/otp.shared.js'
+
 import { forgetPasswordClient } from './services/forget-password/forget-password.shared.js'
 
 import { fieldsClient } from './services/fields/fields.shared.js'
@@ -42,6 +44,8 @@ export const createClient = (connection, authenticationOptions = {}) => {
   client.configure(documentsClient)
 
   client.configure(forgetPasswordClient)
+
+  client.configure(otpClient)
 
   return client
 }

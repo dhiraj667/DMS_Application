@@ -7,6 +7,7 @@ import ResetPassWord from "./resetPassword";
 
 const ForgetPass = ({ show, onClose }) => {
   const [showResetPassModal, setShowResetPassMode] = useState(false);
+  const [email, setEmail] = useState();
   const schema = yup.object().shape({
     email: yup.string().min(3).max(366).required(),
   });
@@ -30,15 +31,12 @@ const ForgetPass = ({ show, onClose }) => {
           onClose();
           setShowResetPassMode(true);
           console.log("email is  Registerd");
+          setEmail(data.email);
         }
       })
       .catch((err) => {
         console.log(err.message);
       });
-  };
-
-  const onSubmitHandlerResetPass = (data) => {
-    console.log(data);
   };
 
   return (
@@ -101,6 +99,7 @@ const ForgetPass = ({ show, onClose }) => {
       <ResetPassWord
         showResetPassModal={showResetPassModal}
         setShowResetPassMode={setShowResetPassMode}
+        email={email}
       />
     </>
   );

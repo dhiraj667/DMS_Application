@@ -2,14 +2,17 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useBoundStore } from "../../store/store";
 
 const ResetPassWord = (props) => {
-  const { showResetPassModal, setShowResetPassMode } = props;
+  const { showResetPassModal, setShowResetPassMode, email } = props;
   const schema = yup.object().shape({
-    otp: yup.string().min(6).max(6).required(),
+    otp: yup.string().min(4).max(4).required(),
     newPassword: yup.string().min(8).max(1024).required(),
     confirmPassword: yup.string().min(8).max(1024).required(),
   });
+
+  const resetPassword = useBoundStore((state) => state.resetPassword);
 
   const {
     register,
@@ -19,7 +22,15 @@ const ResetPassWord = (props) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmitHandler = (data) => {
+    data = { ...data, email: email };
     console.log(data);
+    resetPassword(data)
+      .then((res) => {
+        console.log("changed success...");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
     reset();
   };
   return (
@@ -62,9 +73,9 @@ const ResetPassWord = (props) => {
                         <input
                           {...register("otp")}
                           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                          id="password"
-                          type="password"
-                          placeholder="******************"
+                          id="text"
+                          type="text"
+                          placeholder="Enter Otp"
                         />
                       </div>
                       <div className="mb-4">
@@ -75,7 +86,7 @@ const ResetPassWord = (props) => {
                           {...register("newPassword")}
                           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                           id="passWord"
-                          type="text"
+                          type="password"
                           placeholder="Enter New Password....."
                         />
                       </div>

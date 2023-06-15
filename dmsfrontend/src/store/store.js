@@ -6,6 +6,7 @@ import { createDocTypeSlice } from "./slices/createDocumentTypeSlice";
 import { createFieldSlice } from "./slices/createFieldSlice";
 import { createAuthSlice } from "./slices/createAuthSlice";
 import { createDocumentsSlice } from "./slices/createDocumentsSlice";
+import { createResetPassword } from "./slices/createResetPasswordSlice";
 export const useBoundStore = create((...a) => ({
   ...createDepartmentSlice(...a),
   ...createDocTypeFieldSlice(...a),
@@ -14,4 +15,5 @@ export const useBoundStore = create((...a) => ({
   ...createUserSlice(...a),
   ...createAuthSlice(...a),
   ...createDocumentsSlice(...a),
+  ...createResetPassword(...a),
 }));

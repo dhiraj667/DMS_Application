@@ -1,3 +1,5 @@
+import { otp } from './otp/otp.js'
+
 import { forgetPassword } from './forget-password/forget-password.js'
 
 import { doctypes } from './doctypes/doctypes.js'
@@ -13,6 +15,8 @@ import { doctypefields } from './doctypefields/doctypefields.js'
 import { departments } from './departments/departments.js'
 
 export const services = (app) => {
+  app.configure(otp)
+
   app.configure(forgetPassword)
 
   app.configure(doctypes)

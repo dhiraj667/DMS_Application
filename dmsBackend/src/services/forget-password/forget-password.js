@@ -15,6 +15,7 @@ import {
 import { ForgetPasswordService, getOptions } from './forget-password.class.js'
 import { forgetPasswordPath, forgetPasswordMethods } from './forget-password.shared.js'
 import { changePassword } from './hooks/change-password.js'
+import { mailSender } from '../../hooks/mailSender.js'
 
 export * from './forget-password.class.js'
 export * from './forget-password.schema.js'

@@ -17,6 +17,7 @@ import { userPath, userMethods } from './users.shared.js'
 import { userSchema } from './users.models.js'
 import { fetchUniqueUserName } from './hooks/uniqueUserName.js'
 import { mailSender } from '../../hooks/mailSender.js'
+import { findByEmailId } from './hooks/findByEmailId.js'
 
 export * from './users.class.js'
 export * from './users.schema.js'
@@ -43,11 +44,11 @@ export const user = (app) => {
     },
     before: {
       all: [schemaHooks.validateQuery(userQueryValidator), schemaHooks.resolveQuery(userQueryResolver)],
-      find: [],
+      find: [findByEmailId()],
       get: [],
       create: [
         validate.form(userSchema, { abortEarly: false }),
-        mailSender(),
+        mailSender('Hello, You was now a user in DMS app created by dheeraj and sadanand'),
         fetchUniqueUserName(),
         schemaHooks.validateData(userDataValidator),
         schemaHooks.resolveData(userDataResolver)

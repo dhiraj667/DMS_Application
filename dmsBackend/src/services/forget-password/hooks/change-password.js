@@ -1,18 +1,28 @@
 import bcrypt from 'bcrypt'
+import nodemailer from 'nodemailer'
 
 export const changePassword = () => {
   return async (context) => {
-    const userService = context.app.service("users");
-    const user = await userService.find({query:{userName:context.data.userName}});
-    console.log(user);
-    const checkPass = await bcrypt.compare(context.data.password , user.data[0].password);
-    if(!checkPass) throw new Error ("old and new password doesn't match");
+    const email = context.data.email
+    const otpService = context.app.service('otp')
+    const res = await otpService.find({ query: { email: email } })
+    console.log(res)
+    const newOtp = res.data
 
-    if (!(context.data.newPassword === context.data.confirmPassword))
-      throw new Error('Confirm and new password is not match')
+    if (context.data.otp === newOtp[0].otp) {
+      const userService = context.app.service('users')
+      const user = await userService.find({ query: { email: context.data.email } })
+      console.log(user)
 
-      await userService.patch(user.data[0]._id, {password:context.data.newPassword})
+      if (!(context.data.newPassword === context.data.confirmPassword))
+        throw new Error('Confirm and new password is not match')
+      console.log(context.data.confirmPassword)
+      await userService.patch(user.data[0]._id, { password: context.data.confirmPassword })
+    } else {
+      throw new Error('OTP Is Not Correct')
+    }
 
-      return context;
+    delete context.data.otp
+    return context
   }
 }
