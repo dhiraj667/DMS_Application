@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useBoundStore } from "../../../../store/store";
 import { useParams } from "react-router-dom";
+import Multiselect from "multiselect-react-dropdown";
 
 const USERFORM = (props) => {
   const schema = yup.object().shape({
@@ -25,6 +26,10 @@ const USERFORM = (props) => {
   const getUsers = useBoundStore((state) => state.getUsers);
   const users = useBoundStore((state) => state.users);
 
+  let deptArr = departments.map((dept)=>{
+    let i = dept.departmentName;
+    return i;
+  })
   // console.log(departments);
   const { open, handleOpen } = props;
   const { id } = useParams();
@@ -233,25 +238,21 @@ const USERFORM = (props) => {
                       </label>
 
                       <div className="relative">
-                        <select
-                          multiple="multiple"
+                        <Multiselect
+                          placeholder="Select Department"
                           type="checkbox"
-                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white p-2"
+                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
                           name="department[]"
                           {...register("departments")}
-                        >
-                          {/* <option value="" hidden>
-                            Select Department&hellip;
-                          </option> */}
-                          {departments.map((dept) => (
-                            <option value={dept.departmentName}>
-                              {dept.departmentName}
-                            </option>
-                          ))}
-                        </select>
-                        <p className="text-red-500 m-1">
+                          isObject={false}
+                          options={deptArr}
+                          onSelect={(event)=>console.log(event)}
+                          onRemove={(event)=>console.log(event)}
+                          showCheckbox
+                        />
+                        {/* <p className="text-red-500 m-1">
                           {errors.departments?.message}
-                        </p>
+                        </p> */}
                       </div>
                     </div>
                     <button
