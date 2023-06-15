@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,12 +10,14 @@ const USERFORM = (props) => {
   const schema = yup.object().shape({
     firstName: yup.string().min(5).max(50).required(),
     lastName: yup.string().min(5).max(50).required(),
-    email: yup.string().min(5).max(50).required(),
+    email: yup.string().min(5).max(50),
     phone: yup.string().min(5).max(50).required(),
     userName: yup.string().min(5).max(50).required(),
-    password: yup.string().min(5).max(50).required(),
-    departments: yup.array().min(0).max(50).required(),
+    password: yup.string().min(5).max(50),
+    departments: yup.array(),
   });
+
+  const [deptArray, setDeptArray] = useState();
   const getDepartments = useBoundStore((state) => state.getDepartments);
   // const departments=[
   //   {_id:"1",departmentName:"Human Resources"}
@@ -26,10 +28,10 @@ const USERFORM = (props) => {
   const getUsers = useBoundStore((state) => state.getUsers);
   const users = useBoundStore((state) => state.users);
 
-  let deptArr = departments.map((dept)=>{
+  let deptArr = departments.map((dept) => {
     let i = dept.departmentName;
     return i;
-  })
+  });
   // console.log(departments);
   const { open, handleOpen } = props;
   const { id } = useParams();
@@ -42,10 +44,14 @@ const USERFORM = (props) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmitHandler = (data) => {
+    data = { ...data, departments: deptArray };
+    console.log(data);
     if (!id) {
       data = { ...data, role: "Indexer" };
       saveUser(data);
     } else {
+      const newUser = users.find((u) => u._id === id);
+      data = { ...data, email: newUser.email, password: newUser.password };
       updateUser(data);
     }
     reset();
@@ -110,17 +116,13 @@ const USERFORM = (props) => {
                   >
                     <div className="flex">
                       <div>
-                        <label
-                          for="name"
-                          className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
-                        >
+                        <label className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">
                           First Name
                         </label>
                         <input
                           type="text"
                           name="name"
                           {...register("firstName")}
-                          id="name"
                           className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block  p-2.5 dark:bg-gray-600 mr-6 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
                           placeholder="Enter First Name"
                         />
@@ -129,17 +131,13 @@ const USERFORM = (props) => {
                         </p>
                       </div>
                       <div>
-                        <label
-                          for="name"
-                          className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
-                        >
+                        <label className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">
                           Last Name
                         </label>
                         <input
                           type="text"
-                          name="name"
+                          name="lastName"
                           {...register("lastName")}
-                          id="name"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
                           placeholder="Enter Last Name"
                         />
@@ -149,18 +147,17 @@ const USERFORM = (props) => {
                       </div>
                     </div>
                     <div className="flex">
-                      <div>
+                      <div className={id ? "hidden" : "block"}>
                         <label
-                          for="name"
+                          //
                           className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
                         >
                           Email
                         </label>
                         <input
-                          type="text"
-                          name="name"
+                          type="email"
+                          name="email"
                           {...register("email")}
-                          id="name"
                           className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block  p-2.5 dark:bg-gray-600 mr-6 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
                           placeholder="Enter Email"
                         />
@@ -169,17 +166,13 @@ const USERFORM = (props) => {
                         </p>
                       </div>
                       <div>
-                        <label
-                          for="name"
-                          className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
-                        >
+                        <label className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">
                           Phone No
                         </label>
                         <input
                           type="text"
-                          name="name"
+                          name="phone"
                           {...register("phone")}
-                          id="name"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
                           placeholder="Enter Phone No"
                         />
@@ -190,17 +183,13 @@ const USERFORM = (props) => {
                     </div>
                     <div className="flex">
                       <div>
-                        <label
-                          for="name"
-                          className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
-                        >
+                        <label className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">
                           UserName
                         </label>
                         <input
                           type="text"
-                          name="name"
+                          name="userName"
                           {...register("userName")}
-                          id="name"
                           className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block  p-2.5 dark:bg-gray-600 mr-6 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
                           placeholder="Enter User Name"
                         />
@@ -209,18 +198,14 @@ const USERFORM = (props) => {
                         </p>
                       </div>
 
-                      <div>
-                        <label
-                          for="name"
-                          className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
-                        >
+                      <div className={id ? "hidden" : "block"}>
+                        <label className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">
                           Password
                         </label>
                         <input
                           type="password"
-                          name="name"
+                          name="password"
                           {...register("password")}
-                          id="name"
                           className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block  p-2.5 dark:bg-gray-600 mr-6 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
                           placeholder="Enter Password"
                         />
@@ -241,25 +226,25 @@ const USERFORM = (props) => {
                         <Multiselect
                           placeholder="Select Department"
                           type="checkbox"
-                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
                           name="department[]"
                           {...register("departments")}
                           isObject={false}
                           options={deptArr}
-                          onSelect={(event)=>console.log(event)}
-                          onRemove={(event)=>console.log(event)}
+                          onSelect={(value) => setDeptArray(value)}
+                          onRemove={(value) => setDeptArray(value)}
                           showCheckbox
                         />
-                        {/* <p className="text-red-500 m-1">
+                        <p className="text-red-500 m-1">
                           {errors.departments?.message}
-                        </p> */}
+                        </p>
                       </div>
                     </div>
                     <button
                       type="submit"
                       className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
-                      Add User
+                      {id ? "Edit User" : "Add User"}
                     </button>
                   </form>
                 </div>

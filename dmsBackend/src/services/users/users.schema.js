@@ -9,21 +9,21 @@ export const userSchema = {
   $id: 'User',
   type: 'object',
   additionalProperties: false,
-  required: ['_id', 'email','password','firstName','lastName','userName','phone','departments'],
+  required: ['_id', 'email', 'password', 'firstName', 'lastName', 'userName', 'phone', 'departments'],
   properties: {
     _id: ObjectIdSchema(),
-    firstName:{type:'string'},
-    lastName:{type:'string'},
-    userName:{type:'string'},
+    firstName: { type: 'string' },
+    lastName: { type: 'string' },
+    userName: { type: 'string' },
     email: { type: 'string' },
     password: { type: 'string' },
-    phone:{type:'string'},
-    departments:{type:'array'},
-    role:{type:'string'},
-    lastLoggedIn:{type:'object'},
-    isActive:{type:'boolean'},
-    updatedBy:{type:'object'},
-    updateAt:{type:'object'}
+    phone: { type: 'string' },
+    departments: { type: 'array' },
+    role: { type: 'string' },
+    lastLoggedIn: { type: 'object' },
+    isActive: { type: 'boolean' },
+    updatedBy: { type: 'object' },
+    updateAt: { type: 'object' }
   }
 }
 export const userValidator = getValidator(userSchema, dataValidator)
@@ -39,7 +39,7 @@ export const userDataSchema = {
   $id: 'UserData',
   type: 'object',
   additionalProperties: false,
-  required: ['email','password','firstName','lastName','userName','phone','departments'],
+  required: ['email', 'password', 'firstName', 'lastName', 'userName', 'phone', 'departments'],
   properties: {
     ...userSchema.properties
   }
