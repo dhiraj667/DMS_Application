@@ -1,72 +1,72 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import bgImage from "../../assests/images/img6.png";
+import { useBoundStore } from "../../store/store";
 
 const RegisterForm = () => {
-    return ( <>
-    <div className="  h-screen w-90 mx-3">
-        <div className="pt-8"></div>
-        <div className="w-3/4 m-auto shadow-lg shadow-blue-100/50 bg-blue-200 px-5 rounded-md">
-          <ul className="nav justify-end  flex flex-row  ">
-            <li className="nav-item me-4 mt-4 mb-4 font-bold italic">
-              <Link className="nav-link" to="/aboutus">
-                ABOUT US
-              </Link>
-            </li>
-          </ul>
+  const getDepartments = useBoundStore((state) => state.getDepartments);
+  const departments = useBoundStore((state) => state.departments);
 
-          <div className="border-black">
+  useEffect(() => {
+    getDepartments();
+  }, []);
+  return (
+    <>
+      <div className="  h-screen w-full mx-3">
+        <div className="pt-2"></div>
+        <div className="w-10/12 m-auto shadow-lg shadow-blue-100/50 bg-blue-200 px-5 rounded-md">
+          <div className="">
             <div className="g-6 flex  flex-wrap items-center justify-center lg:justify-between">
-              <div className="bg-repeat mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12 rounded-lg">
+              <div className="bg-repeat  grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12 rounded-lg">
                 <img src={bgImage} className="w-full rounded-lg" alt="" />
               </div>
 
-              <div className="mb-6 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12 ">
-                <form
-                  className="bg-white shadow-md rounded-lg  pt-3 pb-8 mb-4"
-                >
-                  <div className=" w-96 mb-5 ">
+              <div className="my-2 md:mb-0 md:w-1/2 lg:w-1/2 xl:w-1/2  ">
+                <form className="bg-white shadow-md rounded-lg w-full pt-3 pb-4 mb-4">
+                  <div className=" w-full mb-3  ">
                     <img
                       src={
                         "https://www.pngfind.com/pngs/b/229-2295347_document-png.png"
                       }
-                      className=" w-1/4  my-3 mx-auto"
+                      className=" w-[14%]  my-3 mx-auto"
                       alt=""
                     />
-                    <div className="font-lg text-3xl font-black text-center text-orange-500">
-                      <h1>WELCOME</h1>
+                    <div className="font-lg text-xl font-black text-center text-orange-500">
+                      <h1 className="">Please Sign Up !</h1>
                     </div>
                   </div>
-                
-                  <div className="w-3/4 m-auto flex">
-                    <div className="mb-4 mr-2">
-                      <label className="block text-gray-700 text-sm font-bold mb-2">
-                        FirstName
-                      </label>
-                      <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="username"
-                        type="text"
-                        placeholder="Username"
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label className="block text-gray-700 text-sm font-bold mb-2">
-                        LastName
-                      </label>
-                      <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="password"
-                        type="password"
-                        placeholder="LastName"
-                      />
-                      {/* <p className="text-red-500 text-xs italic">
+
+                  <div className="w-3/4 m-auto">
+                    <div className="flex">
+                      <div className="mb-2 mr-2">
+                        <label className="block text-gray-700 text-sm font-bold mb-2">
+                          First Name
+                        </label>
+                        <input
+                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="username"
+                          type="text"
+                          placeholder="Username"
+                        />
+                      </div>
+                      <div className="mb-2">
+                        <label className="block text-gray-700 text-sm font-bold mb-2">
+                          Last Name
+                        </label>
+                        <input
+                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="password"
+                          type="password"
+                          placeholder="LastName"
+                        />
+                        {/* <p className="text-red-500 text-xs italic">
                         Please choose a password.
                       </p> */}
+                      </div>
                     </div>
                   </div>
-                  <div className="w-3/4 m-auto flex">
-                    <div className="mb-4 mr-2">
+                  <div className="w-3/4 m-auto">
+                    <div className="mb-2 ">
                       <label className="block text-gray-700 text-sm font-bold mb-2">
                         Phone No
                       </label>
@@ -77,7 +77,7 @@ const RegisterForm = () => {
                         placeholder="Phone No"
                       />
                     </div>
-                    <div className="mb-6">
+                    <div className="mb-2">
                       <label className="block text-gray-700 text-sm font-bold mb-2">
                         Email Id
                       </label>
@@ -91,9 +91,29 @@ const RegisterForm = () => {
                         Please choose a password.
                       </p> */}
                     </div>
+                    <div className="mb-2">
+                      <select
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white p-2"
+                        name="departmentId"
+                        // {...register("departmentId")}
+                        required
+                      >
+                        <option value="" hidden>
+                          Select Department&hellip;
+                        </option>
+                        {departments.map((dept) => (
+                          <option value={dept._id}>
+                            {dept.departmentName}
+                          </option>
+                        ))}
+                      </select>
+                      {/* <p className="text-red-500 m-1">
+                        {errors.departmentId?.message}
+                      </p> */}
+                    </div>
                   </div>
                   <div className="w-3/4 m-auto flex">
-                    <div className="mb-4 mr-2">
+                    <div className="mb-2 mr-2">
                       <label className="block text-gray-700 text-sm font-bold mb-2">
                         UserName
                       </label>
@@ -104,7 +124,7 @@ const RegisterForm = () => {
                         placeholder="Username"
                       />
                     </div>
-                    <div className="mb-6">
+                    <div className="mb-2">
                       <label className="block text-gray-700 text-sm font-bold mb-2">
                         Password
                       </label>
@@ -124,20 +144,20 @@ const RegisterForm = () => {
                       Create Account
                     </button>
                   </div>
-                  <div className="mb-6 flex items-center justify-between">
-                    <span className="ml-44 font-semibold text-sm mt-2 ">
+                  <div className="my-2 text-center">
+                    <span className="font-bold  mt-2  text-center">
                       {" "}
                       <Link
                         to="/login"
                         style={{ cursor: "pointer" }}
-                        className="text-center text-blue-500 hover:text-blue-800"
+                        className=" text-blue-500 hover:text-blue-800 text-l"
                       >
                         Login
                       </Link>
                     </span>
                   </div>
                 </form>
-                <p className="text-center text-gray-500 text-xs my-2">
+                <p className="text-center text-gray-500 text-xs mt-2">
                   &copy;2023 VAST Corp. All rights reserved.
                 </p>
               </div>
@@ -145,8 +165,8 @@ const RegisterForm = () => {
           </div>
         </div>
       </div>
+    </>
+  );
+};
 
-    </> );
-}
- 
 export default RegisterForm;

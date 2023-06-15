@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import bgImage from "../../assests/images/img6.png";
-import {Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const AboutUs = () => {
-    return ( <>
-     <div className="  h-screen w-90 mx-3">
-        <div className="pt-8">
-        </div>
+  return (
+    <>
+      <div className="  h-screen w-90 mx-3">
+        <div className="pt-8"></div>
         <div className="w-3/4 m-auto shadow-lg shadow-blue-100/50 bg-blue-200 px-5 rounded-md">
           <ul className="nav justify-end  flex flex-row  ">
             <li className="nav-item me-4 mt-4 mb-4 font-bold italic">
-            <Link className="nav-link" to="/login">
-                HOME
+              <Link className="nav-link" to="/login">
+                Login
               </Link>
             </li>
           </ul>
@@ -23,9 +23,7 @@ const AboutUs = () => {
               </div>
 
               <div className="mb-6 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12 ">
-                <form
-                  className="bg-white shadow-md rounded-lg  pt-3 pb-8 mb-4"
-                >
+                <form className="bg-white shadow-md rounded-lg  pt-3 pb-8 mb-4">
                   <div className=" w-96 mb-5 ">
                     <img
                       src={
@@ -38,25 +36,26 @@ const AboutUs = () => {
                       <h1>Document Management System</h1>
                     </div>
                   </div>
-                 
+
                   <div className="text-center lg:text-centre justify-items-start">
-                    <p className='font-bold'>Document Management System is the <br />website for managin your documents <br />easily and efficently. <br />
+                    <p className="font-bold">
+                      Document Management System is the <br />
+                      website for managin your documents <br />
+                      easily and efficently. <br />
                       Here You can upload yout <br />
                       Docs and they are get managed <br />
                       according to department,doctype <br />
                       doctypefield,etc.
                       <br />
-                      Use our DMS application for <br />safety of your docs!
+                      Use our DMS application for <br />
+                      safety of your docs!
                       <br />
                     </p>
-                    <p className='font-lg text-2xl  mt-3 text-orange-500'>Feedbacks and Suggestions are welcome!</p>
-
+                    <p className="font-lg text-2xl  mt-3 text-orange-500">
+                      Feedbacks and Suggestions are welcome!
+                    </p>
                   </div>
-                  <div className="mb-6 flex items-center justify-between">
-                    
-
-                    
-                  </div>
+                  <div className="mb-6 flex items-center justify-between"></div>
                 </form>
                 <p className="text-center text-gray-500 text-xs my-2">
                   &copy;2023 VAST Corp. All rights reserved.
@@ -66,8 +65,8 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
-    
-    </> );
-}
- 
+    </>
+  );
+};
+
 export default AboutUs;
