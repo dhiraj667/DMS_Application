@@ -16,7 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 //     <ToastContainer />
 
 const DEPARTMENTS = () => {
- 
+ //search
   const [searchTerm, setSearchTerm] = useState("");
   //pagination
   // const totalDept = departments.length;

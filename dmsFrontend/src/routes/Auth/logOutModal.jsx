@@ -7,8 +7,8 @@ const LogOutModal = ({show ,onClose,setLogin,setShow}) => {
 {
     show?<div>
         <div className='absolute flex top-0 right-0 left-0 bottom-0 bg-black bg-opacity-50 z-50 items-center justify-center'>
-            <div className='relative min-w-[200px] min-h-[150px] bg-white rounded flex items-center justify-center border'>
-                <button onClick={onClose} className='absolute top-6 right-3'><svg
+            <div className='relative min-w-[40%] min-h-[150px] bg-white rounded flex items-center justify-center border'>
+                <button onClick={onClose} className='absolute top-2 right-2'><svg
                     aria-hidden="true"
                     className="w-5 h-5"
                     fill="currentColor"
@@ -22,10 +22,10 @@ const LogOutModal = ({show ,onClose,setLogin,setShow}) => {
                     ></path>
                   </svg></button>
 
-                  <div className='absolute top-6 left-5 font-bold '>
-                    Want To Logout
+                  <div className='absolute top-10 ml-10 left-8 font-bold text-2xl  '>
+                    Are you sure you want to Logout...
                   </div>
-                  <div className='mt-12'>
+                  <div className='mt-28 mb-9'>
                     <button
                     onClick={() => {
                         navigate("/login");
@@ -33,12 +33,12 @@ const LogOutModal = ({show ,onClose,setLogin,setShow}) => {
                         sessionStorage.clear();
                         setShow(false)
                       }}
-                     className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border mr-2'>
+                     className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline border mr-2'>
                     Yes
                   </button>
                   <button
                   onClick={onClose}
-                  className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border'>
+                  className='bg-gray-300 hover:bg-blue-500 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline border'>
                     No
                   </button>
                   </div>

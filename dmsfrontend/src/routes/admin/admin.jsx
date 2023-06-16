@@ -3,20 +3,22 @@ import SideBar from "../../common/sideBar";
 import { useBoundStore } from "../../store/store";
 // import logo from "../../assests/images/log0.jpg";
 // import NavBar from "../../common/navBar";
+import { CChart } from "@coreui/react-chartjs";
 
 const Admin = () => {
-  const getUsers = useBoundStore((state)=>state.getUsers);
-  const users = useBoundStore((state)=>state.users)
-  // console.log(users);
-  useEffect(()=>{
+
+  const getUsers = useBoundStore((state) => state.getUsers);
+  const users = useBoundStore((state) => state.users);
+
+  useEffect(() => {
     getUsers();
-  },[])
+  }, []);
   return (
     <>
       <div class="flex w-full h-[33.5rem] bg-gray-100 ">
         <SideBar />
         <main className="p-6 sm:p-10 space-y-6 w-[88%]">
-          <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
+          <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between ">
             <div className="mr-6">
               <h1 className="text-2xl font-semibold mb-2">Dashboard</h1>
               <h2 className="text-gray-600 ml-0.5">
@@ -123,7 +125,9 @@ const Admin = () => {
                 </svg>
               </div>
               <div>
-                <span className="inline-block text-2xl font-bold">{users.length}</span>
+                <span className="inline-block text-2xl font-bold">
+                  {users.length}
+                </span>
                 {/* <span className="inline-block text-xl text-gray-500 font-semibold">
                     (14%)
                   </span> */}
@@ -155,6 +159,25 @@ const Admin = () => {
                 <span className="block text-gray-500">InActive Indexers</span>
               </div>
             </div>
+            <div className="w-[400px] mt-3">
+              <CChart
+                type="bar"
+                data={{
+                  labels: [
+                    'Indexeded Docs', 'Users', 'Active  Indexers', 'Inactive Indexers'
+                  ],
+                  datasets: [
+                    {
+                      label: "Document Management Daily Info",
+                      backgroundColor: "#f87979",
+                      data:[40, 20, 12, 39,100]
+                    },
+                  ],
+                }}
+                labels="months"
+              />
+              </div>
+            
           </section>
         </main>
       </div>

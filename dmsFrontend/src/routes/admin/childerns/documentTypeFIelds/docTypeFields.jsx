@@ -18,7 +18,7 @@ const DOCTYPEFIELDS = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage, setDataPerPage] = useState(4);
   const lastDataIndex = currentPage * dataPerPage;
-  const firstDataIndex = lastDataIndex - dataPerPage;
+  const firstDataIndex = lastDataIndex - dataPerPage; 
 
   const [loading, setLoading] = useState(true);
   const columns = [
@@ -69,7 +69,7 @@ const DOCTYPEFIELDS = () => {
   }else if(clickItem){
     docTypeField = onCheckBoxSelect.slice(firstDataIndex,lastDataIndex);
   }else{
-    docTypeField = newDocTypefields;
+    docTypeField = newDocTypefields.slice(firstDataIndex,lastDataIndex);
   }
 
   const [open, setOpen] = useState(false);
