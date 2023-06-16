@@ -28,7 +28,7 @@ export const uploadFile = () => {
     // console.log(path)
     console.log(__dirname)
 
-    const filePath = 'src/uploads/file.jpg'
+    const filePath = `src/uploads/${context.params.file.filename}`
     let driveFile_Id
     try {
       let response = await drive.files.create({
