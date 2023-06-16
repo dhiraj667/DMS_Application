@@ -12,6 +12,7 @@ export const createDocTypeFieldSlice = (set) => ({
   getByDocTypeAndDept: async function (data) {
     const response = await axios.get(apiEndPoint, { params: data });
     set(() => ({ docTypeAndDept: response.data.data }));
+    return response;
   },
   saveDocTypeField: async function (data) {
     const response = await axios.post(apiEndPoint, data);

@@ -8,16 +8,17 @@ export const documentsSchema = {
   $id: 'Documents',
   type: 'object',
   additionalProperties: false,
-  required: ['_id', 'name', 'path', 'indexingInfo', 'dcn', 'date', 'driveFile_Id'],
+  required: ['_id', 'documentName', 'path', 'indexingInfo', 'dcn', 'date', 'driveFile_Id', 'local_Url'],
   // required: ['_id', 'name', 'path'],
   properties: {
     _id: ObjectIdSchema(),
-    name: { type: 'string' },
+    documentName: { type: 'string' },
     path: { type: 'string' },
     indexingInfo: { type: 'object' },
     dcn: { type: 'string' },
     date: { type: 'object' },
-    driveFile_Id: { type: 'string' }
+    driveFile_Id: { type: 'string' },
+    local_Url: { type: 'string' }
   }
 }
 export const documentsValidator = getValidator(documentsSchema, dataValidator)
@@ -30,7 +31,7 @@ export const documentsDataSchema = {
   $id: 'DocumentsData',
   type: 'object',
   additionalProperties: false,
-  required: ['name', 'path', 'indexingInfo', 'dcn', 'date', 'driveFile_Id'],
+  required: ['documentName', 'path', 'indexingInfo', 'dcn', 'date', 'driveFile_Id', 'local_Url'],
   // required: ['name', 'path'],
   properties: {
     ...documentsSchema.properties
