@@ -40,7 +40,7 @@ export const documents = (app) => {
         filename: function (req, file, cb) {
           const ext = file.originalname.split('.')
           console.log(ext[1])
-          cb(null, file.fieldname + '.' + ext[1])
+          cb(null, file.originalname, +'.' + ext[1])
         }
       })
     }).single('file'),
