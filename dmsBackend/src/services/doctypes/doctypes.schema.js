@@ -51,9 +51,10 @@ export const doctypesPatchResolver = resolve({})
 export const doctypesQuerySchema = {
   $id: 'DoctypesQuery',
   type: 'object',
-  additionalProperties: false,
+  additionalProperties: true,
   properties: {
     ...querySyntax(doctypesSchema.properties)
+    // departmentName: { type: 'string' }
   }
 }
 export const doctypesQueryValidator = getValidator(doctypesQuerySchema, queryValidator)
