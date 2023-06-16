@@ -6,7 +6,9 @@ import DepartmentForm from "./departmentForm";
 import { useBoundStore } from "../../../../store/store";
 import { Link } from "react-router-dom";
 import Pagination from "../../../../common/pagination";
- 
+ import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 // const notify = () => toast.error("Wow so easy!");
@@ -51,7 +53,11 @@ const DEPARTMENTS = () => {
   const department = newDepartments.slice(firstDataIndex, lastDataIndex);
 
   const handleDelete = (id) => {
-    deleteDepartment(id);
+    deleteDepartment(id).then((res)=>{
+      toast.success("Department Deleted")
+    }).catch((err)=>{
+      toast.error("Something Wrong!!!")
+    });
   };
   const handleUpdate = (data) => {
     setId(data._id);
@@ -69,7 +75,7 @@ const DEPARTMENTS = () => {
 
   return (
     <>
-    
+      <ToastContainer />
       <DepartmentForm handleOpen={handleOpen} open={open} id={id} />
       <div className="flex w-full h-[33.5rem] bg-gray-100 ">
         <SideBar />

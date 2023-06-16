@@ -6,6 +6,8 @@ import USERFORM from "./usersForm";
 import { useBoundStore } from "../../../../store/store";
 import { Link } from "react-router-dom";
 import Pagination from "../../../../common/pagination";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const USERS = () => {
   //DeptSearchSideBar
@@ -83,7 +85,11 @@ const USERS = () => {
   };
 
   const handleDelete = (id) => {
-    deleteUser(id);
+    deleteUser(id).then((res)=>{
+      toast.success("User Deleted")
+    }).catch((err)=>{
+      toast.error("Something Wrong!!!")
+    });;
   };
 
   const handleOpen = () => setOpen(!open);
@@ -94,6 +100,7 @@ const USERS = () => {
 
   return (
     <>
+      <ToastContainer />
       <USERFORM open={open} handleOpen={handleOpen} />
       <div className="flex w-full h-[33.5rem] bg-gray-100 ">
         <SideBar items={departments} onSelectItem={onSelectItem} />
