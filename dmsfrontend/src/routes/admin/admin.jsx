@@ -14,11 +14,11 @@ const Admin = () => {
 
   const getUsers = useBoundStore((state) => state.getUsers);
   const users = useBoundStore((state) => state.users);
-  const generalUserCount = users.map((g) => g.role === "General User");
-  const activeIndexerCount = users.map(
+  const generalUserCount = users.filter((g) => g.role === "General User");
+  const activeIndexerCount = users.filter(
     (i) => i.role === "Indexer" && i.isActive === true
   );
-  const inActiveIndexerCount = users.map(
+  const inActiveIndexerCount = users.filter(
     (i) => i.role === "Indexer" && i.isActive === false
   );
 
