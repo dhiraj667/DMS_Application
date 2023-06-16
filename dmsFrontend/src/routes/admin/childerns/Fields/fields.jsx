@@ -6,6 +6,8 @@ import FieldForm from "./fieldForm";
 import { useBoundStore } from "../../../../store/store";
 import { Link } from "react-router-dom";
 import Pagination from "../../../../common/pagination";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FIELD = () => {
   //searching
@@ -35,7 +37,11 @@ const FIELD = () => {
   };
 
   const handleDelete = (id) => {
-    deleteField(id);
+    deleteField(id).then((res)=>{
+      toast.success("Field Deleted")
+    }).catch((err)=>{
+      toast.error("Something Wrong!!!")
+    });
   };
 
   const newFields = fields.map((field) => ({
@@ -63,6 +69,7 @@ const FIELD = () => {
 
   return (
     <>
+    <ToastContainer />
       <FieldForm open={open} handleOpen={handleOpen} />
       <div className="flex w-full h-[33.5rem] bg-gray-100 ">
         <SideBar />

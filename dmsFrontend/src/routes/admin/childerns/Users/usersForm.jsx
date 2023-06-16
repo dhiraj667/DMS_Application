@@ -5,6 +5,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useBoundStore } from "../../../../store/store";
 import { useParams } from "react-router-dom";
 import Multiselect from "multiselect-react-dropdown";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const USERFORM = (props) => {
   const schema = yup.object().shape({
@@ -48,11 +50,19 @@ const USERFORM = (props) => {
     console.log(data);
     if (!id) {
       data = { ...data, role: "Indexer" };
-      saveUser(data);
+      saveUser(data).then((res)=>{
+        toast.success("User Added ")
+      }).catch((err)=>{
+        toast.error("Something Wrong!!!")
+      });
     } else {
       const newUser = users.find((u) => u._id === id);
       data = { ...data, email: newUser.email, password: newUser.password };
-      updateUser(data);
+      updateUser(data).then((res)=>{
+        toast.success("User Updated")
+      }).catch((err)=>{
+        toast.error("Something Wrong!!!")
+      });
     }
     reset();
     handleOpen();
@@ -77,6 +87,7 @@ const USERFORM = (props) => {
 
   return (
     <>
+    <ToastContainer />
       {open ? (
         <>
           <div className="bg-black bg-opacity-50 flex absolute top-0 bottom-0 left-0 right-0 items-center justify-center z-40">

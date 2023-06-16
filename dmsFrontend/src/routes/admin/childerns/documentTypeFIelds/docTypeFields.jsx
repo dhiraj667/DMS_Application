@@ -6,6 +6,9 @@ import DocTypeFieldForm from "./docTypeFieldFrom";
 import { useBoundStore } from "../../../../store/store";
 import { Link } from "react-router-dom";
 import Pagination from "../../../../common/pagination";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const DOCTYPEFIELDS = () => {
   //checkBoxSearch
   const [clickItem,setClickItem] =useState("");
@@ -15,7 +18,7 @@ const DOCTYPEFIELDS = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage, setDataPerPage] = useState(4);
   const lastDataIndex = currentPage * dataPerPage;
-  const firstDataIndex = lastDataIndex - dataPerPage;
+  const firstDataIndex = lastDataIndex - dataPerPage; 
 
   const [loading, setLoading] = useState(true);
   const columns = [
@@ -66,7 +69,7 @@ const DOCTYPEFIELDS = () => {
   }else if(clickItem){
     docTypeField = onCheckBoxSelect.slice(firstDataIndex,lastDataIndex);
   }else{
-    docTypeField = newDocTypefields;
+    docTypeField = newDocTypefields.slice(firstDataIndex,lastDataIndex);
   }
 
   const [open, setOpen] = useState(false);
@@ -80,7 +83,11 @@ const DOCTYPEFIELDS = () => {
 
   const handleDelete = (id) => {
     console.log(`Deleted ${id}`);
-    deleteDocTypeFields(id);
+    deleteDocTypeFields(id).then((res)=>{
+      toast.success("Doctypefield Deleted")
+    }).catch((err)=>{
+      toast.error("Something Wrong!!!")
+    });
   };
 
   const onSelectItem = (name) => {
@@ -95,6 +102,7 @@ const DOCTYPEFIELDS = () => {
   }, []);
   return (
     <>
+      <ToastContainer />
       <DocTypeFieldForm open={open} handleOpen={handleOpen} />
 
       <div className="flex w-full h-[33.5rem] bg-gray-100 ">

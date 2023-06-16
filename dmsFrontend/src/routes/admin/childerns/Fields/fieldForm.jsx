@@ -4,6 +4,8 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useBoundStore } from "../../../../store/store";
 import { useParams } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FieldForm = (props) => {
 
@@ -28,13 +30,21 @@ const FieldForm = (props) => {
   const onSubmitHandler = (data) => {
     console.log(data);
     if (!id) {
-      saveField(data);
+      saveField(data).then((res)=>{
+        toast.success("Field Added")
+      }).catch((err)=>{
+        toast.error("Something Wrong!!!")
+      });;
     } else {
-      updateField(data);
+      updateField(data).then((res)=>{
+        toast.success("Field Updated")
+      }).catch((err)=>{
+        toast.error("Something Wrong!!!")
+      });;
     }
     reset();
     handleOpen();
-    console.log(data);
+    // console.log(data);
   };
 
   const inputTypeArray = [
@@ -67,6 +77,7 @@ const FieldForm = (props) => {
 
   return (
     <>
+    <ToastContainer />
       {open ? (
         <>
           <div className="bg-black bg-opacity-50 flex absolute top-0 bottom-0 left-0 right-0 items-center justify-center z-40">

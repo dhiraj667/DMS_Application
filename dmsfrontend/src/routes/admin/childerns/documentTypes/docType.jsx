@@ -5,6 +5,8 @@ import DocumentTypeForm from "./docTypeForm";
 import { useBoundStore } from "../../../../store/store";
 import { Link } from "react-router-dom";
 import Pagination from "../../../../common/pagination";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const DOCTYPE = () => {
   //checkBoxSearch
@@ -78,7 +80,11 @@ const DOCTYPE = () => {
 
   const handleDelete = (id) => {
     console.log(`Deleted ${id}`);
-    deleteDocType(id);
+    deleteDocType(id).then((res)=>{
+      toast.success("Doctype Deleted")
+    }).catch((err)=>{
+      toast.error("Something Wrong!!!")
+    });;
   };
 
   const handleUpdate = (data) => {
@@ -103,6 +109,7 @@ const DOCTYPE = () => {
 
   return (
     <>
+    <ToastContainer />
       <DocumentTypeForm handleOpen={handleOpen} open={open} id={id} />
       <div className="flex w-full h-[33.5rem] bg-gray-100 ">
         <SideBar items={departments} onSelectItem={onSelectItem} />
