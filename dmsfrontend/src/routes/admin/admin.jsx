@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SideBar from "../../common/sideBar";
+import { useBoundStore } from "../../store/store";
 // import logo from "../../assests/images/log0.jpg";
 // import NavBar from "../../common/navBar";
 
 const Admin = () => {
+  const getUsers = useBoundStore((state)=>state.getUsers);
+  const users = useBoundStore((state)=>state.users)
+  // console.log(users);
+  useEffect(()=>{
+    getUsers();
+  },[])
   return (
     <>
       <div class="flex w-full h-[33.5rem] bg-gray-100 ">
@@ -116,7 +123,7 @@ const Admin = () => {
                 </svg>
               </div>
               <div>
-                <span className="inline-block text-2xl font-bold">9</span>
+                <span className="inline-block text-2xl font-bold">{users.length}</span>
                 {/* <span className="inline-block text-xl text-gray-500 font-semibold">
                     (14%)
                   </span> */}

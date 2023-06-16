@@ -7,6 +7,9 @@ import bgImage from "../../assests/images/img6.png";
 import { useBoundStore } from "../../store/store";
 import Multiselect from "multiselect-react-dropdown";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const RegisterForm = () => {
   const [deptArray, setDeptArray] = useState();
 
@@ -40,7 +43,12 @@ const RegisterForm = () => {
     data = { ...data, departments: deptArray};
       // data = { ...data, role: "General User" };
       data = { ...data, role: "General User" };
-      saveUser(data);
+      saveUser(data).then((res)=>{
+        toast.success("User Created Succesfully")
+      }).catch((err)=>{
+        toast.error("Something Wrong!!!")
+      })
+     
       console.log(data);
   };
 
@@ -49,6 +57,7 @@ const RegisterForm = () => {
   }, []);
   return (
     <>
+      <ToastContainer />
       <div className="  h-screen w-full mx-3">
         <div className="pt-2"></div>
         <div className="w-9/12 m-auto shadow-lg shadow-blue-100/50 bg-blue-200 px-5 rounded-md">
