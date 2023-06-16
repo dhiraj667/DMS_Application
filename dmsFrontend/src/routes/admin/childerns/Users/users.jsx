@@ -67,7 +67,7 @@ const USERS = () => {
   } else if (clickItem) {
     user = onCheckBoxSelect.slice(firstDataIndex, lastDataIndex);
   } else {
-    user = newUsers;
+    user = newUsers.slice(firstDataIndex,lastDataIndex);
   }
 
   useEffect(() => {

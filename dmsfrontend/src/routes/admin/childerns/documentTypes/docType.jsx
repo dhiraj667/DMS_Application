@@ -73,7 +73,7 @@ const DOCTYPE = () => {
   }else if(clickItem){
     docType = onCheckBoxSelect.slice(firstDataIndex,lastDataIndex);
   }else{
-    docType = docTypes;
+    docType = docTypes.slice(firstDataIndex,lastDataIndex);
   }
 
   const handleOpen = () => setOpen(!open);
