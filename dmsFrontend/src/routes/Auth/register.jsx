@@ -7,8 +7,8 @@ import bgImage from "../../assests/images/img6.png";
 import { useBoundStore } from "../../store/store";
 import Multiselect from "multiselect-react-dropdown";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegisterForm = () => {
   const [deptArray, setDeptArray] = useState();
@@ -34,22 +34,25 @@ const RegisterForm = () => {
     reset,
   } = useForm({ resolver: yupResolver(schema) });
 
-  let deptArr = departments.map((dept)=>{
-          let i = dept.departmentName;
-          return i;
-  })
-  
+  let deptArr = departments.map((dept) => {
+    let i = dept.departmentName;
+    return i;
+  });
+
   const onSubmitHandler = (data) => {
-    data = { ...data, departments: deptArray};
-      // data = { ...data, role: "General User" };
-      data = { ...data, role: "General User" };
-      saveUser(data).then((res)=>{
-        toast.success("User Created Succesfully")
-      }).catch((err)=>{
-        toast.error("Something Wrong!!!")
+    data = { ...data, departments: deptArray };
+    // data = { ...data, role: "General User" };
+    data = { ...data, role: "General User" };
+    saveUser(data)
+      .then((res) => {
+        toast.success("User Created Succesfully");
+        reset();
       })
-     
-      console.log(data);
+      .catch((err) => {
+        toast.error(err.message);
+      });
+
+    console.log(data);
   };
 
   useEffect(() => {
@@ -69,8 +72,9 @@ const RegisterForm = () => {
 
               <div className="my-2 md:mb-0 md:w-1/2 lg:w-1/2 xl:w-1/2  ">
                 <form
-                 onSubmit={handleSubmit(onSubmitHandler)}
-                className="bg-white shadow-md rounded-lg w-full pt-3 pb-4 mb-4">
+                  onSubmit={handleSubmit(onSubmitHandler)}
+                  className="bg-white shadow-md rounded-lg w-full pt-3 pb-4 mb-4"
+                >
                   <div className=" w-full mb-3  ">
                     <img
                       src={
@@ -91,7 +95,7 @@ const RegisterForm = () => {
                           First Name
                         </label>
                         <input
-                        {...register("firstName")}
+                          {...register("firstName")}
                           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                           id="username"
                           type="text"
@@ -124,49 +128,49 @@ const RegisterForm = () => {
                         Phone No
                       </label>
                       <input
-                      {...register("phone")}
+                        {...register("phone")}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="username"
                         type="text"
                         placeholder="Phone No"
                       />
                       <p className="text-red-500 m-1">
-                          {errors.phone?.message}
-                        </p>
+                        {errors.phone?.message}
+                      </p>
                     </div>
                     <div className="mb-2">
                       <label className="block text-gray-700 text-sm font-bold mb-2">
                         Email Id
                       </label>
                       <input
-                      {...register("email")}
+                        {...register("email")}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="email"
                         type="email"
                         placeholder="Email Id"
                       />
                       <p className="text-red-500 m-1">
-                          {errors.email?.message}
-                        </p>
+                        {errors.email?.message}
+                      </p>
                     </div>
                     <div className="mb-2">
-                    <label
+                      <label
                         for="department"
                         className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
                       >
                         Select Department
                       </label>
                       <Multiselect
-                      placeholder="Select Department"
+                        placeholder="Select Department"
                         // class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white p-2"
                         name="departments[]"
                         {...register("departments")}
                         // required
-                          isObject={false}
-                          options= {deptArr}
-                          onRemove={(value)=>setDeptArray(value)}
-                          onSelect={(value)=>setDeptArray(value)}
-                          showCheckbox
+                        isObject={false}
+                        options={deptArr}
+                        onRemove={(value) => setDeptArray(value)}
+                        onSelect={(value) => setDeptArray(value)}
+                        showCheckbox
                       />
                       <p className="text-red-500 m-1">
                         {errors.departments?.message}
@@ -179,36 +183,37 @@ const RegisterForm = () => {
                         UserName
                       </label>
                       <input
-                      {...register("userName")}
+                        {...register("userName")}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="username"
                         type="text"
                         placeholder="Username"
                       />
                       <p className="text-red-500 m-1">
-                          {errors.userName?.message}
-                        </p>
+                        {errors.userName?.message}
+                      </p>
                     </div>
                     <div className="mb-2">
                       <label className="block text-gray-700 text-sm font-bold mb-2">
                         Password
                       </label>
                       <input
-                      {...register("password")}
+                        {...register("password")}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="password"
                         type="password"
                         placeholder="Password"
                       />
                       <p className="text-red-500 m-1">
-                          {errors.password?.message}
-                        </p>
+                        {errors.password?.message}
+                      </p>
                     </div>
                   </div>
                   <div className="text-center lg:text-centre justify-items-start">
                     <button
-                    type="submit"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border  lg w-3/4">
+                      type="submit"
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border  lg w-3/4"
+                    >
                       Create Account
                     </button>
                   </div>
