@@ -20,6 +20,7 @@ export const createUserSlice = (set) => ({
   deleteUser: async function (data) {
     console.log(data);
     data["isActive"] = false;
+    console.log(data);
     const response = await axios.patch(`${apiEndPoint}/${data._id}`, data);
     set((state) => {
       const index = state.users.findIndex((u) => u._id === data._id);

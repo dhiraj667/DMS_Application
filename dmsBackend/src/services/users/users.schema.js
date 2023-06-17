@@ -20,7 +20,7 @@ export const userSchema = {
     phone: { type: 'string' },
     departments: { type: 'array' },
     role: { type: 'string' },
-    lastLoggedIn: { type: 'object' },
+    lastLoggedIn: { type: 'string' },
     isActive: { type: 'boolean' },
     updatedBy: ObjectIdSchema(),
     updateAt: { type: 'string' }

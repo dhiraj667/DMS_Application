@@ -15,7 +15,7 @@ import { ClockIcon, CreditCardIcon, BellIcon } from "@heroicons/react/24/solid";
 import LogOutModal from "../routes/Auth/logOutModal";
 
 const NavBar = (props) => {
-  const [show,setShow]=useState(false);
+  const [show, setShow] = useState(false);
   const { setLogin } = props;
   // const navigate = useNavigate();
   if (!sessionStorage.getItem("loginData")) return;
@@ -26,7 +26,12 @@ const NavBar = (props) => {
 
   return (
     <>
-      <LogOutModal show={show} onClose={()=>setShow(false)} setShow={setShow} setLogin={setLogin}/>
+      <LogOutModal
+        show={show}
+        onClose={() => setShow(false)}
+        setShow={setShow}
+        setLogin={setLogin}
+      />
       <header className="flex items-center h-20 px-3 sm:px-10 bg-white">
         <div className="flex mr-14">
           <a
@@ -212,7 +217,6 @@ const NavBar = (props) => {
               />
             </span>
             <svg
-              
               aria-hidden="true"
               viewBox="0 0 20 20"
               fill="currentColor"

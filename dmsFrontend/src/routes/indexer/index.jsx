@@ -47,6 +47,19 @@ const Index = () => {
     // handleOpen();
   };
 
+  function onSelectItem(data) {
+    console.log(data);
+  }
+
+  if (!sessionStorage.getItem("loginData")) return;
+  const loginData = JSON.parse(sessionStorage.getItem("loginData"));
+  // console.log(loginData.user);
+  const role = loginData.user.role;
+  const departments = loginData.user.departments;
+  console.log(departments);
+
+  // const departmentWiseDocument=
+
   if (!documents) return;
   let newDocument = documents.map((document) => ({
     name: document.indexingInfo["name"],
@@ -56,7 +69,11 @@ const Index = () => {
   return (
     <>
       <div className="flex w-full h-[33.5rem] bg-gray-100">
-        <SideBar items2={docTypes} />
+        <SideBar
+          items2={docTypes}
+          items={departments}
+          onSelectItem={onSelectItem}
+        />
         <div className="mx-auto sm:px-6 lg:px-8 w-[88%] ">
           <div className="py-3 sm:px-6 lg:px-3 mt-3  bg-white drop-shadow-2xl rounded-2xl overflow-auto h-[84vh]">
             <div className="flex items-center mr-4">

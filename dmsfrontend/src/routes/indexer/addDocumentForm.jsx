@@ -124,7 +124,16 @@ const AddDocumentForm = (props) => {
                 </>
               ) : (
                 <>
-                  <img src={img_Url} alt="" className="h-[47vh] w-full" />
+                  {img_Url.includes(".pdf") ? (
+                    <>
+                      <a href={img_Url} className="h-[47vh] w-full"></a>
+                    </>
+                  ) : (
+                    <>
+                      {" "}
+                      <img src={img_Url} alt="" className="h-[47vh] w-full" />
+                    </>
+                  )}
                 </>
               )}
             </div>

@@ -16,8 +16,6 @@ import { DoctypesService, getOptions } from './doctypes.class.js'
 import { doctypesPath, doctypesMethods } from './doctypes.shared.js'
 import { doctypesSchema } from './doctypes.models.js'
 import { FetchDepartment } from './hooks/FetchDepartment.js'
-import { fetchDocTypeByDepartment } from './hooks/fetchDoctypebyDepartment.js'
-// import { fetchDocTypeByDepartment } from './hooks/fetchDoctypebyDepartment.js'
 
 export * from './doctypes.class.js'
 export * from './doctypes.schema.js'
@@ -45,7 +43,7 @@ export const doctypes = (app) => {
         schemaHooks.validateQuery(doctypesQueryValidator),
         schemaHooks.resolveQuery(doctypesQueryResolver)
       ],
-      find: [fetchDocTypeByDepartment()],
+      find: [],
       get: [],
       create: [
         validate.form(doctypesSchema, { abortEarly: false }),

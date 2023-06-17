@@ -11,7 +11,7 @@ import {
   ListItemPrefix,
 } from "@material-tailwind/react";
 const SideBar = (props) => {
-  const { items, items2,onSelectItem } = props;
+  const { items, items2, onSelectItem } = props;
   console.log(items);
   return (
     <>
@@ -36,21 +36,25 @@ const SideBar = (props) => {
                               type="checkbox"
                               className="radio"
                               name="radio"
-                              value={item.name}
+                              value={item.name || item}
                               //   checked={checked}
                               style={{ cursor: "pointer" }}
                               onChange={() => {
                                 onSelectItem(
                                   item.hasOwnProperty("docType")
                                     ? item.docType
-                                    : item.departmentName
+                                    : item.hasOwnProperty("departmentName")
+                                    ? item.departmentName
+                                    : item
                                 );
                               }}
                             />
                             <label className="text-white fw-bold h6 mx-1.5 line-clamp-1">
                               {item.hasOwnProperty("docType")
                                 ? item.docType
-                                : item.departmentName}
+                                : item.hasOwnProperty("departmentName")
+                                ? item.departmentName
+                                : item}
                             </label>
                             {/* <a href="#">forget password</a> */}
                           </div>
@@ -66,7 +70,7 @@ const SideBar = (props) => {
           ) : (
             <></>
           )}
-           {items2 !== undefined ? (
+          {items2 !== undefined ? (
             <>
               {items2.length !== 0 ? (
                 <>

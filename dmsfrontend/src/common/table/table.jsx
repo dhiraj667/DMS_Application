@@ -5,7 +5,7 @@ import Loader from "../../components/loader";
 import { Link } from "react-router-dom";
 
 const Table = (props) => {
-  const { items, columns, onHandleDelete, onHandleUpdate, loading, urlName} =
+  const { items, columns, onHandleDelete, onHandleUpdate, loading, urlName } =
     props;
   return (
     <>
@@ -19,10 +19,20 @@ const Table = (props) => {
               key={item._id + new Date().toString()}
               className="py-3 px-4 mt-2 flex hover:bg-gray-200 rounded-md mx-4 group"
             >
-              <div className="w-1 group-hover:bg-blue-500 rounded-md"></div>
+              <div
+                className={
+                  item.isActive
+                    ? "w-1 group-hover:bg-blue-500 rounded-md"
+                    : item.isActive === false
+                    ? "w-1 group-hover:bg-red-500 rounded-md"
+                    : "w-1 group-hover:bg-blue-500 rounded-md"
+                }
+              >
+                {console.log(item.isActive)}
+              </div>
               {Object.entries(item).map(([nextItem, value], iteration) => (
                 <>
-                  {nextItem !== "_id" ? (
+                  {nextItem !== "_id" && nextItem !== "isActive" ? (
                     <div
                       key={item[nextItem]._id + new Date().toString()}
                       className={

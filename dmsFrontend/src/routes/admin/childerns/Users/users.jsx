@@ -6,8 +6,8 @@ import USERFORM from "./usersForm";
 import { useBoundStore } from "../../../../store/store";
 import { Link } from "react-router-dom";
 import Pagination from "../../../../common/pagination";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const USERS = () => {
   //DeptSearchSideBar
@@ -37,10 +37,13 @@ const USERS = () => {
   const getDepartments = useBoundStore((state) => state.getDepartments);
   const departments = useBoundStore((state) => state.departments);
 
-  const newUsers = users.map((user) => ({
+  const filteredUsers = users.filter((user) => user.role !== "Admin");
+
+  const newUsers = filteredUsers.map((user) => ({
     _id: user._id,
     userName: user.userName,
     departmentName: `[${user.departments}]`,
+    isActive: user.isActive,
   }));
 
   const newUseronSearch = newUsers.filter((val) => {
@@ -67,7 +70,7 @@ const USERS = () => {
   } else if (clickItem) {
     user = onCheckBoxSelect.slice(firstDataIndex, lastDataIndex);
   } else {
-    user = newUsers.slice(firstDataIndex,lastDataIndex);
+    user = newUsers.slice(firstDataIndex, lastDataIndex);
   }
 
   useEffect(() => {
@@ -83,12 +86,14 @@ const USERS = () => {
   };
 
   const handleDelete = (id) => {
-
-    deleteUser(id).then((res)=>{
-      toast.success("User Deleted")
-    }).catch((err)=>{
-      toast.error("Something Wrong!!!")
-    });;
+    const user = users.filter((u) => u._id === id);
+    deleteUser(user[0])
+      .then((res) => {
+        toast.success("User Deleted");
+      })
+      .catch((err) => {
+        toast.error("Something Wrong!!!");
+      });
   };
 
   const handleOpen = () => setOpen(!open);
