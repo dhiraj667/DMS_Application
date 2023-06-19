@@ -23,5 +23,6 @@ export const createDocumentsSlice = (set) => ({
     set({
       documents: response.data,
     });
+    return response;
   },
 });

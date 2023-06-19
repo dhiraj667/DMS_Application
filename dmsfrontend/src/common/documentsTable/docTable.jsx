@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Tooltip, Button } from "@material-tailwind/react";
+import { Tooltip } from "@material-tailwind/react";
 import Loader from "../../components/loader";
 import { Link } from "react-router-dom";
 import DocTableHeader from "./docTableHeader";
