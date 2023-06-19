@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Index = () => {
+  const [docSearchCheckBox,setDocSearchCheckBox]=useState("");
   //search
   const [searchTerm, setSearchTerm] = useState("");
   //pagination
@@ -57,6 +58,10 @@ const Index = () => {
 
   function onSelectItem(data) {
     console.log(data);
+  }
+  function onSelectItem1(data) {
+    console.log(data);
+    setDocSearchCheckBox(data);
   }
 
   if (!sessionStorage.getItem("loginData")) return;
@@ -132,9 +137,21 @@ const Index = () => {
     }
   });
 
+  const docSearch = newFilteredDocument.filter((val) => {
+    if (docSearchCheckBox === "" || docSearchCheckBox.toLowerCase() === "") {
+      return val;
+    } else if (val.documentName.includes(docSearchCheckBox)) {
+      return val;
+    } else if (val.documentName.toLowerCase().includes(docSearchCheckBox.toLowerCase())) {
+      return val;
+    }
+  });
+
   let allDocuments;
   if (searchTerm) {
     allDocuments = newDocuments.slice(firstDataIndex, lastDataIndex);
+  }else if(docSearch){
+    allDocuments = docSearch.slice(firstDataIndex, lastDataIndex);
   } else {
     allDocuments = newDocuments.slice(firstDataIndex, lastDataIndex);
   }
@@ -147,6 +164,7 @@ const Index = () => {
           items2={departmentWiseData}
           items={departments}
           onSelectItem={onSelectItem}
+          onSelectItem1={onSelectItem1}
         />
 
         <div className="mx-auto sm:px-6 lg:px-8 w-[88%] ">

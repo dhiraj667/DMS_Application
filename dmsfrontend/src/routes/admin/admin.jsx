@@ -157,7 +157,7 @@ const Admin = () => {
                     </span>
                   </div>
                 </div>
-                <div className="w-[400px] mt-3">
+                <div className="w-[480px] mt-3">
                   <CChart
                     type="bar"
                     data={{
@@ -169,9 +169,9 @@ const Admin = () => {
                       ],
                       datasets: [
                         {
-                          label: "Document Management Daily Info",
-                          backgroundColor: "#f87979",
-                          data: [40, 20, 12, 39, 100],
+                          label: "Document Management Information",
+                          backgroundColor: "#4233ff", //#f87979
+                          data: [documents.length,generalUserCount.length,activeIndexerCount.length,inActiveIndexerCount.length, 10],
                         },
                       ],
                     }}

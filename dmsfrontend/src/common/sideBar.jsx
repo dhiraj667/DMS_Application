@@ -11,7 +11,7 @@ import {
   ListItemPrefix,
 } from "@material-tailwind/react";
 const SideBar = (props) => {
-  const { items, items2, onSelectItem } = props;
+  const { items, items2, onSelectItem,onSelectItem1 } = props;
   console.log(items);
   return (
     <>
@@ -93,7 +93,7 @@ const SideBar = (props) => {
                               //   checked={checked}
                               style={{ cursor: "pointer" }}
                               onChange={() => {
-                                onSelectItem(
+                                onSelectItem1(
                                   item.hasOwnProperty("docType")
                                     ? item.docType
                                     : item.departmentName
