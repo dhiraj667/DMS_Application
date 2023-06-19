@@ -5,6 +5,9 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useBoundStore } from "../../store/store";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const AddDocumentForm = (props) => {
   const { fieldsArray, documentType, resetForm, showForm, setShowForm } = props;
 
@@ -23,7 +26,11 @@ const AddDocumentForm = (props) => {
     data = { ...data, ...documentType, local_Url: img_Url };
     data.file = fileData;
     console.log(data);
-    saveDocument(data);
+    saveDocument(data).then((res)=>{
+      toast.success("Document Added ")
+    }).catch((err)=>{
+      toast.error("Something Wrong!!!")
+    });
   };
 
   function onUploadFile(e) {
@@ -37,6 +44,7 @@ const AddDocumentForm = (props) => {
   }
   return (
     <>
+    <ToastContainer />
       <form
         enctype="multipart/form-data"
         onSubmit={handleSubmit(onSubmitHandlerIndexedDoc)}

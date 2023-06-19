@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Tooltip, Button } from "@material-tailwind/react";
+import { Tooltip} from "@material-tailwind/react";
 import Loader from "../../components/loader";
 import { Link } from "react-router-dom";
 import DocTableHeader from "./docTableHeader";
@@ -7,7 +7,7 @@ import DocTableHeader from "./docTableHeader";
 const DocTable = (props) => {
   const [showPreview, setShowPreview] = useState(false);
   const [url, setUrl] = useState("");
-  const { items, columns, onHandleDelete, onHandleUpdate, loading, urlName } =
+  const { items, columns,loading, urlName } =
     props;
 
   console.log(items);
@@ -133,35 +133,7 @@ const DocTable = (props) => {
                   </Tooltip>
                 </span>
               </div>
-              <div className="pl-16">
-                <span className="text-center ">
-                  <Tooltip
-                    className="py-0.5 rounded"
-                    content={<span className="bg-black text-white">Edit</span>}
-                  >
-                    <Link to={`/${urlName}/${item._id}`} className="mx-4">
-                      <i
-                        className="fa fa-pencil fa-lg"
-                        aria-hidden="true"
-                        onClick={() => onHandleUpdate(item)}
-                      ></i>
-                    </Link>
-                  </Tooltip>
-
-                  <Tooltip
-                    className="py-0.5 rounded"
-                    content={
-                      <span className="bg-black text-white">Delete</span>
-                    }
-                  >
-                    <i
-                      className="fa fa-trash ml-7 fa-lg mx-4"
-                      aria-hidden="true"
-                      onClick={() => onHandleDelete(item._id)}
-                    ></i>
-                  </Tooltip>
-                </span>
-              </div>
+             
             </div>
           ))}
         </>
