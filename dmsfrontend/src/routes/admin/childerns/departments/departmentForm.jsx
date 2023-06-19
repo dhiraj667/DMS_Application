@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useBoundStore } from "../../../../store/store";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DepartmentForm = (props) => {
   // const notify = () => toast.error("Wow so easy!")
@@ -14,9 +14,10 @@ const DepartmentForm = (props) => {
     departmentName: yup.string().min(5).max(50).required(),
   });
 
-  const { handleOpen, open, id } = props;
+  const { handleOpen, open } = props;
   const navigate = useNavigate();
 
+  const { id } = useParams();
   const {
     register,
     handleSubmit,
@@ -31,17 +32,21 @@ const DepartmentForm = (props) => {
 
   const onSubmitHandler = (data) => {
     if (!id) {
-      saveDepartment(data).then((res)=>{
-        toast.success("Department added")
-      }).catch((err)=>{
-        toast.error("Something Wrong!!!")
-      });
+      saveDepartment(data)
+        .then((res) => {
+          toast.success("Department added");
+        })
+        .catch((err) => {
+          toast.error("Something Wrong!!!");
+        });
     } else {
-      updateDepartment(data).then((res)=>{
-        toast.success("Department Updated")
-      }).catch((err)=>{
-        toast.error("Something Wrong!!!")
-      });;
+      updateDepartment(data)
+        .then((res) => {
+          toast.success("Department Updated");
+        })
+        .catch((err) => {
+          toast.error("Something Wrong!!!");
+        });
     }
     reset();
     handleOpen();
@@ -56,7 +61,7 @@ const DepartmentForm = (props) => {
 
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       {open ? (
         <>
           <div className="bg-black bg-opacity-50 flex absolute top-0 bottom-0 left-0 right-0 items-center justify-center z-40">
@@ -69,6 +74,7 @@ const DepartmentForm = (props) => {
                   onClick={() => {
                     handleOpen();
                     reset();
+                    navigate(-1);
                   }}
                 >
                   <svg

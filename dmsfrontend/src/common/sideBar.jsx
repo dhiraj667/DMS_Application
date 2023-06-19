@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Popover,
   PopoverHandler,
@@ -10,11 +10,24 @@ import {
   ListItem,
   ListItemPrefix,
 } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
+import USERFORM from "../routes/admin/childerns/Users/usersForm";
+
 const SideBar = (props) => {
-  const { items, items2, onSelectItem,onSelectItem1 } = props;
+  const [open, setOpen] = useState(false);
+  const { items, items2, onSelectItem, onSelectItem1 } = props;
+
+  const handleOpen = () => setOpen(!open);
+  if (!sessionStorage.getItem("loginData")) return;
+  const loginData = JSON.parse(sessionStorage.getItem("loginData"));
+  // console.log(loginData.user);
+  const role = loginData.user.role;
+  const user = loginData.user;
+
   console.log(items);
   return (
     <>
+      <USERFORM open={open} handleOpen={handleOpen} />
       <div className="flex-grow flex flex-col justify-between text-gray-500 bg-gray-800 h-[87vh] w-[15%] ">
         <div className="flex flex-col mx-2 my-6 ">
           {items !== undefined ? (
@@ -160,29 +173,35 @@ const SideBar = (props) => {
                 />
                 <div>
                   <Typography variant="h6" color="blue-gray">
-                    Sadanand Fulari
+                    {`${user.firstName} ${user.lastName}`}
                   </Typography>
                   <Typography
                     variant="small"
                     color="gray"
                     className="font-normal"
                   >
-                    Admin
+                    {role}
                   </Typography>
                 </div>
               </div>
-              <List className="p-0">
-                <a href="#" className="text-initial">
+              <List
+                className="p-0"
+                onClick={() => {
+                  handleOpen();
+                }}
+              >
+                <Link to={`/${user._id}`} className="text-initial">
                   <ListItem>
                     {/* <ListItemPrefix></ListItemPrefix> */}
                     {/* ABC Construction */}{" "}
-                    <h4 className="bold">Edit Account</h4>
+                    <Link to={`${user._id}`}>
+                      <h4 className="bold">Edit Account</h4>
+                    </Link>
                   </ListItem>
-                </a>
-                <div className="">
+                </Link>
+                {/* <div className="">
                   <ListItem>
                     <ListItemPrefix>
-                      {/* <SolidIcons.EnvelopeIcon className="w-5 h-5" /> */}
                       <svg
                         aria-hidden="true"
                         fill="none"
@@ -202,7 +221,7 @@ const SideBar = (props) => {
                       <h3 className="ml-2">Logout</h3>
                     </Typography>
                   </ListItem>
-                </div>
+                </div> */}
               </List>
             </PopoverContent>
           </Popover>

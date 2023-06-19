@@ -3,9 +3,9 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useBoundStore } from "../../../../store/store";
-import { useParams } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate, useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DocTypeFieldForm = (props) => {
   const schema = yup.object().shape({
@@ -14,6 +14,7 @@ const DocTypeFieldForm = (props) => {
     fieldId: yup.string().required(),
   });
   const { handleOpen, open } = props;
+  const navigate = useNavigate();
 
   const { id } = useParams();
   const {
@@ -41,17 +42,21 @@ const DocTypeFieldForm = (props) => {
 
   const onSubmitHandler = (data) => {
     if (!id) {
-      saveDocTypeField(data).then((res)=>{
-        toast.success("Doctypefield Added")
-      }).catch((err)=>{
-        toast.error("Something Wrong!!!")
-      });;
+      saveDocTypeField(data)
+        .then((res) => {
+          toast.success("Doctypefield Added");
+        })
+        .catch((err) => {
+          toast.error("Something Wrong!!!");
+        });
     } else {
-      updateDocTypeField(data).then((res)=>{
-        toast.success("Doctypefield Updated")
-      }).catch((err)=>{
-        toast.error("Something Wrong!!!")
-      });;
+      updateDocTypeField(data)
+        .then((res) => {
+          toast.success("Doctypefield Updated");
+        })
+        .catch((err) => {
+          toast.error("Something Wrong!!!");
+        });
     }
     reset();
     handleOpen();
@@ -73,7 +78,7 @@ const DocTypeFieldForm = (props) => {
   }, [id]);
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       {open ? (
         <>
           <div className="bg-black bg-opacity-50 flex absolute top-0 bottom-0 left-0 right-0 items-center justify-center z-40">
@@ -85,6 +90,7 @@ const DocTypeFieldForm = (props) => {
                   data-modal-hide="authentication-modal"
                   onClick={() => {
                     handleOpen();
+                    navigate(-1);
                     reset();
                   }}
                 >

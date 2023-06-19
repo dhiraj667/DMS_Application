@@ -4,8 +4,8 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useBoundStore } from "../../../../store/store";
 import { useNavigate, useParams } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DocumentTypeForm = (props) => {
   const schema = yup.object().shape({
@@ -34,23 +34,27 @@ const DocumentTypeForm = (props) => {
 
   const onSubmitHandler = (data) => {
     if (!id) {
-      saveDocType(data).then((res)=>{
-        toast.success("Doctype Added")
-      }).catch((err)=>{
-        toast.error("Something Wrong!!!")
-      });;
+      saveDocType(data)
+        .then((res) => {
+          toast.success("Doctype Added");
+        })
+        .catch((err) => {
+          toast.error("Something Wrong!!!");
+        });
       reset();
     } else {
-      updateDocType(data).then((res)=>{
-        toast.success("Doctype Updated")
-      }).catch((err)=>{
-        toast.error("Something Wrong!!!")
-      });;
+      updateDocType(data)
+        .then((res) => {
+          toast.success("Doctype Updated");
+        })
+        .catch((err) => {
+          toast.error("Something Wrong!!!");
+        });
       // reset();
     }
     reset();
     handleOpen();
-    navigate("/doctypes");
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -66,7 +70,7 @@ const DocumentTypeForm = (props) => {
   }, [id]);
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       {open ? (
         <>
           <div className="bg-black bg-opacity-50 flex absolute top-0 bottom-0 left-0 right-0 items-center justify-center z-40">
@@ -79,6 +83,7 @@ const DocumentTypeForm = (props) => {
                   onClick={() => {
                     handleOpen();
                     reset();
+                    navigate(-1);
                   }}
                 >
                   <svg

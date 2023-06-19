@@ -4,9 +4,9 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useBoundStore } from "../../store/store";
-
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Viewer } from "@react-pdf-viewer/core";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddDocumentForm = (props) => {
   const { fieldsArray, documentType, resetForm, showForm, setShowForm } = props;
@@ -26,11 +26,13 @@ const AddDocumentForm = (props) => {
     data = { ...data, ...documentType, local_Url: img_Url };
     data.file = fileData;
     console.log(data);
-    saveDocument(data).then((res)=>{
-      toast.success("Document Added ")
-    }).catch((err)=>{
-      toast.error("Something Wrong!!!")
-    });
+    saveDocument(data)
+      .then((res) => {
+        toast.success("Document Added ");
+      })
+      .catch((err) => {
+        toast.error("Something Wrong!!!");
+      });
   };
 
   function onUploadFile(e) {
@@ -44,7 +46,7 @@ const AddDocumentForm = (props) => {
   }
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       <form
         enctype="multipart/form-data"
         onSubmit={handleSubmit(onSubmitHandlerIndexedDoc)}
@@ -132,9 +134,12 @@ const AddDocumentForm = (props) => {
                 </>
               ) : (
                 <>
-                  {img_Url.includes(".pdf") ? (
+                  {fileData.name.includes(".pdf") ? (
                     <>
-                      <a href={img_Url} className="h-[47vh] w-full"></a>
+                      <object
+                        data={img_Url}
+                        className="h-[47vh] w-full"
+                      ></object>
                     </>
                   ) : (
                     <>

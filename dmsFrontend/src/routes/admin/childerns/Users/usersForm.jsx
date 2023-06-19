@@ -3,10 +3,10 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useBoundStore } from "../../../../store/store";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Multiselect from "multiselect-react-dropdown";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const USERFORM = (props) => {
   const schema = yup.object().shape({
@@ -19,6 +19,7 @@ const USERFORM = (props) => {
     departments: yup.array(),
   });
 
+  const navigate = useNavigate();
   const [deptArray, setDeptArray] = useState();
   const getDepartments = useBoundStore((state) => state.getDepartments);
   // const departments=[
@@ -46,26 +47,31 @@ const USERFORM = (props) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmitHandler = (data) => {
-    data = { ...data, departments: deptArray};
+    data = { ...data, departments: deptArray };
     console.log(data);
     if (!id) {
       data = { ...data, role: "Indexer" };
-      saveUser(data).then((res)=>{
-        toast.success("User Added ")
-      }).catch((err)=>{
-        toast.error("Something Wrong!!!")
-      });
+      saveUser(data)
+        .then((res) => {
+          toast.success("User Added ");
+        })
+        .catch((err) => {
+          toast.error("Something Wrong!!!");
+        });
     } else {
       const newUser = users.find((u) => u._id === id);
       data = { ...data, email: newUser.email, password: newUser.password };
-      updateUser(data).then((res)=>{
-        toast.success("User Updated")
-      }).catch((err)=>{
-        toast.error("Something Wrong!!!")
-      });
+      updateUser(data)
+        .then((res) => {
+          toast.success("User Updated");
+        })
+        .catch((err) => {
+          toast.error("Something Wrong!!!");
+        });
     }
     reset();
     handleOpen();
+    navigate(-1);
     console.log(data);
   };
 
@@ -87,7 +93,7 @@ const USERFORM = (props) => {
 
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       {open ? (
         <>
           <div className="bg-black bg-opacity-50 flex absolute top-0 bottom-0 left-0 right-0 items-center justify-center z-40">
@@ -99,6 +105,7 @@ const USERFORM = (props) => {
                   data-modal-hide="authentication-modal"
                   onClick={() => {
                     handleOpen();
+                    navigate(-1);
                     reset();
                   }}
                 >
@@ -193,7 +200,7 @@ const USERFORM = (props) => {
                       </div>
                     </div>
                     <div className="flex">
-                      <div>
+                      <div className={id ? "hidden" : "block"}>
                         <label className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">
                           UserName
                         </label>
@@ -203,6 +210,23 @@ const USERFORM = (props) => {
                           {...register("userName")}
                           className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block  p-2.5 dark:bg-gray-600 mr-6 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
                           placeholder="Enter User Name"
+                        />
+                        <p className="text-red-500 m-1">
+                          {errors.userName?.message}
+                        </p>
+                      </div>
+
+                      <div className={id ? "block" : "hidden"}>
+                        <label className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">
+                          UserName
+                        </label>
+                        <input
+                          type="text"
+                          name="userName"
+                          {...register("userName")}
+                          className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block  p-2.5 dark:bg-gray-600 mr-6 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
+                          placeholder="Enter User Name"
+                          disabled
                         />
                         <p className="text-red-500 m-1">
                           {errors.userName?.message}

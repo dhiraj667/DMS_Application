@@ -6,6 +6,7 @@ import DocTableHeader from "./docTableHeader";
 
 const DocTable = (props) => {
   const [showPreview, setShowPreview] = useState(false);
+  const [value, setValue] = useState(false);
   const [url, setUrl] = useState("");
   const {
     items,
@@ -189,7 +190,7 @@ const DocTable = (props) => {
       {showPreview ? (
         <>
           <div className="bg-black bg-opacity-50 z-50 flex absolute top-0 bottom-0 left-0 right-0 items-center justify-center z-40">
-            <div className="rounded min-w-[80%] min-h-[80vh] bg-white">
+            <div className="rounded w-[80%] h-[80vh] bg-white">
               <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                 <button
                   type="button"
@@ -219,12 +220,17 @@ const DocTable = (props) => {
                     Preview
                   </h3>
 
-                  <img
+                  <object
+                    data={`https://drive.google.com/uc?id=${url}`}
+                    className="w-[100%] h-[65vh]"
+                    type=""
+                  ></object>
+                  {/* <img
                     src={`https://drive.google.com/uc?id=${url}`}
                     alt="img"
                     loading="lazy"
                     className="w-[100%] h-[65vh] "
-                  />
+                  /> */}
                 </div>
               </div>
             </div>

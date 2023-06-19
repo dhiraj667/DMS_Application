@@ -19,6 +19,7 @@ import {
 } from "./common/privateRoute";
 import RegisterForm from "./routes/Auth/register";
 import AboutUs from "./routes/Auth/aboutUs";
+import USERFORM from "./routes/admin/childerns/Users/usersForm";
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -71,6 +72,15 @@ function App() {
                 }
               />
             </Route>
+
+            <Route
+              path=":id"
+              element={
+                <PrivateRoute>
+                  <Admin />
+                </PrivateRoute>
+              }
+            ></Route>
 
             <Route
               path="departments"
