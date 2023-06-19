@@ -32,12 +32,17 @@ const Login = ({ setLogin }) => {
     loginUser(data)
       .then((res) => {
         const role = res.data.user.role;
+        const isActive = res.data.user.isActive;
 
-        setLogin(true);
-        if (role === "Admin") {
-          navigate("/");
+        if (isActive) {
+          setLogin(true);
+          if (role === "Admin") {
+            navigate("/");
+          } else {
+            navigate("/allDoc");
+          }
         } else {
-          navigate("/allDoc");
+          toast.error("Sorry.. You are no More Member at DMS Application..");
         }
       })
       .catch((err) => {

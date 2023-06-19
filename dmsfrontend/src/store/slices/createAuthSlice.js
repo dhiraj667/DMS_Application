@@ -11,12 +11,15 @@ export const createAuthSlice = (set) => ({
     console.log(data);
     const response = await axios.post(apiEndPoint, data);
     console.log(response);
-    sessionStorage.setItem("loginData", JSON.stringify(response.data));
-    console.log(response);
-    set(() => ({
-      token: response.data.accessToken,
-      user: response.data.user,
-    }));
+    if (response.data.user.isActive) {
+      sessionStorage.setItem("loginData", JSON.stringify(response.data));
+      console.log(response);
+      set(() => ({
+        token: response.data.accessToken,
+        user: response.data.user,
+      }));
+    }
+
     return response;
   },
 });
