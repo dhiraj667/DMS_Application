@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Index = () => {
   const [docSearchCheckBox,setDocSearchCheckBox]=useState("");
+  const [deptSearchCheckBox,setDeptSearchCheckBox]=useState("");
   //search
   const [searchTerm, setSearchTerm] = useState("");
   //pagination
@@ -57,7 +58,7 @@ const Index = () => {
   };
 
   function onSelectItem(data) {
-    console.log(data);
+    setDeptSearchCheckBox(data);
   }
   function onSelectItem1(data) {
     console.log(data);
@@ -109,12 +110,17 @@ const Index = () => {
 
   const departmentWiseData = documentTypes.filter((d) => {
     console.log(d.department.departmentName);
-    for (let i = 0; i < departments.length; i++) {
-      if (d.department.departmentName == departments[i]) {
-        console.log(d.department.departmentName + "===" + departments[i]);
-        return d;
+    if(deptSearchCheckBox ===''){
+      for (let i = 0; i < departments.length; i++) {
+        if (d.department.departmentName == departments[i]) {
+          console.log(d.department.departmentName + "===" + departments[i]);
+          return d;
+        }
+      }}else{
+         return d.department.departmentName == deptSearchCheckBox;
       }
-    }
+    
+    
   });
 
   const newFilteredDocument = newDocument.filter((d) => {
