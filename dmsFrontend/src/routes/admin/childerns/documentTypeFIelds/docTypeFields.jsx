@@ -32,7 +32,8 @@ const DOCTYPEFIELDS = () => {
   const deleteDocTypeFields = useBoundStore(
     (state) => state.deleteDocTypeField
   );
-  const docTypes = useBoundStore((state) => state.docTypes);
+  let docTypes = useBoundStore((state) => state.docTypes);
+   docTypes=[{_id:"01",docType:"All"},...docTypes]
   const getDocTypes = useBoundStore((state) => state.getDocTypes);
 
   const newDocTypefields = docTypeFields.map((d) => ({
@@ -56,7 +57,7 @@ const DOCTYPEFIELDS = () => {
   });
 
   const onCheckBoxSelect = newDocTypefields.filter((val)=>{
-    if(clickItem==""){
+    if(clickItem=="" || clickItem=="All"){
       return val;
     }else if(val.docType.includes(clickItem)){
       return val

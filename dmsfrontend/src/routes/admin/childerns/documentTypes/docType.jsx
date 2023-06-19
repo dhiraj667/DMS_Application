@@ -31,7 +31,10 @@ const DOCTYPE = () => {
   const getDocTypes = useBoundStore((state) => state.getDocTypes);
   const docTypes = useBoundStore((state) => state.docTypes);
   const getDepartments = useBoundStore((state) => state.getDepartments);
-  const departments = useBoundStore((state) => state.departments);
+
+  let departments = useBoundStore((state) => state.departments);
+  departments=[{_id:"01",departmentName:"All"},...departments]
+
   const deleteDocType = useBoundStore((state) => state.deleteDocType);
   const [open, setOpen] = useState(false);
   //searching
@@ -60,7 +63,7 @@ const DOCTYPE = () => {
     }
   });
   const onCheckBoxSelect = docTypes.filter((val)=>{
-    if(clickItem==""){
+    if(clickItem=="" || clickItem=="All"){
       return val;
     }else if(val.department.departmentName.includes(clickItem)){
       return val

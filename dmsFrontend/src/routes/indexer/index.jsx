@@ -69,8 +69,8 @@ const Index = () => {
   const loginData = JSON.parse(sessionStorage.getItem("loginData"));
   // console.log(loginData.user);
   const role = loginData.user.role;
-  const departments = loginData.user.departments;
-  console.log(departments);
+  let departments = loginData.user.departments;
+  departments=[{_id:"01",departmentName:"All"},...departments]
 
   // const departmentWiseDocument=
 
@@ -108,9 +108,9 @@ const Index = () => {
     }
   });
 
-  const departmentWiseData = documentTypes.filter((d) => {
+  let departmentWiseData = documentTypes.filter((d) => {
     console.log(d.department.departmentName);
-    if(deptSearchCheckBox ===''){
+    if(deptSearchCheckBox ==='' || deptSearchCheckBox=="All"){
       for (let i = 0; i < departments.length; i++) {
         if (d.department.departmentName == departments[i]) {
           console.log(d.department.departmentName + "===" + departments[i]);
@@ -122,6 +122,7 @@ const Index = () => {
     
     
   });
+  departmentWiseData=[{_id:"01",departmentName:"All"},...departmentWiseData]
 
   const newFilteredDocument = newDocument.filter((d) => {
     for (let i = 0; i < departmentWiseData.length; i++) {
@@ -144,7 +145,7 @@ const Index = () => {
   });
 
   const docSearch = newFilteredDocument.filter((val) => {
-    if (docSearchCheckBox === "" || docSearchCheckBox.toLowerCase() === "") {
+    if (docSearchCheckBox === "" || docSearchCheckBox.toLowerCase() === "" || docSearchCheckBox=="All") {
       return val;
     } else if (val.documentName.includes(docSearchCheckBox)) {
       return val;

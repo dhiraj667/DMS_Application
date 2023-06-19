@@ -38,7 +38,7 @@ const LogOutModal = ({show ,onClose,setLogin,setShow}) => {
                   </button>
                   <button
                   onClick={onClose}
-                  className='bg-gray-300 hover:bg-blue-500 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline border'>
+                  className='bg-gray-400 hover:bg-blue-500 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline border'>
                     No
                   </button>
                   </div>

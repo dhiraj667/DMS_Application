@@ -42,7 +42,9 @@ const SideBar = (props) => {
                           : "Departments"}
                       </h5>
                       <li className="mt-1 pt-0">
+                      {/* <input type="checkbox" name="" value="All"/><span  className="text-white fw-bold h6 ml-2">ALL</span> */}
                         {items.map((item, index) => (
+                          
                           <div className="flex mt-1" key={item._id}>
                             <input
                               id={`radio`}
@@ -95,6 +97,7 @@ const SideBar = (props) => {
                           : "Departments"}
                       </h5>
                       <li className="mt-1 pt-0">
+                      {/* <input type="checkbox" name="" value="All"/><span  className="text-white fw-bold h6 ml-2">ALL</span>, */}
                         {items2.map((item, index) => (
                           <div className="flex mt-1" key={item._id}>
                             <input
