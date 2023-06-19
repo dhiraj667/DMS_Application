@@ -6,11 +6,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useBoundStore } from "../../store/store";
 import { Viewer } from "@react-pdf-viewer/core";
 import { ToastContainer, toast } from "react-toastify";
+import uploadingGif from "../../assests/images/uploading.gif";
 import "react-toastify/dist/ReactToastify.css";
 
 const AddDocumentForm = (props) => {
   const { fieldsArray, documentType, resetForm, showForm, setShowForm } = props;
-
+  const [status, setStatus] = useState(false);
   const [img_Url, setImg_Url] = useState();
   const [fileData, setFileData] = useState();
   const {
@@ -26,8 +27,10 @@ const AddDocumentForm = (props) => {
     data = { ...data, ...documentType, local_Url: img_Url };
     data.file = fileData;
     console.log(data);
+    setStatus(true);
     saveDocument(data)
       .then((res) => {
+        setStatus(false);
         toast.success("Document Added ");
       })
       .catch((err) => {
@@ -46,6 +49,21 @@ const AddDocumentForm = (props) => {
   }
   return (
     <>
+      {status ? (
+        <>
+          <div className="bg-black bg-opacity-50 flex absolute top-0 bottom-0 left-0 right-0 items-center justify-center z-40">
+            <div className="rounded w-[350px] h-[45vh] bg-white">
+              <h2 className="text-center text-bold text-2xl text-green-500 mt-2">
+                Image is uploading
+              </h2>
+              <img src={uploadingGif} alt="" className="w-[100%]" />
+            </div>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
+
       <ToastContainer />
       <form
         enctype="multipart/form-data"

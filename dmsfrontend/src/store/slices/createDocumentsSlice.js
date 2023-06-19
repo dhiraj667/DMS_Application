@@ -20,9 +20,9 @@ export const createDocumentsSlice = (set) => ({
     });
 
     console.log(response.data);
-    set({
-      documents: response.data,
-    });
+    set((state) => ({
+      documents: [response.data, ...state.documents],
+    }));
     return response;
   },
 

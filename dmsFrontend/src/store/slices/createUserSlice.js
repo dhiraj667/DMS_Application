@@ -52,4 +52,12 @@ export const createUserSlice = (set) => ({
     set(() => ({ userEmail: response.data.data }));
     return response;
   },
+
+  getByUserId: async function (_id) {
+    console.log(_id);
+    const response = await axios.get(apiEndPoint, { params: _id });
+    console.log(response);
+    // set(() => ({ userEmail: response.data[0] }));
+    return response;
+  },
 });

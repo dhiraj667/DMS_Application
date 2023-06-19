@@ -8,8 +8,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Index = () => {
-  const [docSearchCheckBox,setDocSearchCheckBox]=useState("");
-  const [deptSearchCheckBox,setDeptSearchCheckBox]=useState("");
+  const [docSearchCheckBox, setDocSearchCheckBox] = useState("");
+  const [deptSearchCheckBox, setDeptSearchCheckBox] = useState("");
   //search
   const [searchTerm, setSearchTerm] = useState("");
   //pagination
@@ -70,7 +70,7 @@ const Index = () => {
   // console.log(loginData.user);
   const role = loginData.user.role;
   let departments = loginData.user.departments;
-  departments=[{_id:"01",departmentName:"All"},...departments]
+  departments = [{ _id: "01", departmentName: "All" }, ...departments];
 
   // const departmentWiseDocument=
 
@@ -94,7 +94,7 @@ const Index = () => {
     ];
   }
 
-  if (!documents) return;
+  if (!documents.length === 0) return;
   let newDocument = documents.map((document) => ({
     name: document.indexingInfo["name"],
     ...document,
@@ -110,19 +110,21 @@ const Index = () => {
 
   let departmentWiseData = documentTypes.filter((d) => {
     console.log(d.department.departmentName);
-    if(deptSearchCheckBox ==='' || deptSearchCheckBox=="All"){
+    if (deptSearchCheckBox === "" || deptSearchCheckBox == "All") {
       for (let i = 0; i < departments.length; i++) {
         if (d.department.departmentName == departments[i]) {
           console.log(d.department.departmentName + "===" + departments[i]);
           return d;
         }
-      }}else{
-         return d.department.departmentName == deptSearchCheckBox;
       }
-    
-    
+    } else {
+      return d.department.departmentName == deptSearchCheckBox;
+    }
   });
-  departmentWiseData=[{_id:"01",departmentName:"All"},...departmentWiseData]
+  departmentWiseData = [
+    { _id: "01", departmentName: "All" },
+    ...departmentWiseData,
+  ];
 
   const newFilteredDocument = newDocument.filter((d) => {
     for (let i = 0; i < departmentWiseData.length; i++) {
@@ -145,11 +147,17 @@ const Index = () => {
   });
 
   const docSearch = newFilteredDocument.filter((val) => {
-    if (docSearchCheckBox === "" || docSearchCheckBox.toLowerCase() === "" || docSearchCheckBox=="All") {
+    if (
+      docSearchCheckBox === "" ||
+      docSearchCheckBox.toLowerCase() === "" ||
+      docSearchCheckBox == "All"
+    ) {
       return val;
     } else if (val.documentName.includes(docSearchCheckBox)) {
       return val;
-    } else if (val.documentName.toLowerCase().includes(docSearchCheckBox.toLowerCase())) {
+    } else if (
+      val.documentName.toLowerCase().includes(docSearchCheckBox.toLowerCase())
+    ) {
       return val;
     }
   });
@@ -157,7 +165,7 @@ const Index = () => {
   let allDocuments;
   if (searchTerm) {
     allDocuments = newDocuments.slice(firstDataIndex, lastDataIndex);
-  }else if(docSearch){
+  } else if (docSearch) {
     allDocuments = docSearch.slice(firstDataIndex, lastDataIndex);
   } else {
     allDocuments = newDocuments.slice(firstDataIndex, lastDataIndex);

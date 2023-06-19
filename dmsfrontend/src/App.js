@@ -71,16 +71,15 @@ function App() {
                   </PrivateRoute>
                 }
               />
+              <Route
+                path="/:id"
+                element={
+                  <PrivateRoute>
+                    <Admin />
+                  </PrivateRoute>
+                }
+              ></Route>
             </Route>
-
-            <Route
-              path=":id"
-              element={
-                <PrivateRoute>
-                  <Admin />
-                </PrivateRoute>
-              }
-            ></Route>
 
             <Route
               path="departments"

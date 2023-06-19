@@ -13,16 +13,33 @@ import {
 } from "@material-tailwind/react";
 import { ClockIcon, CreditCardIcon, BellIcon } from "@heroicons/react/24/solid";
 import LogOutModal from "../routes/Auth/logOutModal";
+import { useBoundStore } from "../store/store";
 
 const NavBar = (props) => {
   const [show, setShow] = useState(false);
+  const [user, setUser] = useState({});
+  const [open, setOpen] = useState(false);
   const { setLogin } = props;
   // const navigate = useNavigate();
+
+  function handleOpen() {
+    setOpen(!open);
+  }
+
+  const getByUserId = useBoundStore((state) => state.getByUserId);
   if (!sessionStorage.getItem("loginData")) return;
   const loginData = JSON.parse(sessionStorage.getItem("loginData"));
-  // console.log(loginData.user);
+
   const role = loginData.user.role;
-  const user = loginData.user;
+
+  getByUserId({ _id: loginData.user._id })
+    .then((res) => {
+      console.log(res.data.data[0]);
+      setUser(res.data.data[0]);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 
   return (
     <>
@@ -200,7 +217,12 @@ const NavBar = (props) => {
           </>
         )}
 
-        <div className="flex flex-shrink-0 items-center ml-auto">
+        <div
+          className="flex flex-shrink-0 items-center ml-auto"
+          onClick={() => {
+            handleOpen();
+          }}
+        >
           <button className="relative inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg">
             <span className="sr-only uppercase">{user.role}</span>
             <div className="hidden md:flex md:flex-col md:items-end md:leading-tight">
@@ -230,13 +252,18 @@ const NavBar = (props) => {
             </svg>
           </button>
           <div
-            className="absolute top-20 bg-white border rounded-md p-2 w-56"
+            className={
+              open
+                ? "absolute top-20 bg-white border rounded-md p-2 w-56"
+                : "absolute top-20 bg-white border rounded-md p-2 w-56 hidden"
+            }
             // x-show="panel"
-            style={{ display: "none" }}
+            // style={{ display: "none" }}
           >
-            <div className="p-2 hover:bg-blue-100 cursor-pointer">Profile</div>
-            <div className="p-2 hover:bg-blue-100 cursor-pointer">Messages</div>
-            <div className="p-2 hover:bg-blue-100 cursor-pointer">To-Do's</div>
+            <div className="p-2 hover:bg-blue-100 cursor-pointer">
+              {" "}
+              Edit Profile
+            </div>
           </div>
           <div className="border-l pl-3 ml-3 space-x-1">
             <Popover placement="bottom-start">
