@@ -11,12 +11,14 @@ export const createDocTypeSlice = (set) => ({
     set(() => ({ docTypes: response.data.data }));
   },
 
-  getByDocTypeId: async function (id) {
-    const response = await axios.get(`${apiEndPoint}/${id}`);
-    // console.log(response.data);
+  getByDocTypeName: async function (name) {
+    console.log(name);
+    const response = await axios.get(apiEndPoint, { params: name });
+    console.log(response.data.data[0]);
     set((state) => ({
-      currentDocType: response.data,
+      currentDocType: response.data.data,
     }));
+    return response;
   },
   saveDocType: async function (data) {
     const response = await axios.post(apiEndPoint, data);

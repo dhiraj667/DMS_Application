@@ -10,15 +10,6 @@ const Index = () => {
   const handleOpen = () => setOpen(!open);
   const [loading, setLoading] = useState(true);
 
-  const columns = [
-    { path: "User Name", header: "User Name" },
-    { path: "document Name", header: "Document Name" },
-    { key: "Preview" },
-    { key: "Preview DocInfo" },
-    { key: "Download" },
-    { key: "Action" },
-  ];
-
   const getAllDocuments = useBoundStore((state) => state.getAllDocuments);
   const documents = useBoundStore((state) => state.documents);
   const docTypes = useBoundStore((state) => state.docTypes);
@@ -60,17 +51,65 @@ const Index = () => {
 
   // const departmentWiseDocument=
 
+  let columns;
+  if (role === "Indexer") {
+    columns = [
+      { path: "User Name", header: "User Name" },
+      { path: "document Name", header: "Document Name" },
+      { key: "Preview" },
+      { key: "Preview DocInfo" },
+      { key: "Download" },
+      { key: "Action" },
+    ];
+  } else {
+    columns = [
+      { path: "User Name", header: "User Name" },
+      { path: "document Name", header: "Document Name" },
+      { key: "Preview" },
+      { key: "Preview DocInfo" },
+      { key: "Download" },
+    ];
+  }
+
   if (!documents) return;
   let newDocument = documents.map((document) => ({
     name: document.indexingInfo["name"],
     ...document,
   }));
 
+  const documentTypes = docTypes.filter((d) => {
+    for (let i = 0; i < newDocument.length; i++) {
+      if (d.docType === newDocument[i].documentName) {
+        return d;
+      }
+    }
+  });
+
+  const departmentWiseData = documentTypes.filter((d) => {
+    console.log(d.department.departmentName);
+    for (let i = 0; i < departments.length; i++) {
+      if (d.department.departmentName == departments[i]) {
+        console.log(d.department.departmentName + "===" + departments[i]);
+        return d;
+      }
+    }
+  });
+
+  const newFilteredDocument = newDocument.filter((d) => {
+    for (let i = 0; i < departmentWiseData.length; i++) {
+      if (d.documentName === departmentWiseData[i].docType) {
+        return d;
+      }
+    }
+  });
+
+  console.log(newFilteredDocument);
+
   return (
     <>
       <div className="flex w-full h-[33.5rem] bg-gray-100">
         <SideBar
-          items2={docTypes}
+          items2={departmentWiseData}
           items={departments}
           onSelectItem={onSelectItem}
         />
@@ -93,10 +132,11 @@ const Index = () => {
                 <DocTable
                   urlName={"documents"}
                   columns={columns}
-                  items={newDocument}
+                  items={newFilteredDocument}
                   onHandleDelete={handleDelete}
                   onHandleUpdate={handleUpdate}
                   loading={loading}
+                  role={role}
                   // previewUrl={}
                 />
               </>

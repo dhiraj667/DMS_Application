@@ -7,8 +7,15 @@ import DocTableHeader from "./docTableHeader";
 const DocTable = (props) => {
   const [showPreview, setShowPreview] = useState(false);
   const [url, setUrl] = useState("");
-  const { items, columns, onHandleDelete, onHandleUpdate, loading, urlName } =
-    props;
+  const {
+    items,
+    columns,
+    onHandleDelete,
+    onHandleUpdate,
+    loading,
+    urlName,
+    role,
+  } = props;
 
   console.log(items);
   console.log(columns);
@@ -22,7 +29,11 @@ const DocTable = (props) => {
           {items.map((item, index) => (
             <div
               key={item._id + new Date().toString()}
-              className="py-3 px-4 mt-2 flex hover:bg-gray-200 rounded-md mx-4 group"
+              className={
+                role === "Indexer"
+                  ? "py-3 px-4 mt-2 flex hover:bg-gray-200 rounded-md mx-4 group "
+                  : "py-3 px-4 mt-2 flex hover:bg-gray-200 rounded-md mx-4 group justify-between"
+              }
             >
               <div className="w-1 group-hover:bg-blue-500 rounded-md"></div>
               {Object.entries(item).map(([nextItem, value]) => (
@@ -133,35 +144,43 @@ const DocTable = (props) => {
                   </Tooltip>
                 </span>
               </div>
-              <div className="pl-16">
-                <span className="text-center ">
-                  <Tooltip
-                    className="py-0.5 rounded"
-                    content={<span className="bg-black text-white">Edit</span>}
-                  >
-                    <Link to={`/${urlName}/${item._id}`} className="mx-4">
-                      <i
-                        className="fa fa-pencil fa-lg"
-                        aria-hidden="true"
-                        onClick={() => onHandleUpdate(item)}
-                      ></i>
-                    </Link>
-                  </Tooltip>
+              {role === "Indexer" ? (
+                <>
+                  <div className="pl-16">
+                    <span className="text-center ">
+                      <Tooltip
+                        className="py-0.5 rounded"
+                        content={
+                          <span className="bg-black text-white">Edit</span>
+                        }
+                      >
+                        <Link to={`/${urlName}/${item._id}`} className="mx-4">
+                          <i
+                            className="fa fa-pencil fa-lg"
+                            aria-hidden="true"
+                            onClick={() => onHandleUpdate(item)}
+                          ></i>
+                        </Link>
+                      </Tooltip>
 
-                  <Tooltip
-                    className="py-0.5 rounded"
-                    content={
-                      <span className="bg-black text-white">Delete</span>
-                    }
-                  >
-                    <i
-                      className="fa fa-trash ml-7 fa-lg mx-4"
-                      aria-hidden="true"
-                      onClick={() => onHandleDelete(item._id)}
-                    ></i>
-                  </Tooltip>
-                </span>
-              </div>
+                      <Tooltip
+                        className="py-0.5 rounded"
+                        content={
+                          <span className="bg-black text-white">Delete</span>
+                        }
+                      >
+                        <i
+                          className="fa fa-trash ml-7 fa-lg mx-4"
+                          aria-hidden="true"
+                          onClick={() => onHandleDelete(item._id)}
+                        ></i>
+                      </Tooltip>
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <div className="hidden"></div>
+              )}
             </div>
           ))}
         </>
