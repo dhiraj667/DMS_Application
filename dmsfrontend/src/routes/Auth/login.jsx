@@ -8,12 +8,11 @@ import log0 from "../../assests/images/log0.jpg";
 import { useBoundStore } from "../../store/store";
 import ForgetPass from "./forgetPassword";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = ({ setLogin }) => {
-  
-  const [show,setShow]=useState(false);
+  const [show, setShow] = useState(false);
 
   const schema = yup.object().shape({
     userName: yup.string().min(3).max(366).required(),
@@ -33,7 +32,7 @@ const Login = ({ setLogin }) => {
     loginUser(data)
       .then((res) => {
         const role = res.data.user.role;
-        
+
         setLogin(true);
         if (role === "Admin") {
           navigate("/");
@@ -42,7 +41,7 @@ const Login = ({ setLogin }) => {
         }
       })
       .catch((err) => {
-        toast.error("Email and password may be wrong!!")
+        toast.error("UserName and password may be wrong!!");
         console.log("wrong data");
       });
     // setLoginData(data);
@@ -54,9 +53,9 @@ const Login = ({ setLogin }) => {
       <ToastContainer />
       <div className="  h-screen w-90 mx-3">
         <div className="pt-8">
-        <ForgetPass show={show} onClose={()=>setShow(false)}/>
+          <ForgetPass show={show} onClose={() => setShow(false)} />
         </div>
-        
+
         <div className="w-3/4 m-auto shadow-lg shadow-blue-100/50 bg-blue-200 px-5 rounded-md">
           <ul className="nav justify-end  flex flex-row  ">
             <li className="nav-item me-4 mt-4 mb-4 font-bold italic">
@@ -119,8 +118,9 @@ const Login = ({ setLogin }) => {
                   </div>
                   <div className="text-center lg:text-centre justify-items-start">
                     <button
-                    // onClick={notify}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border  lg w-3/4">
+                      // onClick={notify}
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline border  lg w-3/4"
+                    >
                       Login
                     </button>
                   </div>
@@ -138,7 +138,7 @@ const Login = ({ setLogin }) => {
 
                     <span className="mr-20 font-extralight text-sm mt-2 ">
                       <Link
-                      onClick={()=>setShow(true)}
+                        onClick={() => setShow(true)}
                         to=""
                         className="align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 text-center"
                       >

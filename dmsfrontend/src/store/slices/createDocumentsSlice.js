@@ -25,4 +25,13 @@ export const createDocumentsSlice = (set) => ({
     });
     return response;
   },
+
+  deleteDocument: async function (id) {
+    console.log(id);
+    const response = await axios.delete(`${apiEndPoint}/${id}`);
+    set((state) => ({
+      documents: state.documents.filter((d) => d._id !== id),
+    }));
+    return response;
+  },
 });

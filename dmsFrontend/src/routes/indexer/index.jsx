@@ -4,13 +4,15 @@ import { useBoundStore } from "../../store/store";
 import DocTable from "../../common/documentsTable/docTable";
 import Loader from "../../components/loader";
 import Pagination from "../../common/pagination";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Index = () => {
   //search
   const [searchTerm, setSearchTerm] = useState("");
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [dataPerPage, setDataPerPage] = useState(4);
+  const [dataPerPage, setDataPerPage] = useState(5);
   const lastDataIndex = currentPage * dataPerPage;
   const firstDataIndex = lastDataIndex - dataPerPage;
 
@@ -20,6 +22,7 @@ const Index = () => {
 
   const getAllDocuments = useBoundStore((state) => state.getAllDocuments);
   const documents = useBoundStore((state) => state.documents);
+  const deleteDocument = useBoundStore((state) => state.deleteDocument);
   const docTypes = useBoundStore((state) => state.docTypes);
   const getDocTypes = useBoundStore((state) => state.getDocTypes);
   // const deleteDepartment = useBoundStore((state) => state.deleteDepartment);
@@ -39,7 +42,13 @@ const Index = () => {
   }, []);
 
   const handleDelete = (id) => {
-    // deleteDepartment(id);
+    deleteDocument(id)
+      .then((res) => {
+        toast.success("Document Deleted Success...!!");
+      })
+      .catch((err) => {
+        toast.error("Something Wrong!!!");
+      });
   };
   const handleUpdate = (data) => {
     // setId(data._id);
@@ -84,22 +93,6 @@ const Index = () => {
     name: document.indexingInfo["name"],
     ...document,
   }));
-  const newDocuments = newDocument.filter((val) => {
-    if (searchTerm === "" || searchTerm.toLowerCase() === "") {
-      return val;
-    } else if (val.name.includes(searchTerm)) {
-      return val;
-    } else if (val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
-      return val;
-    }
-  });
-
-  let document;
-  if (searchTerm) {
-    document = newDocuments.slice(firstDataIndex, lastDataIndex);
-  } else {
-    document = newDocument.slice(firstDataIndex, lastDataIndex);
-  }
 
   const documentTypes = docTypes.filter((d) => {
     for (let i = 0; i < newDocument.length; i++) {
@@ -129,8 +122,26 @@ const Index = () => {
 
   console.log(newFilteredDocument);
 
+  const newDocuments = newFilteredDocument.filter((val) => {
+    if (searchTerm === "" || searchTerm.toLowerCase() === "") {
+      return val;
+    } else if (val.name.includes(searchTerm)) {
+      return val;
+    } else if (val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+      return val;
+    }
+  });
+
+  let allDocuments;
+  if (searchTerm) {
+    allDocuments = newDocuments.slice(firstDataIndex, lastDataIndex);
+  } else {
+    allDocuments = newDocuments.slice(firstDataIndex, lastDataIndex);
+  }
+
   return (
     <>
+      <ToastContainer />
       <div className="flex w-full h-[33.5rem] bg-gray-100">
         <SideBar
           items2={departmentWiseData}
@@ -151,7 +162,7 @@ const Index = () => {
                 className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full pl-10 py-2 px-4 font-bold leading-tight focus:outline-none  text-gray-500"
                 id="inline-searcg"
                 type="text"
-                placeholder={`Search by document name.....`}
+                placeholder={`Search by user name,indexingInfo.....`}
               />
             </div>
             {documents ? (
@@ -160,7 +171,7 @@ const Index = () => {
                 <DocTable
                   urlName={"documents"}
                   columns={columns}
-                  items={newFilteredDocument}
+                  items={allDocuments}
                   onHandleDelete={handleDelete}
                   onHandleUpdate={handleUpdate}
                   loading={loading}
@@ -173,7 +184,7 @@ const Index = () => {
                 <Loader />
               </>
             )}
-            ;
+
             <Pagination
               total={documents.length}
               pageSize={dataPerPage}

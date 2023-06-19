@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ResetPassWord from "./resetPassword";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ForgetPass = ({ show, onClose }) => {
   const [showResetPassModal, setShowResetPassMode] = useState(false);
@@ -26,11 +28,12 @@ const ForgetPass = ({ show, onClose }) => {
       .then((res) => {
         reset();
         if (res.data.data.length === 0) {
-          console.log("email is not Registerd");
+          toast.error("Email Is Not Registerd");
         } else {
           onClose();
           setShowResetPassMode(true);
-          console.log("email is  Registerd");
+          console.log();
+          // toast.success("email is  Registerd");
           setEmail(data.email);
         }
       })
@@ -41,6 +44,7 @@ const ForgetPass = ({ show, onClose }) => {
 
   return (
     <>
+      <ToastContainer />
       <div>
         {show ? (
           <>

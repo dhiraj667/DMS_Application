@@ -13,36 +13,40 @@ export const findByEmailId = () => {
       }
 
       const otpService = context.app.service('otp')
-      const newOtp = await otpService.create({ email: email, otp: OTP })
+      const res = await otpService.find({ query: { email: email } })
+      if (res.data[0]) {
+      } else {
+        const newOtp = await otpService.create({ email: email, otp: OTP })
 
-      console.log(newOtp)
+        console.log(newOtp)
 
-      setTimeout(async () => {
-        await otpService.remove(newOtp._id)
-      }, 500000)
+        setTimeout(async () => {
+          await otpService.remove(newOtp._id)
+        }, 600000)
 
-      var transport = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: 'sadanandf@valueaddsofttech.com',
-          pass: 'SadV@0103'
+        var transport = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: 'sadanandf@valueaddsofttech.com',
+            pass: 'SadV@0103'
+          }
+        })
+        //send out email
+        let mailoptions = {
+          from: 'Sadanand Fulari',
+          to: email,
+          subject: 'Hello , Here is Your Otp For resetting Password',
+          text: `OTP : ${OTP}`
         }
-      })
-      //send out email
-      let mailoptions = {
-        from: 'Sadanand Fulari',
-        to: email,
-        subject: 'Hello , Here is Your Otp For resetting Password',
-        text: `OTP : ${OTP}`
+
+        transport.sendMail(mailoptions, function (error, info) {
+          if (error) {
+            console.log(error)
+          } else {
+            console.log('Email sent' + info.response)
+          }
+        })
       }
-
-      transport.sendMail(mailoptions, function (error, info) {
-        if (error) {
-          console.log(error)
-        } else {
-          console.log('Email sent' + info.response)
-        }
-      })
     }
   }
 }

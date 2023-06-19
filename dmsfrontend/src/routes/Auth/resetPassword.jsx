@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useBoundStore } from "../../store/store";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ResetPassWord = (props) => {
   const { showResetPassModal, setShowResetPassMode, email } = props;
@@ -27,15 +29,16 @@ const ResetPassWord = (props) => {
     resetPassword(data)
       .then((res) => {
         setShowResetPassMode(false);
-        console.log("changed success...");
+        toast.success("Password Changed Sucess..");
       })
       .catch((err) => {
-        console.log(err.message);
+        toast.error(err.data.message);
       });
     reset();
   };
   return (
     <>
+      <ToastContainer />
       <div>
         {showResetPassModal ? (
           <>
@@ -78,7 +81,11 @@ const ResetPassWord = (props) => {
                           type="text"
                           placeholder="Enter Otp"
                         />
+                        <p className="text-red-500 text-xs mt-1 mx-1">
+                          NOTE:-OTP is Expired in 10 Min.
+                        </p>
                       </div>
+
                       <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2">
                           New Password
