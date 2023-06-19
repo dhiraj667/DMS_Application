@@ -170,7 +170,7 @@ const Admin = () => {
                       datasets: [
                         {
                           label: "Document Management Information",
-                          backgroundColor: "#4233ff", //#f87979
+                          backgroundColor: "#647cf3", //#f87979
                           data: [documents.length,generalUserCount.length,activeIndexerCount.length,inActiveIndexerCount.length, 10],
                         },
                       ],

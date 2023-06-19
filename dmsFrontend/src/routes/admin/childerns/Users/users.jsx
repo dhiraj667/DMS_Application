@@ -35,7 +35,8 @@ const USERS = () => {
   const users = useBoundStore((state) => state.users);
   const deleteUser = useBoundStore((state) => state.deleteUser);
   const getDepartments = useBoundStore((state) => state.getDepartments);
-  const departments = useBoundStore((state) => state.departments);
+  let departments = useBoundStore((state) => state.departments);
+   departments=[{_id:"01",departmentName:"All"},...departments]
 
   const filteredUsers = users.filter((user) => user.role !== "Admin");
 
@@ -57,9 +58,10 @@ const USERS = () => {
   });
 
   const onCheckBoxSelect = newUsers.filter((val) => {
-    if (clickItem == "") {
+    if (clickItem == "" || clickItem=="All") {
       return val;
-    } else if (val.departmentName.includes(clickItem)) {
+    }
+    else if (val.departmentName.includes(clickItem)) {
       return val;
     }
   });
@@ -79,6 +81,8 @@ const USERS = () => {
       .catch((err) => console.log(err));
     getDepartments();
   }, []);
+
+  
 
   const handleUpdate = (data) => {
     console.log(`Update ${data}`);
