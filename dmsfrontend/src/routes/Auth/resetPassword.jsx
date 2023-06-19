@@ -26,6 +26,7 @@ const ResetPassWord = (props) => {
     console.log(data);
     resetPassword(data)
       .then((res) => {
+        setShowResetPassMode(false);
         console.log("changed success...");
       })
       .catch((err) => {

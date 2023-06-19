@@ -45,5 +45,4 @@ export const findByEmailId = () => {
       })
     }
   }
-  return context
 }
