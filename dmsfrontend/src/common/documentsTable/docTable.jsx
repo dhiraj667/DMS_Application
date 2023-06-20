@@ -155,7 +155,8 @@ const DocTable = (props) => {
                           <span className="bg-black text-white">Edit</span>
                         }
                       >
-                        <Link to={`/${urlName}/${item._id}`} className="mx-4">
+                        {/* <Link to={`/${urlName}/${item._id}`} className="mx-4"> */}
+                        <Link className="mx-4">
                           <i
                             className="fa fa-pencil fa-lg"
                             aria-hidden="true"

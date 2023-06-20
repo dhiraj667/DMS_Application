@@ -61,7 +61,7 @@ const RegisterForm = () => {
   return (
     <>
       <ToastContainer />
-      <div className="  h-screen w-full mx-3">
+      <div className="  h-[100vh] w-full mx-3">
         <div className="pt-2"></div>
         <div className="w-9/12 m-auto shadow-lg shadow-blue-100/50 bg-blue-200 px-5 rounded-md">
           <div className="">
@@ -123,35 +123,37 @@ const RegisterForm = () => {
                     </div>
                   </div>
                   <div className="w-3/4 m-auto">
-                    <div className="mb-2 ">
-                      <label className="block text-gray-700 text-sm font-bold mb-2">
-                        Phone No
-                      </label>
-                      <input
-                        {...register("phone")}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="username"
-                        type="text"
-                        placeholder="Phone No"
-                      />
-                      <p className="text-red-500 m-1">
-                        {errors.phone?.message}
-                      </p>
-                    </div>
-                    <div className="mb-2">
-                      <label className="block text-gray-700 text-sm font-bold mb-2">
-                        Email Id
-                      </label>
-                      <input
-                        {...register("email")}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="email"
-                        type="email"
-                        placeholder="Email Id"
-                      />
-                      <p className="text-red-500 m-1">
-                        {errors.email?.message}
-                      </p>
+                    <div className="flex">
+                      <div className="mb-2 mr-2">
+                        <label className="block text-gray-700 text-sm font-bold mb-2">
+                          Phone No
+                        </label>
+                        <input
+                          {...register("phone")}
+                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="username"
+                          type="text"
+                          placeholder="Phone No"
+                        />
+                        <p className="text-red-500 m-1">
+                          {errors.phone?.message}
+                        </p>
+                      </div>
+                      <div className="mb-2">
+                        <label className="block text-gray-700 text-sm font-bold mb-2">
+                          Email Id
+                        </label>
+                        <input
+                          {...register("email")}
+                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="email"
+                          type="email"
+                          placeholder="Email Id"
+                        />
+                        <p className="text-red-500 m-1">
+                          {errors.email?.message}
+                        </p>
+                      </div>
                     </div>
                     <div className="mb-2">
                       <label

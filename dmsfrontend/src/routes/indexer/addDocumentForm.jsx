@@ -178,6 +178,7 @@ const AddDocumentForm = (props) => {
               reset();
               setShowForm(false);
               resetForm();
+              setImg_Url();
             }}
           >
             Reset
