@@ -56,6 +56,7 @@ export const createUserSlice = (set) => ({
 
   getByUserId: async function (_id) {
     console.log(_id);
+    set(() => ({ currentUser: {} }));
     const response = await axios.get(apiEndPoint, { params: _id });
     console.log(response);
     set(() => ({ currentUser: response.data.data[0] }));

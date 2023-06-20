@@ -19,8 +19,8 @@ const AddDoc = () => {
     reset,
   } = useForm();
 
-  const getDepartments = useBoundStore((state) => state.getDepartments);
-  const departments = useBoundStore((state) => state.departments);
+  // const getDepartments = useBoundStore((state) => state.getDepartments);
+  // const departments = useBoundStore((state) => state.departments);
   const docTypes = useBoundStore((state) => state.docTypes);
   const getDocTypes = useBoundStore((state) => state.getDocTypes);
   const getDocTypeField = useBoundStore((state) => state.getByDocTypeAndDept);
@@ -51,9 +51,16 @@ const AddDoc = () => {
   console.log(fieldsArray);
 
   useEffect(() => {
-    getDepartments();
+    // getDepartments();
     getDocTypes();
   }, [fieldsArray.length]);
+
+  if (!sessionStorage.getItem("loginData")) return;
+  const loginData = JSON.parse(sessionStorage.getItem("loginData"));
+
+  const departments = [...loginData.user.departments];
+
+  // console.log(filteredDepartments);
 
   return (
     <>
@@ -90,8 +97,8 @@ const AddDoc = () => {
                       Select Department...
                     </option>
                     {departments.map((dept) => (
-                      <option key={dept._id} value={dept.departmentName}>
-                        {dept.departmentName}
+                      <option key={dept} value={dept}>
+                        {dept}
                       </option>
                     ))}
                   </select>
