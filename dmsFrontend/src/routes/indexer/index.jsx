@@ -137,18 +137,18 @@ const Index = () => {
   console.log(newFilteredDocument);
 
   const newDocuments = newFilteredDocument.filter((val) => {
-    if (searchTerm === "" || searchTerm.toLowerCase() === "") {
+    if (searchTerm.trim() === "" || searchTerm.trim().toLowerCase() === "") {
       return val;
     } else if (
-      val.name.includes(searchTerm) ||
-      JSON.stringify(val.indexingInfo).includes(searchTerm)
+      val.name.includes(searchTerm.trim()) ||
+      JSON.stringify(val.indexingInfo).includes(searchTerm.trim())
     ) {
       return val;
     } else if (
-      val.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      val.name.toLowerCase().includes(searchTerm.trim().toLowerCase()) ||
       JSON.stringify(val.indexingInfo)
         .toLowerCase()
-        .includes(searchTerm.toLowerCase())
+        .includes(searchTerm.trim().toLowerCase())
     ) {
       return val;
     }

@@ -6,8 +6,8 @@ import DepartmentForm from "./departmentForm";
 import { useBoundStore } from "../../../../store/store";
 import { Link } from "react-router-dom";
 import Pagination from "../../../../common/pagination";
- import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
@@ -16,7 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 //     <ToastContainer />
 
 const DEPARTMENTS = () => {
- //search
+  //search
   const [searchTerm, setSearchTerm] = useState("");
   //pagination
   // const totalDept = departments.length;
@@ -40,12 +40,12 @@ const DEPARTMENTS = () => {
   const deleteDepartment = useBoundStore((state) => state.deleteDepartment);
 
   const newDepartments = departments.filter((val) => {
-    if (searchTerm === "" || searchTerm.toLowerCase() === "") {
+    if (searchTerm.trim() === "" || searchTerm.trim().toLowerCase() === "") {
       return val;
-    } else if (val.departmentName.includes(searchTerm)) {
+    } else if (val.departmentName.includes(searchTerm.trim())) {
       return val;
     } else if (
-      val.departmentName.toLowerCase().includes(searchTerm.toLowerCase())
+      val.departmentName.toLowerCase().includes(searchTerm.trim().toLowerCase())
     ) {
       return val;
     }
@@ -53,11 +53,13 @@ const DEPARTMENTS = () => {
   const department = newDepartments.slice(firstDataIndex, lastDataIndex);
 
   const handleDelete = (id) => {
-    deleteDepartment(id).then((res)=>{
-      toast.success("Department Deleted")
-    }).catch((err)=>{
-      toast.error("Something Wrong!!!")
-    });
+    deleteDepartment(id)
+      .then((res) => {
+        toast.success("Department Deleted");
+      })
+      .catch((err) => {
+        toast.error("Something Wrong!!!");
+      });
   };
   const handleUpdate = (data) => {
     setId(data._id);
