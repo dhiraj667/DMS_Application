@@ -227,7 +227,7 @@ const Index = () => {
             )}
 
             <Pagination
-              total={documents.length}
+              total={allDocuments.length}
               pageSize={dataPerPage}
               setCurrentPage={setCurrentPage}
             />
