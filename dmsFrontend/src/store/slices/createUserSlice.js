@@ -5,6 +5,7 @@ const apiEndPoint = process.env.REACT_APP_API_URL + "users";
 export const createUserSlice = (set) => ({
   users: [],
   userEmail: {},
+  currentUser: {},
   getUsers: async function () {
     const response = await axios.get(apiEndPoint);
     console.log("api hitt");
@@ -57,7 +58,21 @@ export const createUserSlice = (set) => ({
     console.log(_id);
     const response = await axios.get(apiEndPoint, { params: _id });
     console.log(response);
-    // set(() => ({ userEmail: response.data[0] }));
+    set(() => ({ currentUser: response.data.data[0] }));
+    return response;
+  },
+
+  updateProfile: async function (data) {
+    data = { ...data, updateAt: new Date().toString(), updatedBy: data._id };
+    const response = await axios.patch(`${apiEndPoint}/${data._id}`, data);
+    set((state) => {
+      const index = state.users.findIndex((u) => u._id === data._id);
+      console.log(index);
+      let newUsers = [...state.users];
+      newUsers[index] = response.data;
+      console.log(newUsers);
+      return { currentUser: newUsers[index] };
+    });
     return response;
   },
 });

@@ -42,13 +42,12 @@ const SideBar = (props) => {
                           : "Departments"}
                       </h5>
                       <li className="mt-1 pt-0">
-                      {/* <input type="checkbox" name="" value="All"/><span  className="text-white fw-bold h6 ml-2">ALL</span> */}
+                        {/* <input type="checkbox" name="" value="All"/><span  className="text-white fw-bold h6 ml-2">ALL</span> */}
                         {items.map((item, index) => (
-                          
                           <div className="flex mt-1" key={item._id}>
                             <input
                               id={`radio`}
-                              type="checkbox"
+                              type="radio"
                               className="radio"
                               name="radio"
                               value={item.name || item}
@@ -97,7 +96,7 @@ const SideBar = (props) => {
                           : "Departments"}
                       </h5>
                       <li className="mt-1 pt-0">
-                      {/* <input type="checkbox" name="" value="All"/><span  className="text-white fw-bold h6 ml-2">ALL</span>, */}
+                        {/* <input type="checkbox" name="" value="All"/><span  className="text-white fw-bold h6 ml-2">ALL</span>, */}
                         {items2.map((item, index) => (
                           <div className="flex mt-1" key={item._id}>
                             <input
@@ -168,7 +167,7 @@ const SideBar = (props) => {
                 </span>
               </Button>
             </PopoverHandler>
-            <PopoverContent className="w-60 p-2">
+            {/* <PopoverContent className="w-60 p-2">
               <div className="flex items-center gap-4 border-b border-blue-gray-50 pb-4 mb-4 p-2">
                 <Avatar
                   src="https://media.licdn.com/dms/image/D4D03AQE637KOOeM_Dg/profile-displayphoto-shrink_800_800/0/1669046380943?e=2147483647&v=beta&t=E6yZnlNrOJcVIMamXtfvIVUEUG2YAYDgNo3ImlSz6FA"
@@ -195,42 +194,16 @@ const SideBar = (props) => {
               >
                 <Link to={`/${user._id}`} className="text-initial">
                   <ListItem>
-                    {/* <ListItemPrefix></ListItemPrefix> */}
-                    {/* ABC Construction */}{" "}
                     <Link to={`${user._id}`}>
                       <h4 className="bold">Edit Account</h4>
                     </Link>
                   </ListItem>
                 </Link>
-                {/* <div className="">
-                  <ListItem>
-                    <ListItemPrefix>
-                      <svg
-                        aria-hidden="true"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        className="h-6 w-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeidth="2"
-                          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                        />
-                      </svg>
-                    </ListItemPrefix>
-                    <Typography variant="h6" color="blue-gray">
-                      <h3 className="ml-2">Logout</h3>
-                    </Typography>
-                  </ListItem>
-                </div> */}
               </List>
-            </PopoverContent>
+            </PopoverContent> */}
           </Popover>
         </div>
       </div>
-      {/* </aside> */}
     </>
   );
 };

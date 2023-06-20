@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   Popover,
@@ -12,14 +12,16 @@ import {
   ListItemPrefix,
 } from "@material-tailwind/react";
 import { ClockIcon, CreditCardIcon, BellIcon } from "@heroicons/react/24/solid";
-import LogOutModal from "../routes/Auth/logOutModal";
-import { useBoundStore } from "../store/store";
+import LogOutModal from "../../routes/Auth/logOutModal";
+import { useBoundStore } from "../../store/store";
+import EditProfile from "./editProfile";
 
 const NavBar = (props) => {
   const [show, setShow] = useState(false);
-  const [user, setUser] = useState({});
+  const [showProfile, setShowProfile] = useState(false);
+  // const [user, setUser] = useState({});
   const [open, setOpen] = useState(false);
-  const { setLogin } = props;
+  const { setLogin, Id } = props;
   // const navigate = useNavigate();
 
   function handleOpen() {
@@ -27,19 +29,14 @@ const NavBar = (props) => {
   }
 
   const getByUserId = useBoundStore((state) => state.getByUserId);
-  if (!sessionStorage.getItem("loginData")) return;
-  const loginData = JSON.parse(sessionStorage.getItem("loginData"));
+  const user = useBoundStore((state) => state.currentUser);
 
-  const role = loginData.user.role;
+  useEffect(() => {
+    getByUserId({ _id: Id });
+  }, []);
 
-  getByUserId({ _id: loginData.user._id })
-    .then((res) => {
-      console.log(res.data.data[0]);
-      setUser(res.data.data[0]);
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+  // const role = loginData.user.role;
+  const role = user.role;
 
   return (
     <>
@@ -48,6 +45,11 @@ const NavBar = (props) => {
         onClose={() => setShow(false)}
         setShow={setShow}
         setLogin={setLogin}
+      />
+      <EditProfile
+        user={user}
+        show={showProfile}
+        onHandleClose={() => setShowProfile(false)}
       />
       <header className="flex items-center h-20 px-3 sm:px-10 bg-white">
         <div className="flex mr-14">
@@ -217,13 +219,13 @@ const NavBar = (props) => {
           </>
         )}
 
-        <div
-          className="flex flex-shrink-0 items-center ml-auto"
-          onClick={() => {
-            handleOpen();
-          }}
-        >
-          <button className="relative inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg">
+        <div className="flex flex-shrink-0 items-center ml-auto">
+          <button
+            className="relative inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg"
+            onClick={() => {
+              handleOpen();
+            }}
+          >
             <span className="sr-only uppercase">{user.role}</span>
             <div className="hidden md:flex md:flex-col md:items-end md:leading-tight">
               <span className="font-semibold">{`${user.firstName} ${user.lastName}`}</span>
@@ -254,13 +256,16 @@ const NavBar = (props) => {
           <div
             className={
               open
-                ? "absolute top-20 bg-white border rounded-md p-2 w-56"
+                ? "absolute top-20 bg-white border rounded-md p-2 w-56 z-50"
                 : "absolute top-20 bg-white border rounded-md p-2 w-56 hidden"
             }
-            // x-show="panel"
-            // style={{ display: "none" }}
           >
-            <div className="p-2 hover:bg-blue-100 cursor-pointer">
+            <div
+              className="p-2 hover:bg-blue-100 cursor-pointer"
+              onClick={() => {
+                setShowProfile(true);
+              }}
+            >
               {" "}
               Edit Profile
             </div>
