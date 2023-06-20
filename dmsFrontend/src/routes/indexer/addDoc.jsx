@@ -10,6 +10,7 @@ import AddDocumentForm from "./addDocumentForm";
 const AddDoc = () => {
   const [documentType, setDocumentType] = useState();
   const [showForm, setShowForm] = useState(false);
+  const [onSelectDepartment, setOnSelectDepartment] = useState();
 
   const {
     register,
@@ -37,6 +38,15 @@ const AddDoc = () => {
       .catch((err) => {});
     // reset();
   };
+
+  let departmentWiseData = docTypes.filter((d) => {
+    console.log(d.department.departmentName);
+    if (onSelectDepartment === "") {
+      return;
+    } else {
+      return d.department.departmentName == onSelectDepartment;
+    }
+  });
 
   console.log(fieldsArray);
 
@@ -72,6 +82,9 @@ const AddDoc = () => {
                     class="bg-gray-50 border mt-1  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-[320px] p-2.5 dark:bg-gray-600 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white p-2"
                     name="departmentName"
                     //   {...register("departments")}
+                    onChange={(e) => {
+                      setOnSelectDepartment(e.target.value);
+                    }}
                   >
                     <option value="" hidden>
                       Select Department...
@@ -96,7 +109,7 @@ const AddDoc = () => {
                     <option value="" hidden>
                       Select Document Type&hellip;
                     </option>
-                    {docTypes.map((d) => (
+                    {departmentWiseData.map((d) => (
                       <option key={d._id} value={d.docType}>
                         {d.docType}
                       </option>

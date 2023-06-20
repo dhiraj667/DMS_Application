@@ -1,6 +1,4 @@
-// import { otpSender } from '../../forget-password/hooks/change-password'
 import nodemailer from 'nodemailer'
-// import { checkEmail } from './checkEmail'
 export const findByEmailId = () => {
   return async (context) => {
     const email = context.params.query.email

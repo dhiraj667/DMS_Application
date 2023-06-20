@@ -271,6 +271,7 @@ const NavBar = (props) => {
                 ? "absolute top-20 bg-white border rounded-md p-2 w-56 z-50"
                 : "absolute top-20 bg-white border rounded-md p-2 w-56 hidden"
             }
+            title="Profile"
           >
             <div
               className="p-2 hover:bg-blue-100 cursor-pointer"
@@ -287,6 +288,7 @@ const NavBar = (props) => {
               <PopoverHandler>
                 <Button
                   style={{ boxShadow: "none" }}
+                  title="notification"
                   className="relative p-2 text-gray-400 bg-white hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600 rounded-full"
                 >
                   <span className="sr-only">Notifications</span>
@@ -413,6 +415,7 @@ const NavBar = (props) => {
               onClick={() => {
                 setShow(true);
               }}
+              title="logout"
             >
               <span className="sr-only">Log out</span>
               <svg
