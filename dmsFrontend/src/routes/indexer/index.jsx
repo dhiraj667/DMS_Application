@@ -52,10 +52,7 @@ const Index = () => {
         toast.error("Something Wrong!!!");
       });
   };
-  const handleUpdate = (data) => {
-    // setId(data._id);
-    // handleOpen();
-  };
+  const handleUpdate = (data) => {};
 
   function onSelectItem(data) {
     setDeptSearchCheckBox(data);
@@ -217,7 +214,6 @@ const Index = () => {
                   onHandleUpdate={handleUpdate}
                   loading={loading}
                   role={role}
-                  // previewUrl={}
                 />
               </>
             ) : (

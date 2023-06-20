@@ -9,18 +9,10 @@ import Pagination from "../../../../common/pagination";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-// const notify = () => toast.error("Wow so easy!");
-// <button onClick={notify}>toaster</button>
-//     <ToastContainer />
-
 const DEPARTMENTS = () => {
   //search
   const [searchTerm, setSearchTerm] = useState("");
   //pagination
-  // const totalDept = departments.length;
-  // console.log(totalDept);
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage, setDataPerPage] = useState(4);
   const lastDataIndex = currentPage * dataPerPage;

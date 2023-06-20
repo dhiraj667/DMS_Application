@@ -26,7 +26,7 @@ function App() {
 
   function canShowNavBar() {
     return (
-      !window.location.pathname.includes("login") &&
+      !window.location.pathname.includes("login") ||
       !window.location.pathname.includes("signup")
     );
   }
@@ -71,18 +71,18 @@ function App() {
                   </PrivateRoute>
                 }
               />
-              <Route
+              {/* <Route
                 path="/:id"
                 element={
                   <PrivateRoute>
                     <Admin />
                   </PrivateRoute>
                 }
-              ></Route>
+              ></Route> */}
             </Route>
 
             <Route
-              path="departments"
+              path="/departments"
               element={
                 <PrivateRoute>
                   <DEPARTMENTS />
