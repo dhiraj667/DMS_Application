@@ -50,11 +50,11 @@ const FIELD = () => {
   }));
 
   const newFieldsF = newFields.filter((val) => {
-    if (searchTerm == "" || searchTerm.toLowerCase() === "") {
+    if (searchTerm.trim() == "" || searchTerm.trim().toLowerCase() === "") {
       return val;
-    } else if (val.name.includes(searchTerm)) {
+    } else if (val.name.includes(searchTerm.trim())) {
       return val;
-    } else if (val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+    } else if (val.name.toLowerCase().includes(searchTerm.trim().toLowerCase())) {
       return val;
     }
   });

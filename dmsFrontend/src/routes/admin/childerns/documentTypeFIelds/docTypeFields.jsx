@@ -43,15 +43,15 @@ const DOCTYPEFIELDS = () => {
   }));
 
   const newDocTypeFieldsF = newDocTypefields.filter((val) => {
-    if (searchTerm == "" || searchTerm.toLowerCase() === "") {
+    if (searchTerm.trim() == "" || searchTerm.trim().toLowerCase() === "") {
       return val;
-    } else if (val.fieldName.includes(searchTerm)) {
+    } else if (val.fieldName.includes(searchTerm.trim())) {
       return val;
-    } else if (val.docType.includes(searchTerm)) {
+    } else if (val.docType.includes(searchTerm.trim())) {
       return val;
-    } else if (val.fieldName.toLowerCase().includes(searchTerm.toLowerCase())) {
+    } else if (val.fieldName.toLowerCase().includes(searchTerm.trim().toLowerCase())) {
       return val;
-    } else if (val.docType.toLowerCase().includes(searchTerm.toLowerCase())) {
+    } else if (val.docType.toLowerCase().includes(searchTerm.trim().toLowerCase())) {
       return val;
     }
   });

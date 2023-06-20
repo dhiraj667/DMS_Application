@@ -48,11 +48,11 @@ const USERS = () => {
   }));
 
   const newUseronSearch = newUsers.filter((val) => {
-    if (searchTerm == "" || searchTerm.toLowerCase() === "") {
+    if (searchTerm.trim() == "" || searchTerm.trim().toLowerCase() === "") {
       return val;
-    } else if (val.userName.includes(searchTerm)) {
+    } else if (val.userName.includes(searchTerm.trim())) {
       return val;
-    } else if (val.userName.toLowerCase().includes(searchTerm.toLowerCase())) {
+    } else if (val.userName.toLowerCase().includes(searchTerm.trim().toLowerCase())) {
       return val;
     }
   });

@@ -40,18 +40,18 @@ const DOCTYPE = () => {
   //searching
   const newDocType = docTypes.filter((val) => {
     console.log(val);
-    if (searchTerm == "" || searchTerm.toLowerCase() === "") {
+    if (searchTerm.trim() == "" || searchTerm.trim().toLowerCase() === "") {
       return val;
-    } else if (val.docType.includes(searchTerm)) {
+    } else if (val.docType.includes(searchTerm.trim())) {
       return val;
-    } else if (val.docTypeCode.includes(searchTerm)) {
+    } else if (val.docTypeCode.includes(searchTerm.trim())) {
       return val;
-    } else if (val.department.departmentName.includes(searchTerm)) {
+    } else if (val.department.departmentName.includes(searchTerm.trim())) {
       return val;
-    } else if (val.docType.toLowerCase().includes(searchTerm.toLowerCase())) {
+    } else if (val.docType.toLowerCase().includes(searchTerm.trim().toLowerCase())) {
       return val;
     } else if (
-      val.docTypeCode.toLowerCase().includes(searchTerm.toLowerCase())
+      val.docTypeCode.toLowerCase().includes(searchTerm.trim().toLowerCase())
     ) {
       return val;
     } else if (

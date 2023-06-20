@@ -19,8 +19,6 @@ const DEPARTMENTS = () => {
  //search
   const [searchTerm, setSearchTerm] = useState("");
   //pagination
-  // const totalDept = departments.length;
-  // console.log(totalDept);
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage, setDataPerPage] = useState(4);
   const lastDataIndex = currentPage * dataPerPage;
@@ -40,12 +38,12 @@ const DEPARTMENTS = () => {
   const deleteDepartment = useBoundStore((state) => state.deleteDepartment);
 
   const newDepartments = departments.filter((val) => {
-    if (searchTerm === "" || searchTerm.toLowerCase() === "") {
+    if (searchTerm.trim() === "" || searchTerm.trim().toLowerCase() === "") {
       return val;
-    } else if (val.departmentName.includes(searchTerm)) {
+    } else if (val.departmentName.includes(searchTerm.trim())) {
       return val;
     } else if (
-      val.departmentName.toLowerCase().includes(searchTerm.toLowerCase())
+      val.departmentName.toLowerCase().includes(searchTerm.trim().toLowerCase())
     ) {
       return val;
     }
