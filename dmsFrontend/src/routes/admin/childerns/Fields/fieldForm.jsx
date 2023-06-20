@@ -94,7 +94,7 @@ const FieldForm = (props) => {
                   data-modal-hide="authentication-modal"
                   onClick={() => {
                     handleOpen();
-                    navigate(-1);
+                    if (id) navigate(-1);
                     reset();
                   }}
                 >

@@ -71,7 +71,6 @@ const USERFORM = (props) => {
     }
     reset();
     handleOpen();
-    navigate(-1);
     console.log(data);
   };
 
@@ -105,7 +104,7 @@ const USERFORM = (props) => {
                   data-modal-hide="authentication-modal"
                   onClick={() => {
                     handleOpen();
-                    navigate(-1);
+                    if (id) navigate(-1);
                     reset();
                   }}
                 >

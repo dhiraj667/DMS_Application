@@ -83,7 +83,7 @@ const DocumentTypeForm = (props) => {
                   onClick={() => {
                     handleOpen();
                     reset();
-                    navigate(-1);
+                    if (id) navigate(-1);
                   }}
                 >
                   <svg
