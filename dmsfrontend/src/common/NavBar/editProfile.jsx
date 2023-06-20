@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useBoundStore } from "../../store/store";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditProfile = (props) => {
   const schema = yup.object().shape({
@@ -22,31 +24,37 @@ const EditProfile = (props) => {
 
   const saveUser = useBoundStore((state) => state.updateProfile);
 
-  const { user, show, onHandleClose } = props;
+  const { userProfile, show, onHandleClose } = props;
 
   const onSubmitHandler = (data) => {
     console.log(data);
     saveUser(data)
       .then((res) => {
         onHandleClose();
+        toast.success("Profile Updated");
       })
-      .catch((err) => {});
+      .catch((err) => {
+        toast.error("SomeThing Wrong");
+      });
   };
 
   useEffect(() => {
     // if (!user) return;
-    setValue("_id", user._id);
-    setValue("userName", user.userName);
-    setValue("firstName", user.firstName);
-    setValue("lastName", user.lastName);
-    setValue("email", user.email);
-    setValue("phone", user.phone);
+    setValue("_id", userProfile._id);
+    setValue("userName", userProfile.userName);
+    setValue("firstName", userProfile.firstName);
+    setValue("lastName", userProfile.lastName);
+    setValue("email", userProfile.email);
+    setValue("phone", userProfile.phone);
   }, []);
+
+  if (!sessionStorage.getItem("loginData")) return;
 
   //   setValue("departments", [...user.departments]);
 
   return (
     <>
+      <ToastContainer />
       {show ? (
         <div>
           <div className="absolute flex top-0 right-0 left-0 bottom-0 bg-black bg-opacity-50 z-50 items-center justify-center">
@@ -122,7 +130,7 @@ const EditProfile = (props) => {
                         type="email"
                         name="email"
                         {...register("email")}
-                        className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block  p-2.5 dark:bg-gray-600 mr-6 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
+                        className=" bg-gray-300 border border-gray-300 text-gray-900 text-bold rounded-lg focus:ring-blue-500 focus:border-blue-100 block  p-2.5 dark:bg-gray-600 mr-6 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
                         placeholder="Enter Email"
                         disabled
                       />
@@ -155,7 +163,7 @@ const EditProfile = (props) => {
                         type="text"
                         name="userName"
                         {...register("userName")}
-                        className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block  p-2.5 dark:bg-gray-600 mr-6 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
+                        className=" bg-gray-300 border border-gray-300 text-gray-900 text-bold rounded-lg focus:ring-blue-500 focus:border-blue-100 block  p-2.5 dark:bg-gray-600 mr-6 dark:border-gray-100 dark:placeholder-gray-400 dark:text-white"
                         placeholder="Enter User Name"
                         disabled
                       />

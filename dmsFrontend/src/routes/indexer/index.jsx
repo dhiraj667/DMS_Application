@@ -139,9 +139,17 @@ const Index = () => {
   const newDocuments = newFilteredDocument.filter((val) => {
     if (searchTerm === "" || searchTerm.toLowerCase() === "") {
       return val;
-    } else if (val.name.includes(searchTerm)) {
+    } else if (
+      val.name.includes(searchTerm) ||
+      JSON.stringify(val.indexingInfo).includes(searchTerm)
+    ) {
       return val;
-    } else if (val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+    } else if (
+      val.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      JSON.stringify(val.indexingInfo)
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+    ) {
       return val;
     }
   });

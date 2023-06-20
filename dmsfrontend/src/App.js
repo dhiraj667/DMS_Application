@@ -24,14 +24,6 @@ import USERFORM from "./routes/admin/childerns/Users/usersForm";
 function App() {
   const [login, setLogin] = useState(false);
 
-  function getUserId() {
-    if (!sessionStorage.getItem("loginData")) return;
-    const loginData = JSON.parse(sessionStorage.getItem("loginData"));
-    return loginData.user._id;
-  }
-
-  const Id = getUserId();
-
   function canShowNavBar() {
     return (
       !window.location.pathname.includes("login") &&
@@ -47,7 +39,7 @@ function App() {
       >
         {(login && canShowNavBar()) || sessionStorage.getItem("loginData") ? (
           <>
-            <NavBar setLogin={setLogin} Id={Id} />
+            <NavBar setLogin={setLogin} />
           </>
         ) : (
           <></>

@@ -21,8 +21,16 @@ const NavBar = (props) => {
   const [showProfile, setShowProfile] = useState(false);
   // const [user, setUser] = useState({});
   const [open, setOpen] = useState(false);
-  const { setLogin, Id } = props;
+  const { setLogin } = props;
   // const navigate = useNavigate();
+
+  function getUserId() {
+    if (!sessionStorage.getItem("loginData")) return;
+    const loginData = JSON.parse(sessionStorage.getItem("loginData"));
+    return loginData.user._id;
+  }
+
+  const Id = getUserId();
 
   function handleOpen() {
     setOpen(!open);
@@ -38,6 +46,10 @@ const NavBar = (props) => {
   // const role = loginData.user.role;
   const role = user.role;
 
+  if (!sessionStorage.getItem("loginData")) return;
+  const loginData = JSON.parse(sessionStorage.getItem("loginData"));
+  const userProfile = loginData.user;
+
   return (
     <>
       <LogOutModal
@@ -47,7 +59,7 @@ const NavBar = (props) => {
         setLogin={setLogin}
       />
       <EditProfile
-        user={user}
+        userProfile={userProfile}
         show={showProfile}
         onHandleClose={() => setShowProfile(false)}
       />
