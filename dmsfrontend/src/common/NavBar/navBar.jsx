@@ -243,9 +243,7 @@ const NavBar = (props) => {
             <span className="sr-only uppercase">{role}</span>
             <div className="hidden md:flex md:flex-col md:items-end md:leading-tight">
               <span className="font-semibold">{`${user.firstName} ${user.lastName}`}</span>
-              <span className="text-sm text-gray-600 uppercase">
-                {user.role}
-              </span>
+              <span className="text-sm text-gray-600 uppercase">{role}</span>
             </div>
             <span className="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
               {/* <img
