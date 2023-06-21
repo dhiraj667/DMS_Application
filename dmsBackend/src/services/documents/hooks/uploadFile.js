@@ -1,12 +1,12 @@
 import { google } from 'googleapis'
-import path from 'path'
+// import path from 'path'
 import * as fs from 'fs'
-import { fileURLToPath } from 'url'
+// import { fileURLToPath } from 'url'
 
 export const uploadFile = () => {
   return async (context) => {
-    const __filename = fileURLToPath(import.meta.url)
-    const __dirname = path.dirname(__filename)
+    // const __filename = fileURLToPath(import.meta.url)
+    // const __dirname = path.dirname(__filename)
     const client_ID = '880259044402-hfi17gskf26gfo5ajudg52c1m2l7kvv0.apps.googleusercontent.com'
     const client_Secret = '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'
     const REDIRECT_URL = 'https://developers.google.com/oauthplayground'
