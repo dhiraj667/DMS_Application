@@ -26,7 +26,7 @@ function App() {
 
   function canShowNavBar() {
     return (
-      !window.location.pathname.includes("login") ||
+      !window.location.pathname.includes("login") &&
       !window.location.pathname.includes("signup")
     );
   }

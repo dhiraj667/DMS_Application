@@ -48,7 +48,6 @@ const FieldForm = (props) => {
     }
     reset();
     handleOpen();
-    navigate(-1);
     // console.log(data);
   };
 

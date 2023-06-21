@@ -24,7 +24,6 @@ const SideBar = (props) => {
   const role = loginData.user.role;
   const user = loginData.user;
 
-  console.log(items);
   return (
     <>
       <USERFORM open={open} handleOpen={handleOpen} />
