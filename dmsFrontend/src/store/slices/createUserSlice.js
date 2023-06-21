@@ -48,8 +48,6 @@ export const createUserSlice = (set) => ({
   findByEmailId: async function (email) {
     console.log(email);
     const response = await axios.get(apiEndPoint, { params: email });
-    console.log("hiii");
-    console.log(response.data.data);
     set(() => ({ userEmail: response.data.data }));
     return response;
   },

@@ -12,9 +12,7 @@ export const createDocTypeSlice = (set) => ({
   },
 
   getByDocTypeName: async function (name) {
-    console.log(name);
     const response = await axios.get(apiEndPoint, { params: name });
-    console.log(response.data.data[0]);
     set((state) => ({
       currentDocType: response.data.data,
     }));
@@ -33,14 +31,11 @@ export const createDocTypeSlice = (set) => ({
     }));
   },
   updateDocType: async function (data) {
-    console.log(data);
     const response = await axios.patch(`${apiEndPoint}/${data._id}`, data);
     set((state) => {
       const index = state.docTypes.findIndex((d) => d._id === data._id);
-      console.log(index);
       let newDocTypes = [...state.docTypes];
       newDocTypes[index] = response.data;
-      console.log(newDocTypes);
       return { docTypes: newDocTypes };
     });
   },

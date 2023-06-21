@@ -32,8 +32,6 @@ const ForgetPass = ({ show, onClose }) => {
         } else {
           onClose();
           setShowResetPassMode(true);
-          console.log();
-          // toast.success("email is  Registerd");
           setEmail(data.email);
         }
       })

@@ -16,7 +16,7 @@ export const createIndexingInfo = () => {
     delete context.data.driveFile_Id
     delete context.data.local_Url
 
-    const indexingInfo = { ...context.data }
+    const indexingInfo = { ...context.data } //data from index addDoc from indexing info form
     context.data = {}
     console.log(context.data)
 

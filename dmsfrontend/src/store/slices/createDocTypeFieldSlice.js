@@ -33,10 +33,8 @@ export const createDocTypeFieldSlice = (set) => ({
     const response = await axios.patch(`${apiEndPoint}/${data._id}`, data);
     set((state) => {
       const index = state.docTypeFields.findIndex((d) => d._id === data._id);
-      console.log(index);
       let newDocTypeField = [...state.docTypeFields];
       newDocTypeField[index] = response.data;
-      console.log(newDocTypeField);
       return { docTypeFields: newDocTypeField };
     });
   },

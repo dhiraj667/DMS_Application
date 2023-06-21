@@ -4,7 +4,6 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate, Link } from "react-router-dom";
 import bgImage from "../../assests/images/img6.png";
-import log0 from "../../assests/images/log0.jpg";
 import { useBoundStore } from "../../store/store";
 import ForgetPass from "./forgetPassword";
 
@@ -18,6 +17,7 @@ const Login = ({ setLogin }) => {
     userName: yup.string().min(3).max(366).required(),
     password: yup.string().min(8).max(1024).required(),
   });
+  
   const navigate = useNavigate();
   const loginUser = useBoundStore((state) => state.loginUser);
 

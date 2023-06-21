@@ -6,8 +6,6 @@ export const createDepartmentSlice = (set) => ({
   departments: [],
   getDepartments: async function () {
     const response = await axios.get(apiEndPoint);
-    console.log(response.data.total);
-    console.log(response.data.data);
     set(() => ({ departments: response.data.data }));
   },
   saveDepartment: async function (data) {
@@ -29,10 +27,8 @@ export const createDepartmentSlice = (set) => ({
     const response = await axios.patch(`${apiEndPoint}/${data._id}`, data);
     set((state) => {
       const index = state.departments.findIndex((d) => d._id === data._id);
-      console.log(index);
       let newDepartments = [...state.departments];
       newDepartments[index] = response.data;
-      console.log(newDepartments);
       return { departments: newDepartments };
     });
   },

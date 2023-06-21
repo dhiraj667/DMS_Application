@@ -6,7 +6,6 @@ import DocTableHeader from "./docTableHeader";
 
 const DocTable = (props) => {
   const [showPreview, setShowPreview] = useState(false);
-  const [value, setValue] = useState(false);
   const [url, setUrl] = useState("");
   const {
     items,
@@ -18,8 +17,6 @@ const DocTable = (props) => {
     role,
   } = props;
 
-  console.log(items);
-  console.log(columns);
   return (
     <>
       <DocTableHeader columns={columns} />

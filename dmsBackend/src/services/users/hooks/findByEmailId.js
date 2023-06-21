@@ -16,8 +16,6 @@ export const findByEmailId = () => {
       } else {
         const newOtp = await otpService.create({ email: email, otp: OTP })
 
-        console.log(newOtp)
-
         setTimeout(async () => {
           await otpService.remove(newOtp._id)
         }, 600000)

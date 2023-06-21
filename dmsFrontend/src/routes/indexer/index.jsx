@@ -14,7 +14,7 @@ const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [dataPerPage, setDataPerPage] = useState(5);
+  const [dataPerPage] = useState(5);
   const lastDataIndex = currentPage * dataPerPage;
   const firstDataIndex = lastDataIndex - dataPerPage;
 
@@ -52,6 +52,7 @@ const Index = () => {
         toast.error("Something Wrong!!!");
       });
   };
+
   const handleUpdate = (data) => {
     // setId(data._id);
     // handleOpen();
@@ -99,7 +100,7 @@ const Index = () => {
     name: document.indexingInfo["name"],
     ...document,
   }));
-
+console.log(docTypes);
   const documentTypes = docTypes.filter((d) => {
     for (let i = 0; i < newDocument.length; i++) {
       if (d.docType === newDocument[i].documentName) {
@@ -107,13 +108,11 @@ const Index = () => {
       }
     }
   });
-
+console.log(documentTypes);
   let departmentWiseData = documentTypes.filter((d) => {
-    console.log(d.department.departmentName);
     if (deptSearchCheckBox === "" || deptSearchCheckBox == "All") {
       for (let i = 0; i < departments.length; i++) {
         if (d.department.departmentName == departments[i]) {
-          console.log(d.department.departmentName + "===" + departments[i]);
           return d;
         }
       }
@@ -217,7 +216,6 @@ const Index = () => {
                   onHandleUpdate={handleUpdate}
                   loading={loading}
                   role={role}
-                  // previewUrl={}
                 />
               </>
             ) : (

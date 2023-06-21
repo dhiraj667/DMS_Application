@@ -1,10 +1,6 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useBoundStore } from "../../store/store";
-import { Viewer } from "@react-pdf-viewer/core";
 import { ToastContainer, toast } from "react-toastify";
 import uploadingGif from "../../assests/images/uploading.gif";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,7 +22,6 @@ const AddDocumentForm = (props) => {
   const onSubmitHandlerIndexedDoc = (data) => {
     data = { ...data, ...documentType, local_Url: img_Url };
     data.file = fileData;
-    console.log(data);
     setStatus(true);
     saveDocument(data)
       .then((res) => {
@@ -39,8 +34,6 @@ const AddDocumentForm = (props) => {
   };
 
   function onUploadFile(e) {
-    console.log(e.target.files["0"]);
-    // Assuming only image
     var file = e.target.files["0"];
     setFileData(file);
     const objectUrl = URL.createObjectURL(file);
