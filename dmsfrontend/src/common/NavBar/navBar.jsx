@@ -42,7 +42,7 @@ const NavBar = (props) => {
 
   useEffect(() => {
     getByUserId({ _id: Id });
-  }, []);
+  }, [Id]);
 
   // const role = loginData.user.role;
 
