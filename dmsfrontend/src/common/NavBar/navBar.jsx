@@ -15,6 +15,7 @@ import { ClockIcon, CreditCardIcon, BellIcon } from "@heroicons/react/24/solid";
 import LogOutModal from "../../routes/Auth/logOutModal";
 import { useBoundStore } from "../../store/store";
 import EditProfile from "./editProfile";
+import UserAvatar from "../userAvatar";
 
 const NavBar = (props) => {
   const [show, setShow] = useState(false);
@@ -246,11 +247,13 @@ const NavBar = (props) => {
               </span>
             </div>
             <span className="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
-              <img
+              {/* <img
                 src="https://media.licdn.com/dms/image/D4D03AQE637KOOeM_Dg/profile-displayphoto-shrink_800_800/0/1669046380943?e=2147483647&v=beta&t=E6yZnlNrOJcVIMamXtfvIVUEUG2YAYDgNo3ImlSz6FA"
                 alt="user profile photo"
                 className="h-full w-full object-cover"
-              />
+              /> */}
+
+              <UserAvatar name={`${user.firstName} ${user.lastName}`} />
             </span>
             <svg
               aria-hidden="true"

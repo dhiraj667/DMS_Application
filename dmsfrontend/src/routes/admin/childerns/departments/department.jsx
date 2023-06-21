@@ -9,12 +9,6 @@ import Pagination from "../../../../common/pagination";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-// const notify = () => toast.error("Wow so easy!");
-// <button onClick={notify}>toaster</button>
-//     <ToastContainer />
-
 const DEPARTMENTS = () => {
   //search
   const [searchTerm, setSearchTerm] = useState("");
