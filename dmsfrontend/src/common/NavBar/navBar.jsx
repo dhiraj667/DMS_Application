@@ -45,11 +45,12 @@ const NavBar = (props) => {
   }, []);
 
   // const role = loginData.user.role;
-  const role = user.role;
 
   if (!sessionStorage.getItem("loginData")) return;
   const loginData = JSON.parse(sessionStorage.getItem("loginData"));
   const userProfile = loginData.user;
+
+  const role = userProfile.role;
 
   return (
     <>
@@ -239,7 +240,7 @@ const NavBar = (props) => {
               handleOpen();
             }}
           >
-            <span className="sr-only uppercase">{user.role}</span>
+            <span className="sr-only uppercase">{role}</span>
             <div className="hidden md:flex md:flex-col md:items-end md:leading-tight">
               <span className="font-semibold">{`${user.firstName} ${user.lastName}`}</span>
               <span className="text-sm text-gray-600 uppercase">
