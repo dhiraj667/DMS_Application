@@ -11,15 +11,12 @@ export const dcn = () => {
     let fullYear = date.getFullYear()
     const year = fullYear.toString().slice(2)
     const currentDate = date.getDate() + '' + date.getMonth() + '' + year
-    console.log(currentDate)
 
     // ----------alphanumeric values for last 4 chars
     let num = Math.random().toString(36).slice(4, 8)
-    console.log(num)
 
     //--------final output dcn-------
     const dcn = departmentCode + currentDate + '' + num
-    console.log(dcn)
     context.data.dcn = dcn
     return context
   }

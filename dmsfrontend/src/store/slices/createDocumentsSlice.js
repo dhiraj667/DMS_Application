@@ -14,7 +14,6 @@ export const createDocumentsSlice = (set) => ({
   },
 
   saveDocument: async function (data) {
-    console.log(data);
     const response = await axios.post(apiEndPoint, data, {
       headers: { "Content-Type": "multipart/form-data" },
     });
@@ -27,7 +26,6 @@ export const createDocumentsSlice = (set) => ({
   },
 
   deleteDocument: async function (id) {
-    console.log(id);
     const response = await axios.delete(`${apiEndPoint}/${id}`);
     set((state) => ({
       documents: state.documents.filter((d) => d._id !== id),

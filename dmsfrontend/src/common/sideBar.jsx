@@ -2,15 +2,8 @@ import React, { useState } from "react";
 import {
   Popover,
   PopoverHandler,
-  PopoverContent,
-  Avatar,
   Button,
-  Typography,
-  List,
-  ListItem,
-  ListItemPrefix,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
 import USERFORM from "../routes/admin/childerns/Users/usersForm";
 
 const SideBar = (props) => {
@@ -20,7 +13,7 @@ const SideBar = (props) => {
   const handleOpen = () => setOpen(!open);
   if (!sessionStorage.getItem("loginData")) return;
   const loginData = JSON.parse(sessionStorage.getItem("loginData"));
-  // console.log(loginData.user);
+
   const role = loginData.user.role;
   const user = loginData.user;
 

@@ -5,10 +5,6 @@ import { useBoundStore } from "../store/store";
 export function PrivateRoute({ children }) {
   const token = useBoundStore((store) => store.token);
 
-  // let location = useLocation();
-  // const {pathname}=location
-  // console.log(pathname);
-
   if (!sessionStorage.getItem("loginData")) return <Navigate to="/login" />;
 
   const loginData = JSON.parse(sessionStorage.getItem("loginData"));
@@ -47,10 +43,7 @@ export function PrivateRouteForIndexer({ children }) {
 
 export function PrivateRouteForgUser({ children }) {
   const token = useBoundStore((store) => store.token);
-
-  // let location = useLocation();
-  // const {pathname}=location
-  // console.log(pathname);
+  
   if (!sessionStorage.getItem("loginData")) return <Navigate to="/login" />;
   const loginData = JSON.parse(sessionStorage.getItem("loginData"));
 

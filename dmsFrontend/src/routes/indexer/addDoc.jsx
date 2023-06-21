@@ -1,9 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
-import SideBar from "../../common/sideBar";
-import { Link, useNavigate } from "react-router-dom";
+import SideBar from "../../common/sideBar"; 
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useBoundStore } from "../../store/store";
 import AddDocumentForm from "./addDocumentForm";
 
@@ -27,8 +24,6 @@ const AddDoc = () => {
   const fieldsArray = useBoundStore((state) => state.docTypeAndDept);
 
   const onSubmitHandlerDoctype = (data) => {
-    console.log("hii");
-    console.log(data);
 
     setDocumentType(data);
     getDocTypeField(data)
@@ -40,15 +35,12 @@ const AddDoc = () => {
   };
 
   let departmentWiseData = docTypes.filter((d) => {
-    console.log(d.department.departmentName);
     if (onSelectDepartment === "") {
       return;
     } else {
       return d.department.departmentName == onSelectDepartment;
     }
   });
-
-  console.log(fieldsArray);
 
   useEffect(() => {
     // getDepartments();
@@ -59,8 +51,6 @@ const AddDoc = () => {
   const loginData = JSON.parse(sessionStorage.getItem("loginData"));
 
   const departments = [...loginData.user.departments];
-
-  // console.log(filteredDepartments);
 
   return (
     <>

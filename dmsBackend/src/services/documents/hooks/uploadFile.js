@@ -2,14 +2,11 @@ import { google } from 'googleapis'
 import path from 'path'
 import * as fs from 'fs'
 import { fileURLToPath } from 'url'
+
 export const uploadFile = () => {
   return async (context) => {
-    console.log(context.data.file)
-    console.log(context.params)
     const __filename = fileURLToPath(import.meta.url)
     const __dirname = path.dirname(__filename)
-    console.log(context.params.file)
-    console.log(context.data.dcn)
     const client_ID = '880259044402-hfi17gskf26gfo5ajudg52c1m2l7kvv0.apps.googleusercontent.com'
     const client_Secret = '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'
     const REDIRECT_URL = 'https://developers.google.com/oauthplayground'
@@ -25,8 +22,6 @@ export const uploadFile = () => {
       version: 'v3',
       auth: oauth2Client
     })
-    // console.log(path)
-    console.log(__dirname)
 
     const filePath = `src/uploads/${context.params.file.filename}`
     let driveFile_Id
@@ -64,7 +59,6 @@ export const uploadFile = () => {
       console.log(error.message)
     }
 
-    // console.log(file_Url)
     delete context.data.file
     context.data.driveFile_Id = driveFile_Id
     context.data.path = file_Url.webViewLink
